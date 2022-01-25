@@ -1,4 +1,4 @@
-import 'package:flutter_weather/app/data/models/weather.dart';
+import 'package:flutter_weather/app/data/models/oneCall/weather.dart';
 
 class Current {
   int? dt;

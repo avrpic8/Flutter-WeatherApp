@@ -1,5 +1,5 @@
-import 'package:flutter_weather/app/data/models/current.dart';
-import 'package:flutter_weather/app/data/models/minutley.dart';
+import 'package:flutter_weather/app/data/models/oneCall/current.dart';
+import 'package:flutter_weather/app/data/models/oneCall/minutley.dart';
 
 class WeatherData {
   double? lat;
