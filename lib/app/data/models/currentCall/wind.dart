@@ -1,21 +1,41 @@
+import 'dart:convert';
+
 class Wind {
-  double? speed;
-  int? deg;
-  double? gust;
+    Wind({
+        required this.speed,
+        required this.deg,
+        required this.gust,
+    });
 
-  Wind({this.speed, this.deg, this.gust});
+    final double speed;
+    final int deg;
+    final double gust;
 
-  Wind.fromJson(Map<String, dynamic> json) {
-    speed = json['speed'];
-    deg = json['deg'];
-    gust = json['gust'];
-  }
+    Wind copyWith({
+        double? speed,
+        int? deg,
+        double? gust,
+    }) => 
+        Wind(
+            speed: speed ?? this.speed,
+            deg: deg ?? this.deg,
+            gust: gust ?? this.gust,
+        );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['speed'] = speed;
-    data['deg'] = deg;
-    data['gust'] = gust;
-    return data;
-  }
+    factory Wind.fromJson(String str) => Wind.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Wind.fromMap(Map<String, dynamic> json) => Wind(
+        speed: json["speed"].toDouble(),
+        deg: json["deg"],
+        gust: json["gust"].toDouble(),
+    );
+
+    Map<String, dynamic> toMap() => {
+        "speed": speed,
+        "deg": deg,
+        "gust": gust,
+    };
 }
+

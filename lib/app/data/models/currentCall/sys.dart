@@ -1,27 +1,52 @@
+import 'dart:convert';
+
 class Sys {
-  int? type;
-  int? id;
-  String? country;
-  int? sunrise;
-  int? sunset;
+    Sys({
+        required this.type,
+        required this.id,
+        required this.country,
+        required this.sunrise,
+        required this.sunset,
+    });
 
-  Sys({this.type, this.id, this.country, this.sunrise, this.sunset});
+    final int type;
+    final int id;
+    final String country;
+    final int sunrise;
+    final int sunset;
 
-  Sys.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    id = json['id'];
-    country = json['country'];
-    sunrise = json['sunrise'];
-    sunset = json['sunset'];
-  }
+    Sys copyWith({
+        int? type,
+        int? id,
+        String? country,
+        int? sunrise,
+        int? sunset,
+    }) => 
+        Sys(
+            type: type ?? this.type,
+            id: id ?? this.id,
+            country: country ?? this.country,
+            sunrise: sunrise ?? this.sunrise,
+            sunset: sunset ?? this.sunset,
+        );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['type'] = type;
-    data['id'] = id;
-    data['country'] = country;
-    data['sunrise'] = sunrise;
-    data['sunset'] = sunset;
-    return data;
-  }
+    factory Sys.fromJson(String str) => Sys.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Sys.fromMap(Map<String, dynamic> json) => Sys(
+        type: json["type"],
+        id: json["id"],
+        country: json["country"],
+        sunrise: json["sunrise"],
+        sunset: json["sunset"],
+    );
+
+    Map<String, dynamic> toMap() => {
+        "type": type,
+        "id": id,
+        "country": country,
+        "sunrise": sunrise,
+        "sunset": sunset,
+    };
 }

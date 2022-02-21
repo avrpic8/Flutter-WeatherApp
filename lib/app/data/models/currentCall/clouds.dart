@@ -1,15 +1,28 @@
+import 'dart:convert';
+
 class Clouds {
-  int? all;
+    Clouds({
+        required this.all,
+    });
 
-  Clouds({this.all});
+    final int all;
 
-  Clouds.fromJson(Map<String, dynamic> json) {
-    all = json['all'];
-  }
+    Clouds copyWith({
+        int? all,
+    }) => 
+        Clouds(
+            all: all ?? this.all,
+        );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['all'] = all;
-    return data;
-  }
+    factory Clouds.fromJson(String str) => Clouds.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Clouds.fromMap(Map<String, dynamic> json) => Clouds(
+        all: json["all"],
+    );
+
+    Map<String, dynamic> toMap() => {
+        "all": all,
+    };
 }

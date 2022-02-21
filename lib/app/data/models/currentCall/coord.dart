@@ -1,18 +1,34 @@
+import 'dart:convert';
+
 class Coord {
-  double? lon;
-  double? lat;
+    Coord({
+        required this.lon,
+        required this.lat,
+    });
 
-  Coord({this.lon, this.lat});
+    final int lon;
+    final int lat;
 
-  Coord.fromJson(Map<String, dynamic> json) {
-    lon = json['lon'];
-    lat = json['lat'];
-  }
+    Coord copyWith({
+        int? lon,
+        int? lat,
+    }) => 
+        Coord(
+            lon: lon ?? this.lon,
+            lat: lat ?? this.lat,
+        );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['lon'] = lon;
-    data['lat'] = lat;
-    return data;
-  }
+    factory Coord.fromJson(String str) => Coord.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Coord.fromMap(Map<String, dynamic> json) => Coord(
+        lon: json["lon"],
+        lat: json["lat"],
+    );
+
+    Map<String, dynamic> toMap() => {
+        "lon": lon,
+        "lat": lat,
+    };
 }

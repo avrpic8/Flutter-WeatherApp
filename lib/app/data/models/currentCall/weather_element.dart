@@ -1,24 +1,46 @@
-class WeatherElement {
-  int? id;
-  String? main;
-  String? description;
-  String? icon;
+import 'dart:convert';
 
-  WeatherElement({this.id, this.main, this.description, this.icon});
+class Weather {
+    Weather({
+        required this.id,
+        required this.main,
+        required this.description,
+        required this.icon,
+    });
 
-  WeatherElement.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    main = json['main'];
-    description = json['description'];
-    icon = json['icon'];
-  }
+    final int id;
+    final String main;
+    final String description;
+    final String icon;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['main'] = main;
-    data['description'] = description;
-    data['icon'] = icon;
-    return data;
-  }
+    Weather copyWith({
+        int? id,
+        String? main,
+        String? description,
+        String? icon,
+    }) => 
+        Weather(
+            id: id ?? this.id,
+            main: main ?? this.main,
+            description: description ?? this.description,
+            icon: icon ?? this.icon,
+        );
+
+    factory Weather.fromJson(String str) => Weather.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Weather.fromMap(Map<String, dynamic> json) => Weather(
+        id: json["id"],
+        main: json["main"],
+        description: json["description"],
+        icon: json["icon"],
+    );
+
+    Map<String, dynamic> toMap() => {
+        "id": id,
+        "main": main,
+        "description": description,
+        "icon": icon,
+    };
 }
