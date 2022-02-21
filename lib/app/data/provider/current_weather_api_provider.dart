@@ -7,7 +7,9 @@ class CurrentWaetherApiProvider {
 
   Future<WeatherData> getWeatherByCoord(
       {required String lat, required String lon}) async {
-    var data = httpService.getCurrentWeatherByCoordinate(lat: lat, lon: lon);
+    var data =
+        await httpService.getCurrentWeatherByCoordinate(lat: lat, lon: lon);
+    print(data);
     return data;
   }
 }

@@ -8,7 +8,7 @@ class Repository {
 
   Future<WeatherData> getWeatherByCoordinate(
       {required String lat, required String lon}) async {
-    var data = provider.getWeatherByCoord(lat: lat, lon: lon);
+    var data = await provider.getWeatherByCoord(lat: lat, lon: lon);
     return data;
   }
 }

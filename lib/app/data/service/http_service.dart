@@ -14,6 +14,7 @@ class HttpSerrvice extends GetxService {
     try {
       Response response =
           await dio.get(baseUrlCurrentWeather, queryParameters: query);
+
       if (response.statusCode == 200) {
         data = response.data;
       }

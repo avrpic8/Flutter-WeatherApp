@@ -3,7 +3,7 @@ import 'package:flutter_weather/app/data/service/repository.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  late WeatherData weather;
+  var weather = WeatherData();
 
   final Repository repository;
 
@@ -14,17 +14,12 @@ class HomeController extends GetxController {
     super.onInit();
     print('hi');
     weather = await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
-    print(weather);
+    //print(weather);
   }
 
   Future<WeatherData> getWeatherByCoordinate(
       {required String lat, required String lon}) async {
-    WeatherData weather =
-        await repository.getWeatherByCoordinate(lat: lat, lon: lon);
+    var weather = await repository.getWeatherByCoordinate(lat: lat, lon: lon);
     return weather;
-  }
-
-  void printHello() {
-    print('hello');
   }
 }

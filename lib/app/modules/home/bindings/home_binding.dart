@@ -8,7 +8,7 @@ class HomeBinding implements Bindings {
   @override
   void dependencies() {
     Get.put(
-      () => HomeController(
+      HomeController(
         repository: Repository(
           provider: CurrentWaetherApiProvider(),
         ),

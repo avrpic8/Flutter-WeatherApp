@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    controller.printHello();
+    //print(controller.weather.);
     return Scaffold(
       appBar: AppBar(
         title: Text('HomeView'),
