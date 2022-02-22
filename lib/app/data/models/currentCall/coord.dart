@@ -6,12 +6,12 @@ class Coord {
         required this.lat,
     });
 
-    final int lon;
-    final int lat;
+    final double lon;
+    final double lat;
 
     Coord copyWith({
-        int? lon,
-        int? lat,
+        double? lon,
+        double? lat,
     }) => 
         Coord(
             lon: lon ?? this.lon,

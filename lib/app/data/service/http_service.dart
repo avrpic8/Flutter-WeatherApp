@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/keys.dart';
-import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
+import 'package:flutter_weather/app/data/models/currentCall/weather_data.dart';
 import 'package:get/state_manager.dart';
 
 class HttpSerrvice extends GetxService {
@@ -21,6 +21,6 @@ class HttpSerrvice extends GetxService {
     } catch (e) {
       print(e.toString());
     }
-    return WeatherData.fromJson(data);
+    return WeatherData.fromMap(data);
   }
 }
