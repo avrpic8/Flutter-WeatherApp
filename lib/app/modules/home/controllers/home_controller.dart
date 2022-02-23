@@ -3,16 +3,20 @@ import 'package:flutter_weather/app/data/service/repository.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  var weather;
   final _loading = false.obs;
   final Repository repository;
+
+  final currentTemp = 0.0.obs;
 
   HomeController({required this.repository});
 
   @override
-  void onInit() async {
+  void onInit() async {fi
     super.onInit();
-    weather = await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
+    // WeatherData weather =
+    //     await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
+    // _fillDataField(weather);
+    //print(weather.main.temp);
   }
 
   bool dataIsReady() {
@@ -26,8 +30,13 @@ class HomeController extends GetxController {
   Future<WeatherData> getWeatherByCoordinate(
       {required String lat, required String lon}) async {
     _loading.value = true;
-    var weather = await repository.getWeatherByCoordinate(lat: lat, lon: lon);
+    WeatherData weather =
+        await repository.getWeatherByCoordinate(lat: lat, lon: lon);
     _loading.value = false;
     return weather;
+  }
+
+  void _fillDataField(WeatherData data) {
+    currentTemp.value = data.main.temp;
   }
 }
