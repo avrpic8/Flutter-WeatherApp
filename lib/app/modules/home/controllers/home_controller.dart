@@ -11,7 +11,7 @@ class HomeController extends GetxController {
   HomeController({required this.repository});
 
   @override
-  void onInit() async {fi
+  void onInit() async {
     super.onInit();
     // WeatherData weather =
     //     await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
