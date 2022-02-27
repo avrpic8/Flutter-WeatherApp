@@ -1,24 +1,33 @@
+import 'dart:convert';
+
 class Weather {
-  int? id;
-  String? main;
-  String? description;
-  String? icon;
+  Weather({
+    this.id,
+    this.main,
+    this.description,
+    this.icon,
+  });
 
-  Weather({this.id, this.main, this.description, this.icon});
+  final int? id;
+  final String? main;
+  final String? description;
+  final String? icon;
 
-  Weather.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    main = json['main'];
-    description = json['description'];
-    icon = json['icon'];
-  }
+  factory Weather.fromJson(String str) => Weather.fromMap(json.decode(str));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['main'] = main;
-    data['description'] = description;
-    data['icon'] = icon;
-    return data;
-  }
+  String toJson() => json.encode(toMap());
+
+  factory Weather.fromMap(Map<String, dynamic> json) => Weather(
+        id: json["id"],
+        main: json["main"],
+        description: json["description"],
+        icon: json["icon"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "main": main,
+        "description": description,
+        "icon": icon,
+      };
 }

@@ -1,49 +1,52 @@
+import 'dart:convert';
+
+import 'package:flutter_weather/app/data/models/oneCall/alert.dart';
 import 'package:flutter_weather/app/data/models/oneCall/current.dart';
-import 'package:flutter_weather/app/data/models/oneCall/minutley.dart';
+import 'package:flutter_weather/app/data/models/oneCall/daily.dart';
 
 class WeatherData {
-  double? lat;
-  double? lon;
-  String? timezone;
-  int? timezoneOffset;
-  Current? current;
-  List<Minutely>? minutely;
+  WeatherData({
+    this.lat,
+    this.lon,
+    this.timezone,
+    this.timezoneOffset,
+    this.current,
+    this.daily,
+    this.alerts,
+  });
 
-  WeatherData(
-      {this.lat,
-      this.lon,
-      this.timezone,
-      this.timezoneOffset,
-      this.current,
-      this.minutely});
+  final double? lat;
+  final double? lon;
+  final String? timezone;
+  final int? timezoneOffset;
+  final Current? current;
+  final List<Daily>? daily;
+  final List<Alert>? alerts;
 
-  WeatherData.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'];
-    lon = json['lon'];
-    timezone = json['timezone'];
-    timezoneOffset = json['timezone_offset'];
-    current =
-        json['current'] != null ? Current.fromJson(json['current']) : null;
-    if (json['minutely'] != null) {
-      minutely = <Minutely>[];
-      json['minutely'].forEach((v) {
-        minutely!.add(Minutely.fromJson(v));
-      });
-    }
-  }
+  factory WeatherData.fromJson(String str) =>
+      WeatherData.fromMap(json.decode(str));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = lat;
-    data['lon'] = lon;
-    data['timezone'] = timezone;
-    data['timezone_offset'] = timezoneOffset;
-    if (current != null) {
-      data['current'] = current!.toJson();
-    }
-    if (minutely != null) {
-      data['minutely'] = minutely!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  String toJson() => json.encode(toMap());
+
+  factory WeatherData.fromMap(Map<String, dynamic> json) => WeatherData(
+        lat: json["lat"].toDouble(),
+        lon: json["lon"].toDouble(),
+        timezone: json["timezone"],
+        timezoneOffset: json["timezone_offset"],
+        current: json['current'] == null ? null : Current.fromMap(json["current"]),
+        daily: json['daily'] == null
+            ? null
+            : List<Daily>.from(json["daily"].map((x) => Daily.fromMap(x))),
+        alerts: List<Alert>.from(json["alerts"].map((x) => Alert.fromMap(x))),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "lat": lat,
+        "lon": lon,
+        "timezone": timezone,
+        "timezone_offset": timezoneOffset,
+        "current": current!.toMap(),
+        "daily": List<dynamic>.from(daily!.map((x) => x.toMap())),
+        "alerts": List<dynamic>.from(alerts!.map((x) => x.toMap())),
+      };
 }

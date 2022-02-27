@@ -1,42 +1,50 @@
-import 'package:flutter_weather/app/data/models/currentCall/weather_data.dart';
+import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
 import 'package:flutter_weather/app/data/service/repository.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  final _loading = false.obs;
   final Repository repository;
 
-  final currentTemp = 0.0.obs;
+  final loading = false.obs;
+  final currentWeatherList = <WeatherData>[].obs;
 
   HomeController({required this.repository});
 
   @override
   void onInit() async {
     super.onInit();
-    // WeatherData weather =
-    //     await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
-    // _fillDataField(weather);
-    //print(weather.main.temp);
+
+    WeatherData data =
+        await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
+    //print(data.daily![0].temp!.day);
+    currentWeatherList.add(data);
+
+    //print(currentWeather.main!.temp);
   }
 
-  bool dataIsReady() {
-    if (_loading.value) {
-      return false;
+  RxBool dataIsReady() {
+    if (loading.value) {
+      return false.obs;
     } else {
-      return true;
+      return true.obs;
     }
   }
 
   Future<WeatherData> getWeatherByCoordinate(
       {required String lat, required String lon}) async {
-    _loading.value = true;
+    loading.value = true;
     WeatherData weather =
         await repository.getWeatherByCoordinate(lat: lat, lon: lon);
-    _loading.value = false;
+    loading.value = false;
     return weather;
   }
 
-  void _fillDataField(WeatherData data) {
-    currentTemp.value = data.main.temp;
+  Future<WeatherData> getDailyWeatherByCoordinate(
+      {required String lat, required String lon}) async {
+    loading.value = true;
+    WeatherData weather =
+        await repository.getDailyWeatherByCoordinate(lat: lat, lon: lon);
+    loading.value = false;
+    return weather;
   }
 }
