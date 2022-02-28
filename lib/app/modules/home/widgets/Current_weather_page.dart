@@ -8,7 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 class CurrentWeatherPage extends StatelessWidget {
   final WeatherData data;
   const CurrentWeatherPage({
-    Key? key, required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -56,7 +57,7 @@ class CurrentWeatherPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.current!.temp.toString(),//'24\u2103',
+                      data.current!.temp.toString(), //'24\u2103',
                       style: GoogleFonts.lato(
                         fontSize: 85,
                         fontWeight: FontWeight.w300,

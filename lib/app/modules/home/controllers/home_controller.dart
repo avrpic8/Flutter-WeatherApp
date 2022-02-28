@@ -14,12 +14,9 @@ class HomeController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    WeatherData data =
-        await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
-    //print(data.daily![0].temp!.day);
-    currentWeatherList.add(data);
-
-    //print(currentWeather.main!.temp);
+    //WeatherData data =
+        //await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
+    
   }
 
   RxBool dataIsReady() {
@@ -30,13 +27,13 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<WeatherData> getWeatherByCoordinate(
+  Future<void> getWeatherByCoordinate(
       {required String lat, required String lon}) async {
     loading.value = true;
     WeatherData weather =
         await repository.getWeatherByCoordinate(lat: lat, lon: lon);
     loading.value = false;
-    return weather;
+    currentWeatherList.add(weather);
   }
 
   Future<WeatherData> getDailyWeatherByCoordinate(
