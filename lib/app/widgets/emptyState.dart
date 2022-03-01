@@ -19,9 +19,9 @@ class EmptyState extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/images/empty.svg',
+              color: Colors.white,
               width: 100,
               height: 100,
-              color: Colors.white,
             ),
             SizedBox(
               height: 8,

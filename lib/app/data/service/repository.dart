@@ -6,15 +6,15 @@ class Repository {
 
   Repository({required this.provider});
 
-  Future<WeatherData> getWeatherByCoordinate(
+  Future<WeatherData> getCurrentWeatherByCoordinate(
       {required String lat, required String lon}) async {
-    var data = await provider.getWeatherByCoord(lat: lat, lon: lon);
+    var data = await provider.getCurrentWeatherByCoordinate(lat: lat, lon: lon);
     return data;
   }
 
   Future<WeatherData> getDailyWeatherByCoordinate(
       {required String lat, required String lon}) async {
-    var data = await provider.getDailyWeatherByCoord(lat: lat, lon: lon);
+    var data = await provider.getDailyWeatherByCoordinate(lat: lat, lon: lon);
     return data;
   }
 }

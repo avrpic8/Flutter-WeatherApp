@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class Loading extends StatelessWidget {
-  final bool dataLoaded;
-  const Loading({Key? key, required this.dataLoaded}) : super(key: key);
+  final bool status;
+  const Loading({Key? key, required this.status}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (dataLoaded) {
-      return Center();  
+    if (status) {
+      return Center();
     } else {
       return Center(
         child: CircularProgressIndicator(),
-      );     
+      );
     }
   }
 }
