@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_weather/app/core/constants.dart';
+import 'package:flutter_weather/app/core/theme.dart';
 import 'package:get/get.dart';
 
 class EmptyState extends StatelessWidget {
@@ -18,7 +18,7 @@ class EmptyState extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              'assets/images/empty.svg',
+              'assets/images/weatherSvg/empty.svg',
               color: Colors.white,
               width: 100,
               height: 100,

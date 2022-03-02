@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_weather_page.dart';
 import 'package:flutter_weather/app/modules/home/widgets/dot_pager.dart';
-import 'package:flutter_weather/app/widgets/weather_background.dart';
 import 'package:flutter_weather/app/widgets/emptyState.dart';
 import 'package:flutter_weather/app/widgets/loading.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class HomeView extends GetView<HomeController> {
           height: deviceHeight,
           child: Stack(
             children: [
-              WeatherBackground(),
+              weatherBackground(width: deviceWidth, height: deviceHeight, weatherId: 600),
               Positioned(
                 top: deviceHeight * 0.13,
                 right: 0,
@@ -87,6 +87,26 @@ class HomeView extends GetView<HomeController> {
             height: 30,
           ),
         )
+      ],
+    );
+  }
+
+  Widget weatherBackground(
+      {required double width,
+      required double height,
+      required int weatherId}) {
+    String path = getWeatherConditions(weatherId);
+    return Stack(
+      children: [
+        Image.asset(
+          path,
+          fit: BoxFit.cover,
+          width: width,
+          height: height,
+        ),
+        Container(
+          color: Colors.black.withOpacity(0.2),
+        ),
       ],
     );
   }

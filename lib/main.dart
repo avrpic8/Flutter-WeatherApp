@@ -1,26 +1,41 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_weather/app/data/service/http_service.dart';
 import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
-  await Future.delayed(Duration(milliseconds: 500));
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark));
-  HttpOverrides.global = MyHttpOverrides();
 
-  runApp(
-    GetMaterialApp(
+  // wait 40 msec for startup app issue
+  await Future.delayed(40.milliseconds);
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // init system ui
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemStatusBarContrastEnforced: true,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark));
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
+      overlays: [SystemUiOverlay.bottom]);
+
+  // certificate for http protocol
+  HttpOverrides.global = MyHttpOverrides();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-    ),
-  );
+    );
+  }
 }
 
 class MyHttpOverrides extends HttpOverrides {
