@@ -7,7 +7,7 @@ import 'package:get/state_manager.dart';
 class HttpSerrvice extends GetxService {
   final Dio dio = Dio();
 
-  Future<WeatherData> getCurrentWeatherByCoordinate(
+  Future<dynamic> getCurrentWeatherByCoordinate(
       {required String lat, required String lon}) async {
     Map<String, dynamic> query = {
       'lat': lat,
@@ -21,11 +21,11 @@ class HttpSerrvice extends GetxService {
 
       if (response.statusCode == 200) {
         data = response.data;
+        return WeatherData.fromMap(data);
       }
     } catch (e) {
-      print(e.toString());
+      return e.toString();
     }
-    return WeatherData.fromMap(data);
   }
 
   Future<WeatherData> getDailyWeatherByCoordinate(

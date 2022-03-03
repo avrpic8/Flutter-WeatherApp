@@ -69,7 +69,7 @@ class CurrentWeatherPage extends StatelessWidget {
                     Row(
                       children: [
                         SvgPicture.asset(
-                          'assets/images/moon.svg',
+                          'assets/images/weatherSvg/moon.svg',
                           width: 34,
                           height: 34,
                           color: Colors.white,

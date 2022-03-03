@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_weather/app/core/util.dart';
+import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
+import 'package:flutter_weather/app/modules/connection/connection_view.dart';
 import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_weather_page.dart';
 import 'package:flutter_weather/app/modules/home/widgets/dot_pager.dart';
@@ -9,10 +11,14 @@ import 'package:flutter_weather/app/widgets/loading.dart';
 import 'package:get/get.dart';
 
 class HomeView extends GetView<HomeController> {
+
+  final connectionCtr = Get.find<ConnectionController>();
+
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = Get.width;
     final double deviceHeight = Get.height;
+    
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -23,7 +29,8 @@ class HomeView extends GetView<HomeController> {
           height: deviceHeight,
           child: Stack(
             children: [
-              weatherBackground(width: deviceWidth, height: deviceHeight, weatherId: 600),
+              weatherBackground(
+                  width: deviceWidth, height: deviceHeight, weatherId: 500),
               Positioned(
                 top: deviceHeight * 0.13,
                 right: 0,
@@ -53,7 +60,22 @@ class HomeView extends GetView<HomeController> {
                   }
                 },
               ),
-              Obx(() => Loading(status: controller.dataIsReady().value)),
+              Positioned(
+                top: deviceHeight * 0.13,
+                right: 8,
+                child: Row(
+                  children: [
+                    ConnectionView(),
+                    Obx(
+                      () => Loading(
+                        status: controller.dataIsReady().value,
+                        mRight: 2,
+                        mLeft: 8,
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -73,8 +95,11 @@ class HomeView extends GetView<HomeController> {
           size: 30,
         ),
         onPressed: () {
-          controller.getCurrentWeatherByCoordinate(
+          if(connectionCtr.connectionStatus.value == 1){
+            controller.getCurrentWeatherByCoordinate(
               lat: '32.6572', lon: '51.6776');
+          }
+          
         },
       ),
       actions: [
@@ -92,9 +117,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget weatherBackground(
-      {required double width,
-      required double height,
-      required int weatherId}) {
+      {required double width, required double height, required int weatherId}) {
     String path = getWeatherConditions(weatherId);
     return Stack(
       children: [

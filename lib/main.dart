@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_weather/app/modules/connection/connection_binding.dart';
 import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
-
   // wait 40 msec for startup app issue
   await Future.delayed(40.milliseconds);
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,
+      initialBinding: ConnectionBinding(),
       getPages: AppPages.routes,
     );
   }

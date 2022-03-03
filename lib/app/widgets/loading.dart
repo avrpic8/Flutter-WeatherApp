@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 
 class Loading extends StatelessWidget {
   final bool status;
-  const Loading({Key? key, required this.status}) : super(key: key);
+  final double mLeft, mRight, mTop, mBottom;
+  const Loading(
+      {Key? key,
+      required this.status,
+      this.mLeft = 0,
+      this.mRight = 0,
+      this.mTop = 0,
+      this.mBottom = 0})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +18,15 @@ class Loading extends StatelessWidget {
       return Center();
     } else {
       return Center(
-        child: CircularProgressIndicator(),
+        child: Container(
+          margin: EdgeInsets.fromLTRB(mLeft, mTop, mRight, mBottom),
+          width: 10,
+          height: 10,
+          child: CircularProgressIndicator(
+            color: Colors.white,
+            strokeWidth: 5,
+          ),
+        ),
       );
     }
   }

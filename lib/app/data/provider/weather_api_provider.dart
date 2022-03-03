@@ -6,7 +6,7 @@ class WaetherApiProvider {
 
   WaetherApiProvider({required this.httpSerrvice});
 
-  Future<WeatherData> getCurrentWeatherByCoordinate(
+  Future<dynamic> getCurrentWeatherByCoordinate(
       {required String lat, required String lon}) async {
     var data =
         await httpSerrvice.getCurrentWeatherByCoordinate(lat: lat, lon: lon);

@@ -9,10 +9,15 @@ String getWeatherConditions(int id) {
   String assetsPath = '';
   if (id < 600) {
     assetsPath = 'assets/images/background/rainy.jpg';
+    return assetsPath;
   }
-  if (id < 700) {
+  else if (id < 700) {
     assetsPath = 'assets/images/background/snow.jpg';
+    return assetsPath;
+  }else{
+    assetsPath = 'assets/images/background/sunny.jpg';
+    return assetsPath;  
   }
 
-  return assetsPath;
+  
 }

@@ -6,7 +6,7 @@ class Repository {
 
   Repository({required this.provider});
 
-  Future<WeatherData> getCurrentWeatherByCoordinate(
+  Future<dynamic> getCurrentWeatherByCoordinate(
       {required String lat, required String lon}) async {
     var data = await provider.getCurrentWeatherByCoordinate(lat: lat, lon: lon);
     return data;
