@@ -1,20 +1,18 @@
-import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
-import 'package:flutter_weather/app/data/provider/weather_api_provider.dart';
+abstract class Repository {
+  
+  void getCurrentWeatherByCoordinate({
+    required Function() beforeSend,
+    required Function(dynamic data) onSuccess,
+    required Function(dynamic erro) onError,
+    required String lat,
+    required String lon,
+  });
 
-class Repository {
-  final WaetherApiProvider provider;
-
-  Repository({required this.provider});
-
-  Future<dynamic> getCurrentWeatherByCoordinate(
-      {required String lat, required String lon}) async {
-    var data = await provider.getCurrentWeatherByCoordinate(lat: lat, lon: lon);
-    return data;
-  }
-
-  Future<WeatherData> getDailyWeatherByCoordinate(
-      {required String lat, required String lon}) async {
-    var data = await provider.getDailyWeatherByCoordinate(lat: lat, lon: lon);
-    return data;
-  }
+  void getDailyWeatherByCoordinate({
+    required Function() beforeSend,
+    required Function(dynamic data) onSuccess,
+    required Function(dynamic erro) onError,
+    required String lat,
+    required String lon,
+  });
 }

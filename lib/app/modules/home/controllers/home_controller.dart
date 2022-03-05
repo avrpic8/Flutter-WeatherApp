@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
 import 'package:flutter_weather/app/data/service/repository.dart';
 import 'package:get/get.dart';
@@ -10,14 +12,10 @@ class HomeController extends GetxController {
 
   HomeController({required this.repository});
 
-  // @override
-  // void onInit() async {
-  //   super.onInit();
-
-  //   //WeatherData data =
-  //       //await getWeatherByCoordinate(lat: '32.6572', lon: '51.6776');
-
-  // }
+  @override
+  void onInit() async {
+    super.onInit();
+  }
 
   RxBool dataIsReady() {
     if (loading.value) {
@@ -27,21 +25,60 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> getCurrentWeatherByCoordinate(
-      {required String lat, required String lon}) async {
-    loading.value = true;
-    WeatherData weather =
-        await repository.getCurrentWeatherByCoordinate(lat: lat, lon: lon);
-    loading.value = false;
-    currentWeatherList.add(weather);
+  void getCurrentWeatherByCoordinate(
+      {required String lat, required String lon}) {
+    repository.getCurrentWeatherByCoordinate(
+        beforeSend: () {
+          loading.value = true;
+          print('before Send');
+        },
+        onSuccess: (weather) {
+          print('success');
+          loading.value = false;
+          currentWeatherList.add(weather);
+        },
+        onError: (error) {
+          loading.value = false;
+          if (error is DioError) {
+            if (error.type == DioErrorType.response) {
+              if(error.response!.statusCode == notFoundError) {
+                Get.snackbar('Error', 'Server error');
+              }
+            }else if (error.type == timeOutError) {
+              print('hi');
+              Get.snackbar('Error', 'Time out, please try later');
+            }
+          }
+        },
+        lat: lat,
+        lon: lon);
   }
 
-  Future<WeatherData> getDailyWeatherByCoordinate(
-      {required String lat, required String lon}) async {
-    loading.value = true;
-    WeatherData weather =
-        await repository.getDailyWeatherByCoordinate(lat: lat, lon: lon);
-    loading.value = false;
-    return weather;
+  void getDailyWeatherByCoordinate({required String lat, required String lon}) {
+    repository.getDailyWeatherByCoordinate(
+        beforeSend: () {
+          loading.value = true;
+          print('before Send');
+        },
+        onSuccess: (weather) {
+          print('success');
+          loading.value = false;
+          currentWeatherList.add(weather);
+        },
+        onError: (error) {
+          loading.value = false;
+          if (error is DioError) {
+            if (error.type == DioErrorType.response) {
+              if(error.response!.statusCode == notFoundError) {
+                Get.snackbar('Error', 'Server error');
+              }
+            }else if (error.type == timeOutError) {
+              print('hi');
+              Get.snackbar('Error', 'Time out, please try later');
+            }
+          }
+        },
+        lat: lat,
+        lon: lon);
   }
 }

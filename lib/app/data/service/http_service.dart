@@ -1,51 +1,27 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_weather/app/core/constants.dart';
-import 'package:flutter_weather/app/core/keys.dart';
-import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class HttpSerrvice extends GetxService {
   final Dio dio = Dio();
 
-  Future<dynamic> getCurrentWeatherByCoordinate(
-      {required String lat, required String lon}) async {
-    Map<String, dynamic> query = {
-      'lat': lat,
-      'lon': lon,
-      'exclude': 'minutely,hourly,daily',
-      'appid': apiKey
-    };
-    late Map<String, dynamic> data;
-    try {
-      Response response = await dio.get(baseUrlOneCall, queryParameters: query);
-
-      if (response.statusCode == 200) {
-        data = response.data;
-        return WeatherData.fromMap(data);
-      }
-    } catch (e) {
-      return e.toString();
-    }
+  HttpSerrvice() {
+    dio
+      ..options.baseUrl = baseUrlOneCall
+      ..options.connectTimeout = defaultConnectTimeout
+      ..options.receiveTimeout = defaultReceiveTimeout;
   }
 
-  Future<WeatherData> getDailyWeatherByCoordinate(
-      {required String lat, required String lon}) async {
-    Map<String, dynamic> query = {
-      'lat': lat,
-      'lon': lon,
-      'exclude': 'minutely,hourly,current',
-      'appid': apiKey
-    };
-    late Map<String, dynamic> data;
-    try {
-      Response response = await dio.get(baseUrlOneCall, queryParameters: query);
-
-      if (response.statusCode == 200) {
-        data = response.data;
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-    return WeatherData.fromMap(data);
+  void get(
+      {required Function() beforeSend,
+      required Function(dynamic data) onSuccess,
+      required Function(dynamic erro) onError,
+      required Map<String, dynamic> query}) {
+    beforeSend();
+    dio.get('/onecall', queryParameters: query).then((result) {
+      onSuccess(result.data);
+    }).catchError((error) {
+      onError(error);
+    });
   }
 }
