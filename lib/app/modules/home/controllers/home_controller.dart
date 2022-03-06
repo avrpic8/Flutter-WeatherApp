@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   final Repository repository;
 
-  final loading = false.obs;
-  final currentWeatherList = <WeatherData>[].obs;
+  final RxBool _loading = false.obs;
+  final RxList _weatherDataList = <WeatherData>[].obs;
+  final RxInt  _selectedWeatherPageIndex = 0.obs;
 
   HomeController({required this.repository});
 
@@ -18,33 +19,38 @@ class HomeController extends GetxController {
   }
 
   RxBool dataIsReady() {
-    if (loading.value) {
+    if (_loading.value) {
       return false.obs;
     } else {
       return true.obs;
     }
   }
 
+  RxList get weatherList => _weatherDataList;
+
+  RxInt get selectedPageIndex => _selectedWeatherPageIndex;
+  
   void getCurrentWeatherByCoordinate(
       {required String lat, required String lon}) {
     repository.getCurrentWeatherByCoordinate(
         beforeSend: () {
-          loading.value = true;
+          _loading.value = true;
           print('before Send');
         },
         onSuccess: (weather) {
           print('success');
-          loading.value = false;
-          currentWeatherList.add(weather);
+          _loading.value = false;
+          _weatherDataList.add(weather);
+          Get.snackbar('Success', 'Data has been successfully updated');
         },
         onError: (error) {
-          loading.value = false;
+          _loading.value = false;
           if (error is DioError) {
             if (error.type == DioErrorType.response) {
-              if(error.response!.statusCode == notFoundError) {
+              if (error.response!.statusCode == notFoundError) {
                 Get.snackbar('Error', 'Server error');
               }
-            }else if (error.type == timeOutError) {
+            } else if (error.type == timeOutError) {
               print('hi');
               Get.snackbar('Error', 'Time out, please try later');
             }
@@ -57,22 +63,22 @@ class HomeController extends GetxController {
   void getDailyWeatherByCoordinate({required String lat, required String lon}) {
     repository.getDailyWeatherByCoordinate(
         beforeSend: () {
-          loading.value = true;
+          _loading.value = true;
           print('before Send');
         },
         onSuccess: (weather) {
           print('success');
-          loading.value = false;
-          currentWeatherList.add(weather);
+          _loading.value = false;
+          _weatherDataList.add(weather);
         },
         onError: (error) {
-          loading.value = false;
+          _loading.value = false;
           if (error is DioError) {
             if (error.type == DioErrorType.response) {
-              if(error.response!.statusCode == notFoundError) {
+              if (error.response!.statusCode == notFoundError) {
                 Get.snackbar('Error', 'Server error');
               }
-            }else if (error.type == timeOutError) {
+            } else if (error.type == timeOutError) {
               print('hi');
               Get.snackbar('Error', 'Time out, please try later');
             }

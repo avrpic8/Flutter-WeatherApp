@@ -11,14 +11,12 @@ import 'package:flutter_weather/app/widgets/loading.dart';
 import 'package:get/get.dart';
 
 class HomeView extends GetView<HomeController> {
-
   final connectionCtr = Get.find<ConnectionController>();
 
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = Get.width;
     final double deviceHeight = Get.height;
-    
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -37,26 +35,27 @@ class HomeView extends GetView<HomeController> {
                 left: 0,
                 child: Obx(
                   () => DotPager(
-                    dotCount: controller.currentWeatherList.length,
-                    currentIndex: 0,
+                    dotCount: controller.weatherList.length,
+                    currentIndex: controller.selectedPageIndex.value,
                   ),
                 ),
               ),
               Obx(
                 () {
-                  if (controller.currentWeatherList.isNotEmpty) {
+                  if (controller.weatherList.isNotEmpty) {
                     return PageView.builder(
-                      itemCount: controller.dataIsReady().value
-                          ? controller.currentWeatherList.length
-                          : 1,
+                      physics: const BouncingScrollPhysics(),
+                      onPageChanged: (index) =>
+                          controller.selectedPageIndex.value = index,
+                      itemCount: controller.weatherList.length,
                       itemBuilder: (context, index) {
                         return CurrentWeatherPage(
-                          data: controller.currentWeatherList[index],
+                          data: controller.weatherList[index],
                         );
                       },
                     );
                   } else {
-                    return EmptyState();
+                    return const EmptyState();
                   }
                 },
               ),
@@ -95,11 +94,10 @@ class HomeView extends GetView<HomeController> {
           size: 30,
         ),
         onPressed: () {
-          if(connectionCtr.connectionStatus.value == 1){
+          if (connectionCtr.connectionStatus.value == 1) {
             controller.getCurrentWeatherByCoordinate(
-              lat: '32.6572', lon: '51.6776');
+                lat: '32.6572', lon: '51.6776');
           }
-          
         },
       ),
       actions: [
