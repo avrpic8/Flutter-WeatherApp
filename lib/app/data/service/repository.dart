@@ -1,5 +1,4 @@
 abstract class Repository {
-  
   void getCurrentWeatherByCoordinate({
     required Function() beforeSend,
     required Function(dynamic data) onSuccess,
@@ -15,4 +14,6 @@ abstract class Repository {
     required String lat,
     required String lon,
   });
+
+  void getCoordinateByCityName();
 }

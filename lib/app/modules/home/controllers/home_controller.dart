@@ -9,7 +9,7 @@ class HomeController extends GetxController {
 
   final RxBool _loading = false.obs;
   final RxList _weatherDataList = <WeatherData>[].obs;
-  final RxInt  _selectedWeatherPageIndex = 0.obs;
+  final RxInt _selectedWeatherPageIndex = 0.obs;
 
   HomeController({required this.repository});
 
@@ -29,7 +29,7 @@ class HomeController extends GetxController {
   RxList get weatherList => _weatherDataList;
 
   RxInt get selectedPageIndex => _selectedWeatherPageIndex;
-  
+
   void getCurrentWeatherByCoordinate(
       {required String lat, required String lon}) {
     repository.getCurrentWeatherByCoordinate(
@@ -44,6 +44,7 @@ class HomeController extends GetxController {
           Get.snackbar('Success', 'Data has been successfully updated');
         },
         onError: (error) {
+          print(error);
           _loading.value = false;
           if (error is DioError) {
             if (error.type == DioErrorType.response) {

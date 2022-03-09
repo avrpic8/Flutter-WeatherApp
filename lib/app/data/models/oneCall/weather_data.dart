@@ -33,11 +33,14 @@ class WeatherData {
         lon: json["lon"].toDouble(),
         timezone: json["timezone"],
         timezoneOffset: json["timezone_offset"],
-        current: json['current'] == null ? null : Current.fromMap(json["current"]),
+        current:
+            json['current'] == null ? null : Current.fromMap(json["current"]),
         daily: json['daily'] == null
             ? null
             : List<Daily>.from(json["daily"].map((x) => Daily.fromMap(x))),
-        alerts: List<Alert>.from(json["alerts"].map((x) => Alert.fromMap(x))),
+        alerts: json['alerts'] == null
+            ? null
+            : List<Alert>.from(json["alerts"].map((x) => Alert.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {

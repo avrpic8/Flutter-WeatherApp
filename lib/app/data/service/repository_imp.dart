@@ -53,4 +53,9 @@ class RepositoryImp implements Repository {
         onError: (error) => onError(error),
         query: query);
   }
+
+  @override
+  void getCoordinateByCityName() {
+    // TODO: implement getCoordinateByCityName
+  }
 }

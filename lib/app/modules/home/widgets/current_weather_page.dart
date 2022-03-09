@@ -15,78 +15,87 @@ class CurrentWeatherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double deviceWidth = Get.width;
     final double deviceHeight = Get.height;
-
     return Container(
+      width: deviceWidth,
+      height: deviceHeight,
       padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
+              physics: BouncingScrollPhysics(),
               children: [
-                SizedBox(
-                  height: deviceHeight * 0.16,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Esfahan',
-                      style: GoogleFonts.lato(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      '07:50 PM- Modndey, 9 nov 2022',
-                      style: GoogleFonts.lato(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    )
-                  ],
-                ),
-                Divider(
-                  height: deviceHeight * 0.35,
-                  color: Colors.transparent,
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      data.current!.temp.toString(), //'24\u2103',
-                      style: GoogleFonts.lato(
-                        fontSize: 85,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white,
-                      ),
+                    SizedBox(
+                      height: deviceHeight * 0.05,
                     ),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        SvgPicture.asset(
-                          'assets/images/weatherSvg/moon.svg',
-                          width: 34,
-                          height: 34,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
                         Text(
-                          'Night',
+                          'Esfahan',
                           style: GoogleFonts.lato(
-                            fontSize: 20,
+                            fontSize: 35,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
+                        Text(
+                          //'07:50 PM- Modndey, 9 nov 2022',
+                          data.current!.dt!.unixToDate(),
+                          style: GoogleFonts.lato(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        )
                       ],
-                    )
+                    ),
+                    Divider(
+                      height: deviceHeight * 0.25,
+                      color: Colors.transparent,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${data.current!.temp!.kelvinToCelsius()}\u2103',
+                          style: GoogleFonts.lato(
+                            fontSize: 85,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/weatherSvg/cloudy.svg',
+                              width: 34,
+                              height: 34,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              data.current!.weather![0].description
+                                  .capitalize(),
+                              style: GoogleFonts.lato(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -117,31 +126,24 @@ class CurrentWeatherPage extends StatelessWidget {
                         SizedBox(
                           height: 8,
                         ),
-                        Text(
-                          '10',
-                          style: GoogleFonts.lato(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          'km/h',
-                          style: GoogleFonts.lato(
-                              fontSize: 12, color: Colors.white),
-                        ),
-                        Stack(
+                        Row(
                           children: [
-                            Container(
-                              height: 5,
-                              width: 50,
-                              color: Colors.white38,
+                            Text(
+                              data.current!.windSpeed!.toStringAsFixed(1),
+                              style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
                             ),
-                            Container(
-                              height: 5,
-                              width: 10,
-                              color: Colors.greenAccent,
-                            )
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              'm/sec',
+                              style: GoogleFonts.lato(
+                                  fontSize: 12, color: Colors.white),
+                            ),
                           ],
                         )
                       ],
@@ -149,38 +151,31 @@ class CurrentWeatherPage extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          'Rain',
+                          'Pressure',
                           style: GoogleFonts.lato(
                               fontSize: 12, color: Colors.white),
                         ),
                         SizedBox(
                           height: 8,
                         ),
-                        Text(
-                          '2',
-                          style: GoogleFonts.lato(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          '%',
-                          style: GoogleFonts.lato(
-                              fontSize: 12, color: Colors.white),
-                        ),
-                        Stack(
+                        Row(
                           children: [
-                            Container(
-                              height: 5,
-                              width: 50,
-                              color: Colors.white38,
+                            Text(
+                              data.current!.pressure.toString(),
+                              style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
                             ),
-                            Container(
-                              height: 5,
-                              width: 10,
-                              color: Colors.blueAccent,
-                            )
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              ' hPa',
+                              style: GoogleFonts.lato(
+                                  fontSize: 12, color: Colors.white),
+                            ),
                           ],
                         )
                       ],
@@ -195,31 +190,24 @@ class CurrentWeatherPage extends StatelessWidget {
                         SizedBox(
                           height: 8,
                         ),
-                        Text(
-                          '10',
-                          style: GoogleFonts.lato(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          '%',
-                          style: GoogleFonts.lato(
-                              fontSize: 12, color: Colors.white),
-                        ),
-                        Stack(
+                        Row(
                           children: [
-                            Container(
-                              height: 5,
-                              width: 50,
-                              color: Colors.white38,
+                            Text(
+                              data.current!.humidity.toString(),
+                              style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
                             ),
-                            Container(
-                              height: 5,
-                              width: 35,
-                              color: Colors.redAccent,
-                            )
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              '%',
+                              style: GoogleFonts.lato(
+                                  fontSize: 12, color: Colors.white),
+                            ),
                           ],
                         )
                       ],

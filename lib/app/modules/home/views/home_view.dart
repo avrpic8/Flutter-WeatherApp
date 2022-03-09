@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
 import 'package:flutter_weather/app/modules/connection/connection_view.dart';
@@ -21,62 +22,60 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(),
-      body: SingleChildScrollView(
-        child: Container(
-          width: deviceWidth,
-          height: deviceHeight,
-          child: Stack(
-            children: [
-              weatherBackground(
-                  width: deviceWidth, height: deviceHeight, weatherId: 500),
-              Positioned(
-                top: deviceHeight * 0.13,
-                right: 0,
-                left: 0,
-                child: Obx(
-                  () => DotPager(
-                    dotCount: controller.weatherList.length,
-                    currentIndex: controller.selectedPageIndex.value,
-                  ),
+      body: Container(
+        width: deviceWidth,
+        height: deviceHeight,
+        child: Stack(
+          children: [
+            weatherBackground(
+                width: deviceWidth, height: deviceHeight, weatherId: 500),
+            Positioned(
+              top: deviceHeight * 0.13,
+              right: 0,
+              left: 0,
+              child: Obx(
+                () => DotPager(
+                  dotCount: controller.weatherList.length,
+                  currentIndex: controller.selectedPageIndex.value,
                 ),
               ),
-              Obx(
-                () {
-                  if (controller.weatherList.isNotEmpty) {
-                    return PageView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      onPageChanged: (index) =>
-                          controller.selectedPageIndex.value = index,
-                      itemCount: controller.weatherList.length,
-                      itemBuilder: (context, index) {
-                        return CurrentWeatherPage(
-                          data: controller.weatherList[index],
-                        );
-                      },
-                    );
-                  } else {
-                    return const EmptyState();
-                  }
-                },
-              ),
-              Positioned(
-                top: deviceHeight * 0.13,
-                right: 8,
-                child: Row(
-                  children: [
-                    ConnectionView(),
-                    Obx(
-                      () => Loading(
-                        status: controller.dataIsReady().value,
-                        mRight: 2,
-                        mLeft: 8,
-                      ),
+            ),
+            Obx(
+              () {
+                if (controller.weatherList.isNotEmpty) {
+                  return PageView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    onPageChanged: (index) =>
+                        controller.selectedPageIndex.value = index,
+                    itemCount: controller.weatherList.length,
+                    itemBuilder: (context, index) {
+                      return CurrentWeatherPage(
+                        data: controller.weatherList[index],
+                      );
+                    },
+                  );
+                } else {
+                  return const EmptyState();
+                }
+              },
+            ),
+            Positioned(
+              top: deviceHeight * 0.13,
+              right: 8,
+              child: Row(
+                children: [
+                  ConnectionView(),
+                  Obx(
+                    () => Loading(
+                      status: controller.dataIsReady().value,
+                      mRight: 2,
+                      mLeft: 8,
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -94,9 +93,9 @@ class HomeView extends GetView<HomeController> {
           size: 30,
         ),
         onPressed: () {
-          if (connectionCtr.connectionStatus.value == 1) {
+          if (connectionCtr.connectionStatus.value != noneInternet) {
             controller.getCurrentWeatherByCoordinate(
-                lat: '32.6572', lon: '51.6776');
+                lat: '32.670', lon: '51.6650');
           }
         },
       ),

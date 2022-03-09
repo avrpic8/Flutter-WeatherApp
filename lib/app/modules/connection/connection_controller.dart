@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_weather/app/core/constants.dart';
 import 'package:get/get.dart';
 
 class ConnectionController extends GetxController {
@@ -13,8 +14,8 @@ class ConnectionController extends GetxController {
     super.onInit();
     initConnectivity();
 
-    _subscription = _connectivity.onConnectivityChanged
-        .listen(_updateConnectionStatus);
+    _subscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   @override
@@ -37,15 +38,15 @@ class ConnectionController extends GetxController {
   void _updateConnectionStatus(ConnectivityResult result) {
     switch (result) {
       case ConnectivityResult.wifi:
-        connectionStatus.value = 1;
+        connectionStatus.value = wifiInternet;
         break;
 
       case ConnectivityResult.mobile:
-        connectionStatus.value = 2;
+        connectionStatus.value = mobileInternet;
         break;
 
       case ConnectivityResult.none:
-        connectionStatus.value = 0;
+        connectionStatus.value = noneInternet;
         break;
 
       default:
