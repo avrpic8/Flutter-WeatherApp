@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart' as myDio;
 import 'package:flutter_weather/app/core/constants.dart';
+import 'package:flutter_weather/app/data/models/geocoding/direct_geocoding.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
 import 'package:get/get.dart';
 
-class HttpSerrvice extends GetxService {
+class HttpService extends GetxService {
   final myDio.Dio dio = myDio.Dio();
 
-  HttpSerrvice() {
+  HttpService() {
     dio
       ..options.connectTimeout = defaultConnectTimeout
       ..options.receiveTimeout = defaultReceiveTimeout;
@@ -14,7 +15,7 @@ class HttpSerrvice extends GetxService {
 
   Future<WeatherData> getWeatherByCoordinate(
       {required Map<String, dynamic> query,
-      required Function(dynamic erro) onError}) async {
+      required Function(dynamic error) onError}) async {
     dio.options.baseUrl = baseUrlOneCall;
     late Map<String, dynamic> data;
     try {
@@ -27,31 +28,34 @@ class HttpSerrvice extends GetxService {
     return WeatherData.fromMap(data);
   }
 
-  // void getWeatherByCoordinate(
-  //     {required Function() beforeSend,
-  //     required Function(dynamic data) onSuccess,
-  //     required Function(dynamic erro) onError,
-  //     required Map<String, dynamic> query}) {
-  //   dio.options.baseUrl = baseUrlOneCall;
-  //   beforeSend();
-  //   dio.get('/onecall', queryParameters: query).then((result) {
-  //     onSuccess(result.data);
-  //   }).catchError((error) {
-  //     onError(error);
-  //   });
-  // }
-
-  void getCoordianteByCityName(
-      {required Function() beforeSend,
-      required Function(dynamic data) onSuccess,
-      required Function(dynamic erro) onError,
-      required Map<String, dynamic> query}) {
+  Future<DirectGeocoding> getCoordinateByCityName({
+    required Map<String, dynamic> query,
+    required Function(dynamic erro) onError,
+  }) async {
     dio.options.baseUrl = baseUrlGeoCoding;
-    beforeSend();
-    dio.get('/direct', queryParameters: query).then((result) {
-      onSuccess(result.data);
-    }).catchError((error) {
-      onError(error);
-    });
+    late Map<String, dynamic> data;
+    try {
+      myDio.Response response =
+          await dio.get('/direct', queryParameters: query);
+      data = response.data[0];
+    } catch (e) {
+      onError(e);
+    }
+    return DirectGeocoding.fromMap(data);
+  }
+
+  Future<DirectGeocoding> getCityNameByCoordinate(
+      {required Map<String, dynamic> query,
+      required Function(dynamic error) onError}) async{
+    dio.options.baseUrl = baseUrlGeoCoding;
+    late Map<String, dynamic> data;
+    try {
+      myDio.Response response =
+          await dio.get('/reverse', queryParameters: query);
+      data = response.data[0];
+    } catch (e) {
+      onError(e);
+    }
+    return DirectGeocoding.fromMap(data);
   }
 }

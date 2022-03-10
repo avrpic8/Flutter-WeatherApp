@@ -9,7 +9,7 @@ class HomeBinding implements Bindings {
   void dependencies() {
     Get.put(
       HomeController(
-        repository: RepositoryImp(service: HttpSerrvice()),
+        repository: RepositoryImp(service: HttpService()),
       ),
     );
   }

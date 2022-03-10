@@ -1,7 +1,13 @@
+import 'package:flutter_weather/app/data/models/geocoding/direct_geocoding.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
 
 abstract class Repository {
 
+  Future<WeatherData> getWeatherByCoordinate({
+    required Function(dynamic erro) onError,
+    required String lat,
+    required String lon,
+  });
 
   Future<WeatherData> getCurrentWeatherByCoordinate({
     required Function(dynamic erro) onError,
@@ -9,34 +15,20 @@ abstract class Repository {
     required String lon,
   });
 
-  void getWeatherByCoordinate({
-    required Function() beforeSend,
-    required Function(dynamic data) onSuccess,
+  Future<WeatherData> getDailyWeatherByCoordinate({
     required Function(dynamic erro) onError,
     required String lat,
     required String lon,
   });
 
-  // void getCurrentWeatherByCoordinate({
-  //   required Function() beforeSend,
-  //   required Function(dynamic data) onSuccess,
-  //   required Function(dynamic erro) onError,
-  //   required String lat,
-  //   required String lon,
-  // });
-
-  void getDailyWeatherByCoordinate({
-    required Function() beforeSend,
-    required Function(dynamic data) onSuccess,
-    required Function(dynamic erro) onError,
-    required String lat,
-    required String lon,
-  });
-
-  void getCoordinateByCityName({
-    required Function() beforeSend,
-    required Function(dynamic data) onSuccess,
+  Future<DirectGeocoding> getCoordinateByCityName({
     required Function(dynamic erro) onError,
     required String cityName
+  });
+
+  Future<DirectGeocoding> getCityNameByCoordinate({
+    required Function(dynamic erro) onError,
+    required String lat,
+    required String lon,
   });
 }

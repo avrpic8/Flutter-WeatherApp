@@ -94,7 +94,8 @@ class HomeView extends GetView<HomeController> {
         ),
         onPressed: () {
           if (connectionCtr.connectionStatus.value != noneInternet) {
-            controller.getWeatherByCityName(cityName: 'Esfahan');
+            //controller.getWeatherByCityName(cityName: 'Esfahan');
+            controller.getWeatherByGpsData(lat: '32.3939', lon: '51.4144');
           }
         },
       ),

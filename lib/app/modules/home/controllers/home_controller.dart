@@ -12,14 +12,8 @@ class HomeController extends GetxController {
   final RxBool _loading = false.obs;
   final RxList _weatherDataList = <MainWeather>[].obs;
   final RxInt _selectedWeatherPageIndex = 0.obs;
-  late DirectGeocoding geocodingData;
 
   HomeController({required this.repository});
-
-  @override
-  void onInit() async {
-    super.onInit();
-  }
 
   RxBool dataIsReady() {
     if (_loading.value) {
@@ -29,17 +23,76 @@ class HomeController extends GetxController {
     }
   }
 
+  void _enableLoading() {
+    _loading.value = true;
+  }
+
+  void _disableLoading() {
+    _loading.value = false;
+  }
+
   RxList get weatherList => _weatherDataList;
 
   RxInt get selectedPageIndex => _selectedWeatherPageIndex;
 
-  Future<WeatherData> getWeatherByCoordinate(
-      {required String lat, required String lon}) async {
-    _loading.value = true;
-    WeatherData weatherData = await repository.getCurrentWeatherByCoordinate(
+  void getWeatherByCityName({required String cityName}) async {
+    _enableLoading();
+    DirectGeocoding geocodingData = await repository.getCoordinateByCityName(
         onError: (error) {
           print(error);
-          _loading.value = false;
+          _disableLoading();
+          if (error is DioError) {
+            if (error.type == DioErrorType.response) {
+              if (error.response!.statusCode == notFoundError) {
+                Get.snackbar('Error', 'Server error');
+              }
+            } else if (error.type == timeOutError) {
+              print('hi');
+              Get.snackbar('Error', 'Time out, please try later');
+            }
+          }
+        },
+        cityName: cityName);
+
+    WeatherData data = await getWeatherByCoordinate(
+        lat: geocodingData.lat.toString(), lon: geocodingData.lon.toString());
+
+    _weatherDataList.add(
+        MainWeather(cityName: cityName, weatherData: data));
+  }
+
+  void getWeatherByGpsData({required String lat, required String lon}) async {
+    _enableLoading();
+    DirectGeocoding geocodingData = await repository.getCityNameByCoordinate(
+      onError: (error) {
+        print(error);
+        _disableLoading();
+        if (error is DioError) {
+          if (error.type == DioErrorType.response) {
+            if (error.response!.statusCode == notFoundError) {
+              Get.snackbar('Error', 'Server error');
+            }
+          } else if (error.type == timeOutError) {
+            print('hi');
+            Get.snackbar('Error', 'Time out, please try later');
+          }
+        }
+      },
+      lat: lat,
+      lon: lon,
+    );
+    WeatherData data = await getWeatherByCoordinate(lat: lat, lon: lon);
+    _weatherDataList.add(
+        MainWeather(cityName: geocodingData.localNames.en!, weatherData: data));
+  }
+
+  Future<WeatherData> getWeatherByCoordinate(
+      {required String lat, required String lon}) async {
+    _enableLoading();
+    WeatherData weatherData = await repository.getWeatherByCoordinate(
+        onError: (error) {
+          print(error);
+          _disableLoading();
           if (error is DioError) {
             if (error.type == DioErrorType.response) {
               if (error.response!.statusCode == notFoundError) {
@@ -54,145 +107,18 @@ class HomeController extends GetxController {
         lat: lat,
         lon: lon);
 
-    _loading.value = false;
+    _disableLoading();
+    Get.snackbar('Success', 'Data has been successfully updated');
     return weatherData;
-    //Get.snackbar('Success', 'Data has been successfully updated');
   }
 
-  // void getWeatherByCoordinate({required String lat, required String lon}) {
-  //   repository.getCurrentWeatherByCoordinate(
-  //       beforeSend: () {
-  //         _loading.value = true;
-  //         print('before Send');
-  //       },
-  //       onSuccess: (weather) {
-  //         print('success');
-  //         _loading.value = false;
-  //         _weatherDataList.add(MainWeather(cityName: geocodingData.localNames.uk!, weatherData: weatherData));
-  //         Get.snackbar('Success', 'Data has been successfully updated');
-  //       },
-  //       onError: (error) {
-  //         print(error);
-  //         _loading.value = false;
-  //         if (error is DioError) {
-  //           if (error.type == DioErrorType.response) {
-  //             if (error.response!.statusCode == notFoundError) {
-  //               Get.snackbar('Error', 'Server error');
-  //             }
-  //           } else if (error.type == timeOutError) {
-  //             print('hi');
-  //             Get.snackbar('Error', 'Time out, please try later');
-  //           }
-  //         }
-  //       },
-  //       lat: lat,
-  //       lon: lon);
-  // }
-
-  // void getCurrentWeatherByCoordinate(
-  //     {required String lat, required String lon}) {
-  //   repository.getCurrentWeatherByCoordinate(
-  //       beforeSend: () {
-  //         _loading.value = true;
-  //         print('before Send');
-  //       },
-  //       onSuccess: (weather) {
-  //         print('success');
-  //         _loading.value = false;
-  //         _weatherDataList.add(weather);
-  //         Get.snackbar('Success', 'Data has been successfully updated');
-  //       },
-  //       onError: (error) {
-  //         print(error);
-  //         _loading.value = false;
-  //         if (error is DioError) {
-  //           if (error.type == DioErrorType.response) {
-  //             if (error.response!.statusCode == notFoundError) {
-  //               Get.snackbar('Error', 'Server error');
-  //             }
-  //           } else if (error.type == timeOutError) {
-  //             print('hi');
-  //             Get.snackbar('Error', 'Time out, please try later');
-  //           }
-  //         }
-  //       },
-  //       lat: lat,
-  //       lon: lon);
-  // }
-
-  // void getDailyWeatherByCoordinate({required String lat, required String lon}) {
-  //   repository.getDailyWeatherByCoordinate(
-  //       beforeSend: () {
-  //         _loading.value = true;
-  //         print('before Send');
-  //       },
-  //       onSuccess: (weather) {
-  //         print('success');
-  //         _loading.value = false;
-  //         _weatherDataList.add(weather);
-  //       },
-  //       onError: (error) {
-  //         _loading.value = false;
-  //         if (error is DioError) {
-  //           if (error.type == DioErrorType.response) {
-  //             if (error.response!.statusCode == notFoundError) {
-  //               Get.snackbar('Error', 'Server error');
-  //             }
-  //           } else if (error.type == timeOutError) {
-  //             print('hi');
-  //             Get.snackbar('Error', 'Time out, please try later');
-  //           }
-  //         }
-  //       },
-  //       lat: lat,
-  //       lon: lon);
-  // }
-
-  // void getWeatherByCityName({required String cityName}) {
-  //   repository.getCoordinateByCityName(
-  //       beforeSend: () {
-  //         _loading.value = true;
-  //       },
-  //       onSuccess: (geoCoding) {
-  //         geocodingData = geoCoding;
-  //         getWeatherByCoordinate(
-  //             lat: geocodingData.lat.toString(),
-  //             lon: geocodingData.lon.toString());
-  //       },
-  //       onError: (error) {
-  //         print(error);
-  //         _loading.value = false;
-  //         if (error is DioError) {
-  //           if (error.type == DioErrorType.response) {
-  //             if (error.response!.statusCode == notFoundError) {
-  //               Get.snackbar('Error', 'Server error');
-  //             }
-  //           } else if (error.type == timeOutError) {
-  //             print('hi');
-  //             Get.snackbar('Error', 'Time out, please try later');
-  //           }
-  //         }
-  //       },
-  //       cityName: cityName);
-  // }
-
-  void getWeatherByCityName({required String cityName}) {
-    repository.getCoordinateByCityName(
-        beforeSend: () {
-          _loading.value = true;
-        },
-        onSuccess: (geoCoding) async {
-          geocodingData = geoCoding;
-          WeatherData data = await getWeatherByCoordinate(
-              lat: geocodingData.lat.toString(),
-              lon: geocodingData.lon.toString());
-
-          _weatherDataList.add(MainWeather(
-              cityName: geocodingData.localNames.en!, weatherData: data));
-        },
+  Future<WeatherData> getCurrentWeatherByCoordinate(
+      {required String lat, required String lon}) async {
+    _enableLoading();
+    WeatherData weatherData = await repository.getCurrentWeatherByCoordinate(
         onError: (error) {
           print(error);
-          _loading.value = false;
+          _disableLoading();
           if (error is DioError) {
             if (error.type == DioErrorType.response) {
               if (error.response!.statusCode == notFoundError) {
@@ -204,6 +130,37 @@ class HomeController extends GetxController {
             }
           }
         },
-        cityName: cityName);
+        lat: lat,
+        lon: lon);
+
+    _disableLoading();
+    Get.snackbar('Success', 'Data has been successfully updated');
+    return weatherData;
+  }
+
+  Future<WeatherData> getDailyWeatherByCoordinate(
+      {required String lat, required String lon}) async {
+    _enableLoading();
+    WeatherData weatherData = await repository.getDailyWeatherByCoordinate(
+        onError: (error) {
+          print(error);
+          _disableLoading();
+          if (error is DioError) {
+            if (error.type == DioErrorType.response) {
+              if (error.response!.statusCode == notFoundError) {
+                Get.snackbar('Error', 'Server error');
+              }
+            } else if (error.type == timeOutError) {
+              print('hi');
+              Get.snackbar('Error', 'Time out, please try later');
+            }
+          }
+        },
+        lat: lat,
+        lon: lon);
+
+    _disableLoading();
+    Get.snackbar('Success', 'Data has been successfully updated');
+    return weatherData;
   }
 }
