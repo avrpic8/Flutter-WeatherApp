@@ -14,4 +14,4 @@ const int mobileInternet = 2;
 
 /// Base url for api call
 const String baseUrlOneCall = 'https://api.openweathermap.org/data/2.5';
-const String baseUrlGeoCoding = 'http://api.openweathermap.org/geo/1.0/direct';
+const String baseUrlGeoCoding = 'http://api.openweathermap.org/geo/1.0';

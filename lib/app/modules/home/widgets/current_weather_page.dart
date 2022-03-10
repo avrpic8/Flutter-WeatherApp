@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_weather/app/core/util.dart';
+import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
-  final WeatherData data;
+  final MainWeather data;
   const CurrentWeatherPage({
     Key? key,
     required this.data,
@@ -39,7 +40,7 @@ class CurrentWeatherPage extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          'Esfahan',
+                          data.cityName,
                           style: GoogleFonts.lato(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
@@ -48,7 +49,7 @@ class CurrentWeatherPage extends StatelessWidget {
                         ),
                         Text(
                           //'07:50 PM- Modndey, 9 nov 2022',
-                          data.current!.dt!.unixToDate(),
+                          data.weatherData.current!.dt!.unixToDate(),
                           style: GoogleFonts.lato(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -65,7 +66,7 @@ class CurrentWeatherPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${data.current!.temp!.kelvinToCelsius()}\u2103',
+                          '${data.weatherData.current!.temp!.kelvinToCelsius()}\u2103',
                           style: GoogleFonts.lato(
                             fontSize: 85,
                             fontWeight: FontWeight.w300,
@@ -84,7 +85,7 @@ class CurrentWeatherPage extends StatelessWidget {
                               width: 8,
                             ),
                             Text(
-                              data.current!.weather![0].description
+                              data.weatherData.current!.weather![0].description
                                   .capitalize(),
                               style: GoogleFonts.lato(
                                 fontSize: 20,
@@ -129,7 +130,8 @@ class CurrentWeatherPage extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              data.current!.windSpeed!.toStringAsFixed(1),
+                              data.weatherData.current!.windSpeed!
+                                  .toStringAsFixed(1),
                               style: GoogleFonts.lato(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -161,7 +163,7 @@ class CurrentWeatherPage extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              data.current!.pressure.toString(),
+                              data.weatherData.current!.pressure.toString(),
                               style: GoogleFonts.lato(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -193,7 +195,7 @@ class CurrentWeatherPage extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              data.current!.humidity.toString(),
+                              data.weatherData.current!.humidity.toString(),
                               style: GoogleFonts.lato(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
