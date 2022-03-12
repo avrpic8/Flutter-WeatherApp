@@ -5,27 +5,19 @@ import 'package:intl/intl.dart';
 
 /// Get approximate system navigation bar height
 double getSystemNavigationHeight() {
-  return Get.statusBarHeight - 10;
+  return Get.bottomBarHeight;
 }
 
 /// Change status bar color for every screen
-void gotoPage(
+void goToPage(
     {required String path,
     required Color nextStatusScreenColor,
     Color previousStatusScreenColor = Colors.transparent}) {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemStatusBarContrastEnforced: true,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarDividerColor: Colors.black12,
-      systemNavigationBarIconBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: nextStatusScreenColor));
   Get.toNamed(path)!.then(
     (_) => SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemStatusBarContrastEnforced: true,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
         statusBarColor: previousStatusScreenColor)),
   );
@@ -54,6 +46,7 @@ extension DateParsing on int {
   }
 }
 
+/// Conver m/s to miles/h
 extension SpeedParsing on double {
   String toMilesPerHour() {
     var result = this * 2.237;

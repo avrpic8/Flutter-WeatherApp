@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
 import 'package:get/get.dart';
@@ -21,9 +22,10 @@ class ConnectionView extends GetView<ConnectionController> {
       ),
       child: Obx(
         () {
-          if (controller.connectionStatus.value == 1 || controller.connectionStatus.value == 2) {
+          if (controller.connectionState == wifiInternet ||
+              controller.connectionState == mobileInternet) {
             connectionState = 'Online';
-          }else{
+          } else {
             connectionState = 'Offline';
           }
           return Text(

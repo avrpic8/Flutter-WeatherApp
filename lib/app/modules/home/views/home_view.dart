@@ -19,6 +19,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final double deviceWidth = Get.width;
     final double deviceHeight = Get.height;
+    print(MediaQuery.of(context).viewInsets.bottom);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(),
@@ -93,10 +94,10 @@ class HomeView extends GetView<HomeController> {
           size: 30,
         ),
         onPressed: () {
-          gotoPage(path: Routes.SEARCH, nextStatusScreenColor: Colors.blue);
-          if (connectionCtr.connectionStatus.value != noneInternet) {
-            //controller.getWeatherByCityName(cityName: 'Esfahan');
-            controller.getWeatherByGpsData(lat: '32.3939', lon: '51.4144');
+          goToPage(path: Routes.SEARCH, nextStatusScreenColor: Colors.blue);
+          if (connectionCtr.connectionState != noneInternet) {
+            controller.getWeatherByCityName(cityName: 'Esfahan');
+            //controller.getWeatherByGpsData(lat: '32.3939', lon: '51.4144');
           }
         },
       ),

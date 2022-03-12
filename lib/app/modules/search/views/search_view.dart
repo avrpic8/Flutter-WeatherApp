@@ -7,7 +7,6 @@ class SearchView extends GetView<SearchController> {
   const SearchView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print('hi1');
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(

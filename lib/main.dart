@@ -7,22 +7,17 @@ import 'app/routes/app_pages.dart';
 
 void main() async {
   // wait 40 msec for startup app issue
-  await Future.delayed(40.milliseconds);
+  await Future.delayed(50.milliseconds);
   WidgetsFlutterBinding.ensureInitialized();
 
   // init system ui
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemStatusBarContrastEnforced: true,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarDividerColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent));
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
-      overlays: [SystemUiOverlay.bottom]);
 
   // certificate for http protocol
   HttpOverrides.global = MyHttpOverrides();
+  print(Platform.isAndroid);
   runApp(const MyApp());
 }
 
