@@ -4,7 +4,6 @@ import 'package:flutter_weather/app/modules/search/controllers/search_controller
 import 'package:get/state_manager.dart';
 
 class SearchView extends GetView<SearchController> {
-  final controller = Get.put(HomeController(repository: RepositoryImp(service: HttpService())));
   const SearchView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

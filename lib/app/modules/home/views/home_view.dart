@@ -7,6 +7,7 @@ import 'package:flutter_weather/app/modules/connection/connection_view.dart';
 import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_weather_page.dart';
 import 'package:flutter_weather/app/modules/home/widgets/dot_pager.dart';
+import 'package:flutter_weather/app/routes/app_pages.dart';
 import 'package:flutter_weather/app/widgets/emptyState.dart';
 import 'package:flutter_weather/app/widgets/loading.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,6 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final double deviceWidth = Get.width;
     final double deviceHeight = Get.height;
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(),
@@ -93,6 +93,7 @@ class HomeView extends GetView<HomeController> {
           size: 30,
         ),
         onPressed: () {
+          gotoPage(path: Routes.SEARCH, nextStatusScreenColor: Colors.blue);
           if (connectionCtr.connectionStatus.value != noneInternet) {
             //controller.getWeatherByCityName(cityName: 'Esfahan');
             controller.getWeatherByGpsData(lat: '32.3939', lon: '51.4144');

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/data/models/geocoding/direct_geocoding.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
@@ -57,8 +59,7 @@ class HomeController extends GetxController {
     WeatherData data = await getWeatherByCoordinate(
         lat: geocodingData.lat.toString(), lon: geocodingData.lon.toString());
 
-    _weatherDataList.add(
-        MainWeather(cityName: cityName, weatherData: data));
+    _weatherDataList.add(MainWeather(cityName: cityName, weatherData: data));
   }
 
   void getWeatherByGpsData({required String lat, required String lon}) async {
