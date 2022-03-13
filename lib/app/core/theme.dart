@@ -8,8 +8,26 @@ final emptyTextTheme = GoogleFonts.lato(
   fontWeight: FontWeight.w600,
 );
 
+final cityNameCurrentWeather = GoogleFonts.lato(
+  fontSize: 35,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);
+
+final dateCurrentWeather = GoogleFonts.lato(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);
+
 final connectionStatus = GoogleFonts.lato(
   color: Colors.black,
   fontSize: 10,
+  fontWeight: FontWeight.bold,
+);
+
+final hintTextSearchStyle = GoogleFonts.lato(
+  color: Colors.black26,
+  fontSize: 16,
   fontWeight: FontWeight.bold,
 );

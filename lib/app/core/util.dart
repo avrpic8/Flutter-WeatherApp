@@ -11,7 +11,7 @@ double getSystemNavigationHeight() {
 /// Change status bar color for every screen
 void goToPage(
     {required String path,
-    required Color nextStatusScreenColor,
+     Color nextStatusScreenColor = Colors.transparent,
     Color previousStatusScreenColor = Colors.transparent}) {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,

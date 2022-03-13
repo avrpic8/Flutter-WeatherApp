@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
 import 'package:flutter_weather/app/modules/connection/connection_view.dart';
@@ -29,7 +28,7 @@ class HomeView extends GetView<HomeController> {
         child: Stack(
           children: [
             weatherBackground(
-                width: deviceWidth, height: deviceHeight, weatherId: 500),
+                width: deviceWidth, height: deviceHeight, weatherId: 900),
             Positioned(
               top: deviceHeight * 0.13,
               right: 0,
@@ -52,6 +51,7 @@ class HomeView extends GetView<HomeController> {
                     itemBuilder: (context, index) {
                       return CurrentWeatherPage(
                         data: controller.weatherList[index],
+                        weatherArrayIndex: index,
                       );
                     },
                   );
@@ -89,27 +89,21 @@ class HomeView extends GetView<HomeController> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
+        onPressed: () {},
         icon: Icon(
-          Icons.search,
+          Icons.menu,
           size: 30,
         ),
-        onPressed: () {
-          goToPage(path: Routes.SEARCH, nextStatusScreenColor: Colors.blue);
-          if (connectionCtr.connectionState != noneInternet) {
-            controller.getWeatherByCityName(cityName: 'Esfahan');
-            //controller.getWeatherByGpsData(lat: '32.3939', lon: '51.4144');
-          }
-        },
       ),
       actions: [
         IconButton(
-          onPressed: () {},
-          icon: SvgPicture.asset(
-            'assets/images/menu.svg',
-            color: Colors.white,
-            width: 30,
-            height: 30,
+          icon: Icon(
+            Icons.search,
+            size: 30,
           ),
+          onPressed: () {
+            goToPage(path: Routes.SEARCH, nextStatusScreenColor: Colors.blue);
+          },
         )
       ],
     );

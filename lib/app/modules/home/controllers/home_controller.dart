@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/data/models/geocoding/direct_geocoding.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
@@ -38,7 +36,6 @@ class HomeController extends GetxController {
   RxInt get selectedPageIndex => _selectedWeatherPageIndex;
 
   void getWeatherByCityName({required String cityName}) async {
-    _enableLoading();
     DirectGeocoding geocodingData = await repository.getCoordinateByCityName(
         onError: (error) {
           print(error);
@@ -52,18 +49,17 @@ class HomeController extends GetxController {
               print('hi');
               Get.snackbar('Error', 'Time out, please try later');
             }
+          } else {
+            Get.snackbar('Sorry', 'Not found city');
           }
         },
         cityName: cityName);
-
     WeatherData data = await getWeatherByCoordinate(
         lat: geocodingData.lat.toString(), lon: geocodingData.lon.toString());
-
     _weatherDataList.add(MainWeather(cityName: cityName, weatherData: data));
   }
 
   void getWeatherByGpsData({required String lat, required String lon}) async {
-    _enableLoading();
     DirectGeocoding geocodingData = await repository.getCityNameByCoordinate(
       onError: (error) {
         print(error);
@@ -77,6 +73,8 @@ class HomeController extends GetxController {
             print('hi');
             Get.snackbar('Error', 'Time out, please try later');
           }
+        } else {
+          Get.snackbar('Sorry', 'Not found city');
         }
       },
       lat: lat,
@@ -84,7 +82,18 @@ class HomeController extends GetxController {
     );
     WeatherData data = await getWeatherByCoordinate(lat: lat, lon: lon);
     _weatherDataList.add(
-        MainWeather(cityName: geocodingData.localNames.en!, weatherData: data));
+        MainWeather(cityName: geocodingData.localNames!.en, weatherData: data));
+  }
+
+  void updateCurrentWeather(
+      {required MainWeather weather, required int weatherIndex}) async {
+    var lat = weather.weatherData.lat;
+    var lon = weather.weatherData.lon;
+    var updatedWeather =
+        await getWeatherByCoordinate(lat: lat.toString(), lon: lon.toString());
+    _weatherDataList.removeAt(weatherIndex);
+    _weatherDataList.insert(weatherIndex,
+        MainWeather(weatherData: updatedWeather, cityName: weather.cityName));
   }
 
   Future<WeatherData> getWeatherByCoordinate(
@@ -92,8 +101,8 @@ class HomeController extends GetxController {
     _enableLoading();
     WeatherData weatherData = await repository.getWeatherByCoordinate(
         onError: (error) {
-          print(error);
           _disableLoading();
+          print(error);
           if (error is DioError) {
             if (error.type == DioErrorType.response) {
               if (error.response!.statusCode == notFoundError) {

@@ -55,7 +55,7 @@ class Current {
         visibility: json["visibility"],
         windSpeed: json["wind_speed"].toDouble(),
         windDeg: json["wind_deg"],
-        windGust: json["wind_gust"].toDouble(),
+        windGust: json["wind_gust"] == null ? null : json["wind_gust"].toDouble(),
         weather:
             List<Weather>.from(json["weather"].map((x) => Weather.fromMap(x))),
       );

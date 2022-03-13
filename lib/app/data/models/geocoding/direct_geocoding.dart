@@ -2,20 +2,20 @@ import 'dart:convert';
 
 class DirectGeocoding {
   DirectGeocoding({
-    required this.name,
-    required this.localNames,
-    required this.lat,
-    required this.lon,
-    required this.country,
-    required this.state,
+    this.name,
+    this.localNames,
+    this.lat,
+    this.lon,
+    this.country,
+    this.state,
   });
 
-  final String name;
-  final LocalNames localNames;
-  final double lat;
-  final double lon;
-  final String country;
-  final String state;
+  final String? name;
+  final LocalNames? localNames;
+  final double? lat;
+  final double? lon;
+  final String? country;
+  final String? state;
 
   factory DirectGeocoding.fromJson(String str) =>
       DirectGeocoding.fromMap(json.decode(str));
@@ -24,16 +24,18 @@ class DirectGeocoding {
 
   factory DirectGeocoding.fromMap(Map<String, dynamic> json) => DirectGeocoding(
         name: json["name"],
-        localNames: LocalNames.fromMap(json["local_names"]),
+        localNames: json['local_names'] == null
+            ? null
+            : LocalNames.fromMap(json["local_names"]),
         lat: json["lat"].toDouble(),
         lon: json["lon"].toDouble(),
         country: json["country"],
-        state: json["state"],
+        state: json["state"] == null ? null : json["state"],
       );
 
   Map<String, dynamic> toMap() => {
         "name": name,
-        "local_names": localNames.toMap(),
+        "local_names": localNames!.toMap(),
         "lat": lat,
         "lon": lon,
         "country": country,

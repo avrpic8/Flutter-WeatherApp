@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_weather/app/core/constants.dart';
+import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
+import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
+import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_weather/app/modules/home/widgets/refresh.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
+  final homeCtr = Get.find<HomeController>();
+  final connectionCtr = Get.find<ConnectionController>();
+
   final MainWeather data;
-  const CurrentWeatherPage({
+  final int weatherArrayIndex;
+  CurrentWeatherPage({
     Key? key,
     required this.data,
+    required this.weatherArrayIndex,
   }) : super(key: key);
 
   @override
@@ -38,22 +48,39 @@ class CurrentWeatherPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
-                          data.cityName,
-                          style: GoogleFonts.lato(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Expanded(
+                              child: Text(data.cityName!,
+                                  style: cityNameCurrentWeather),
+                            ),
+                            Text(
+                              data.weatherData.timezone!,
+                              style:
+                                  cityNameCurrentWeather.copyWith(fontSize: 15),
+                            )
+                          ],
                         ),
-                        Text(
-                          //'07:50 PM- Modndey, 9 nov 2022',
-                          data.weatherData.current!.dt!.unixToDate(),
-                          style: GoogleFonts.lato(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                  data.weatherData.current!.dt!.unixToDate(),
+                                  style: dateCurrentWeather),
+                            ),
+                            Refresh(
+                              onTap: () {
+                                if (connectionCtr.connectionState !=
+                                    noneInternet) {
+                                  homeCtr.updateCurrentWeather(
+                                      weather: data,
+                                      weatherIndex: weatherArrayIndex);
+                                }
+                              },
+                            )
+                          ],
                         )
                       ],
                     ),
