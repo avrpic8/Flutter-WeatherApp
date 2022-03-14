@@ -85,17 +85,6 @@ class HomeController extends GetxController {
         MainWeather(cityName: geocodingData.localNames!.en, weatherData: data));
   }
 
-  void updateCurrentWeather(
-      {required MainWeather weather, required int weatherIndex}) async {
-    var lat = weather.weatherData.lat;
-    var lon = weather.weatherData.lon;
-    var updatedWeather =
-        await getWeatherByCoordinate(lat: lat.toString(), lon: lon.toString());
-    _weatherDataList.removeAt(weatherIndex);
-    _weatherDataList.insert(weatherIndex,
-        MainWeather(weatherData: updatedWeather, cityName: weather.cityName));
-  }
-
   Future<WeatherData> getWeatherByCoordinate(
       {required String lat, required String lon}) async {
     _enableLoading();

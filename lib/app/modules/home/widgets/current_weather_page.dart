@@ -5,22 +5,21 @@ import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
+import 'package:flutter_weather/app/modules/home/controllers/current_weather_controller.dart';
 import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_weather/app/modules/home/widgets/current_temp.dart';
+import 'package:flutter_weather/app/modules/home/widgets/current_wph.dart';
 import 'package:flutter_weather/app/modules/home/widgets/refresh.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
-  final homeCtr = Get.find<HomeController>();
-  final connectionCtr = Get.find<ConnectionController>();
-
   final MainWeather data;
-  final int weatherArrayIndex;
+  final controller = Get.put(CurrentWeatherController());
   CurrentWeatherPage({
     Key? key,
     required this.data,
-    required this.weatherArrayIndex,
   }) : super(key: key);
 
   @override
@@ -68,16 +67,11 @@ class CurrentWeatherPage extends StatelessWidget {
                             Expanded(
                               child: Text(
                                   data.weatherData.current!.dt!.unixToDate(),
-                                  style: dateCurrentWeather),
+                                  style: cityNameCurrentWeather.copyWith(fontSize: 14)),
                             ),
                             Refresh(
                               onTap: () {
-                                if (connectionCtr.connectionState !=
-                                    noneInternet) {
-                                  homeCtr.updateCurrentWeather(
-                                      weather: data,
-                                      weatherIndex: weatherArrayIndex);
-                                }
+                                controller.updateCurrentWeather(weather: data);
                               },
                             )
                           ],
@@ -85,166 +79,20 @@ class CurrentWeatherPage extends StatelessWidget {
                       ],
                     ),
                     Divider(
-                      height: deviceHeight * 0.25,
+                      height: deviceHeight * 0.32,
                       color: Colors.transparent,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${data.weatherData.current!.temp!.kelvinToCelsius()}\u2103',
-                          style: GoogleFonts.lato(
-                            fontSize: 85,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/weatherSvg/cloudy.svg',
-                              width: 34,
-                              height: 34,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              data.weatherData.current!.weather![0].description
-                                  .capitalize(),
-                              style: GoogleFonts.lato(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
+                    CurrentTemp(
+                      currentTemp: data.weatherData.current!.temp,
+                      description:
+                          data.weatherData.current!.weather![0].description,
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Divider(
-                thickness: 1.5,
-                color: Colors.white30,
-              ),
-              SizedBox(
-                height: 6,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8, 0, 8, 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          'Wind',
-                          style: GoogleFonts.lato(
-                              fontSize: 12, color: Colors.white),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              data.weatherData.current!.windSpeed!
-                                  .toStringAsFixed(1),
-                              style: GoogleFonts.lato(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'm/sec',
-                              style: GoogleFonts.lato(
-                                  fontSize: 12, color: Colors.white),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          'Pressure',
-                          style: GoogleFonts.lato(
-                              fontSize: 12, color: Colors.white),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              data.weatherData.current!.pressure.toString(),
-                              style: GoogleFonts.lato(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              ' hPa',
-                              style: GoogleFonts.lato(
-                                  fontSize: 12, color: Colors.white),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          'Humidity',
-                          style: GoogleFonts.lato(
-                              fontSize: 12, color: Colors.white),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              data.weatherData.current!.humidity.toString(),
-                              style: GoogleFonts.lato(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              '%',
-                              style: GoogleFonts.lato(
-                                  fontSize: 12, color: Colors.white),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          CurrentWhp(data: data.weatherData),
           SizedBox(
             height: getSystemNavigationHeight(),
           )

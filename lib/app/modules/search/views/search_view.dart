@@ -8,8 +8,12 @@ class SearchView extends GetView<SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.gps_fixed)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          controller.getUserPostionAndExit();
+        },
+        child: Icon(Icons.gps_fixed),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Container(

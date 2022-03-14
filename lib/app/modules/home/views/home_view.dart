@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
 import 'package:flutter_weather/app/modules/connection/connection_view.dart';
 import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_weather/app/modules/home/widgets/background.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_weather_page.dart';
 import 'package:flutter_weather/app/modules/home/widgets/dot_pager.dart';
 import 'package:flutter_weather/app/routes/app_pages.dart';
@@ -22,13 +22,15 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(),
+      drawer: SafeArea(child: Drawer()),
       body: Container(
         width: deviceWidth,
         height: deviceHeight,
         child: Stack(
           children: [
-            weatherBackground(
-                width: deviceWidth, height: deviceHeight, weatherId: 900),
+            BackGround(
+                width: deviceWidth,
+                height: deviceHeight),
             Positioned(
               top: deviceHeight * 0.13,
               right: 0,
@@ -50,9 +52,7 @@ class HomeView extends GetView<HomeController> {
                     itemCount: controller.weatherList.length,
                     itemBuilder: (context, index) {
                       return CurrentWeatherPage(
-                        data: controller.weatherList[index],
-                        weatherArrayIndex: index,
-                      );
+                          data: controller.weatherList[index]);
                     },
                   );
                 } else {
@@ -88,11 +88,13 @@ class HomeView extends GetView<HomeController> {
       centerTitle: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: IconButton(
-        onPressed: () {},
-        icon: Icon(
-          Icons.menu,
-          size: 30,
+      leading: Builder(
+        builder: (context) => IconButton(
+          onPressed: () => Scaffold.of(context).openDrawer(),
+          icon: Icon(
+            Icons.menu,
+            size: 30,
+          ),
         ),
       ),
       actions: [
@@ -105,24 +107,6 @@ class HomeView extends GetView<HomeController> {
             goToPage(path: Routes.SEARCH, nextStatusScreenColor: Colors.blue);
           },
         )
-      ],
-    );
-  }
-
-  Widget weatherBackground(
-      {required double width, required double height, required int weatherId}) {
-    String path = getWeatherConditions(weatherId);
-    return Stack(
-      children: [
-        Image.asset(
-          path,
-          fit: BoxFit.cover,
-          width: width,
-          height: height,
-        ),
-        Container(
-          color: Colors.black.withOpacity(0.2),
-        ),
       ],
     );
   }

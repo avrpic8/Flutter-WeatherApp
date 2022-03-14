@@ -14,11 +14,13 @@ final cityNameCurrentWeather = GoogleFonts.lato(
   color: Colors.white,
 );
 
-final dateCurrentWeather = GoogleFonts.lato(
-  fontSize: 14,
-  fontWeight: FontWeight.bold,
+final tempCurrentWeather = GoogleFonts.lato(
+  fontSize: 85,
+  fontWeight: FontWeight.w300,
   color: Colors.white,
 );
+
+final wphCurrentWeather = GoogleFonts.lato(fontSize: 12, color: Colors.white);
 
 final connectionStatus = GoogleFonts.lato(
   color: Colors.black,
