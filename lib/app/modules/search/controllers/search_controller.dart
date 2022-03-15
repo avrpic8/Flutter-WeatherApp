@@ -8,11 +8,11 @@ class SearchController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final TextEditingController editCtr = TextEditingController();
 
-  void getUserPostionAndExit() async {
+  void getUserPostionAndExit(BuildContext context) async {
     Position position = await _getPosition();
-    homeCtr.getWeatherByGpsData(
+    await homeCtr.getWeatherByGpsData(
         lat: position.latitude.toString(), lon: position.longitude.toString());
-    Get.back();
+    Navigator.of(context).pop();
   }
 
   Future<Position> _getPosition() async {

@@ -28,9 +28,7 @@ class HomeView extends GetView<HomeController> {
         height: deviceHeight,
         child: Stack(
           children: [
-            BackGround(
-                width: deviceWidth,
-                height: deviceHeight),
+            BackGround(width: deviceWidth, height: deviceHeight),
             Positioned(
               top: deviceHeight * 0.13,
               right: 0,
@@ -56,7 +54,10 @@ class HomeView extends GetView<HomeController> {
                     },
                   );
                 } else {
-                  return const EmptyState();
+                  return const EmptyState(
+                    iconColor: Colors.amber,
+                    textColor: Colors.white,
+                  );
                 }
               },
             ),
@@ -84,7 +85,7 @@ class HomeView extends GetView<HomeController> {
 
   AppBar appBar() {
     return AppBar(
-      title: Text('Weather app'),
+      title: Text('WeadCast'),
       centerTitle: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -104,7 +105,8 @@ class HomeView extends GetView<HomeController> {
             size: 30,
           ),
           onPressed: () {
-            goToPage(path: Routes.SEARCH, nextStatusScreenColor: Colors.blue);
+            goToPage(
+                path: Routes.SEARCH, nextStatusScreenColor: Colors.black87);
           },
         )
       ],

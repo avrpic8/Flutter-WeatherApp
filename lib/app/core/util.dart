@@ -11,7 +11,7 @@ double getSystemNavigationHeight() {
 /// Change status bar color for every screen
 void goToPage(
     {required String path,
-     Color nextStatusScreenColor = Colors.transparent,
+    Color nextStatusScreenColor = Colors.transparent,
     Color previousStatusScreenColor = Colors.transparent}) {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
@@ -68,8 +68,11 @@ String getWeatherConditions(int id) {
   } else if (id < 700) {
     assetsPath = 'assets/images/background/snow.jpg';
     return assetsPath;
-  } else {
+  } else if (id == 800) {
     assetsPath = 'assets/images/background/sunny.jpg';
+    return assetsPath;
+  } else {
+    assetsPath = 'assets/images/background/rainy.jpg';
     return assetsPath;
   }
 }

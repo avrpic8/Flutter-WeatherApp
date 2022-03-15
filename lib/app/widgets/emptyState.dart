@@ -4,7 +4,13 @@ import 'package:flutter_weather/app/core/theme.dart';
 import 'package:get/get.dart';
 
 class EmptyState extends StatelessWidget {
-  const EmptyState({Key? key}) : super(key: key);
+  final Color iconColor;
+  final Color textColor;
+  const EmptyState({
+    Key? key,
+    this.iconColor = Colors.white,
+    this.textColor = Colors.white,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class EmptyState extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/images/weatherSvg/empty.svg',
-              color: Colors.white,
+              color: iconColor,
               width: 100,
               height: 100,
             ),
@@ -28,7 +34,7 @@ class EmptyState extends StatelessWidget {
             ),
             Text(
               'Please search your first city',
-              style: emptyTextTheme,
+              style: emptyTextTheme.copyWith(color: textColor),
             )
           ],
         ),

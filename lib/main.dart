@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/modules/connection/connection_binding.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
   // wait 40 msec for startup app issue
-  await Future.delayed(50.milliseconds);
-  WidgetsFlutterBinding.ensureInitialized();
+  ///await Future.delayed(50.milliseconds);
+  await Hive.initFlutter();
 
   // init system ui
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

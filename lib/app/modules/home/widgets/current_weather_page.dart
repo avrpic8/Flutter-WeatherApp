@@ -67,7 +67,8 @@ class CurrentWeatherPage extends StatelessWidget {
                             Expanded(
                               child: Text(
                                   data.weatherData.current!.dt!.unixToDate(),
-                                  style: cityNameCurrentWeather.copyWith(fontSize: 14)),
+                                  style: cityNameCurrentWeather.copyWith(
+                                      fontSize: 14)),
                             ),
                             Refresh(
                               onTap: () {
@@ -79,7 +80,7 @@ class CurrentWeatherPage extends StatelessWidget {
                       ],
                     ),
                     Divider(
-                      height: deviceHeight * 0.32,
+                      height: deviceHeight * 0.28,
                       color: Colors.transparent,
                     ),
                     CurrentTemp(

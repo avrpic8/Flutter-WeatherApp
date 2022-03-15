@@ -59,7 +59,8 @@ class HomeController extends GetxController {
     _weatherDataList.add(MainWeather(cityName: cityName, weatherData: data));
   }
 
-  void getWeatherByGpsData({required String lat, required String lon}) async {
+  Future<void> getWeatherByGpsData(
+      {required String lat, required String lon}) async {
     DirectGeocoding geocodingData = await repository.getCityNameByCoordinate(
       onError: (error) {
         print(error);
