@@ -54,7 +54,7 @@ class HomeView extends GetView<HomeController> {
                     },
                   );
                 } else {
-                  return const EmptyState(
+                  return EmptyState(
                     iconColor: Colors.amber,
                     textColor: Colors.white,
                   );

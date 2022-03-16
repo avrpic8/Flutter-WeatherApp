@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:hive_flutter/hive_flutter.dart';
+part 'weather.g.dart';
+@HiveType(typeId: 4)
 class Weather {
   Weather({
     this.id,
@@ -8,9 +11,13 @@ class Weather {
     this.icon,
   });
 
+  @HiveType(typeId: 0)
   final int? id;
+  @HiveType(typeId: 1)
   final String? main;
+  @HiveType(typeId: 2)
   final String? description;
+  @HiveType(typeId: 3)
   final String? icon;
 
   factory Weather.fromJson(String str) => Weather.fromMap(json.decode(str));

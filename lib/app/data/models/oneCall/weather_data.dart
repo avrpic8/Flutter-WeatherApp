@@ -3,7 +3,11 @@ import 'dart:convert';
 import 'package:flutter_weather/app/data/models/oneCall/alert.dart';
 import 'package:flutter_weather/app/data/models/oneCall/current.dart';
 import 'package:flutter_weather/app/data/models/oneCall/daily.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+part 'weather_data.g.dart';
+
+@HiveType(typeId: 1)
 class WeatherData {
   WeatherData({
     this.lat,
@@ -15,12 +19,19 @@ class WeatherData {
     this.alerts,
   });
 
+  @HiveType(typeId: 0)
   final double? lat;
+  @HiveType(typeId: 1)
   final double? lon;
+  @HiveType(typeId: 2)
   final String? timezone;
+  @HiveType(typeId: 3)
   final int? timezoneOffset;
+  @HiveType(typeId: 4)
   final Current? current;
+  @HiveType(typeId: 5)
   final List<Daily>? daily;
+  @HiveType(typeId: 6)
   final List<Alert>? alerts;
 
   factory WeatherData.fromJson(String str) =>

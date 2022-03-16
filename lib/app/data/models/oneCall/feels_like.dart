@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+import 'package:hive_flutter/hive_flutter.dart';
+
+part 'feels_like.g.dart';
+
+@HiveType(typeId: 5)
 class FeelsLike {
   FeelsLike({
     this.day,
@@ -8,9 +13,13 @@ class FeelsLike {
     this.morn,
   });
 
+  @HiveField(0)
   final double? day;
+  @HiveField(1)
   final double? night;
+  @HiveField(2)
   final double? eve;
+  @HiveField(3)
   final double? morn;
 
   factory FeelsLike.fromJson(String str) => FeelsLike.fromMap(json.decode(str));

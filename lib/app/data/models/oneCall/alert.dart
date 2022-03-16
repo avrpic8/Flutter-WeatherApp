@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:hive_flutter/hive_flutter.dart';
+part 'alert.g.dart';
+@HiveType(typeId: 7)
 class Alert {
     Alert({
         this.senderName,
@@ -10,11 +13,17 @@ class Alert {
         this.tags,
     });
 
+    @HiveField(0)
     final String? senderName;
+    @HiveField(1)
     final String? event;
+    @HiveField(2)
     final int? start;
+    @HiveField(3)
     final int? end;
+    @HiveField(4)
     final String? description;
+    @HiveField(5)
     final List<dynamic>? tags;
 
     factory Alert.fromJson(String str) => Alert.fromMap(json.decode(str));

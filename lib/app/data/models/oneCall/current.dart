@@ -1,7 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_weather/app/data/models/oneCall/weather.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+part 'current.g.dart';
+
+@HiveType(typeId: 2)
 class Current {
   Current({
     this.dt,
@@ -21,20 +25,35 @@ class Current {
     this.weather,
   });
 
+  @HiveField(0)
   final int? dt;
+  @HiveField(1)
   final int? sunrise;
+  @HiveField(2)
   final int? sunset;
+  @HiveField(3)
   final double? temp;
+  @HiveField(4)
   final double? feelsLike;
+  @HiveField(5)
   final int? pressure;
+  @HiveField(6)
   final int? humidity;
+  @HiveField(7)
   final double? dewPoint;
+  @HiveField(8)
   final double? uvi;
+  @HiveField(9)
   final int? clouds;
+  @HiveField(10)
   final int? visibility;
+  @HiveField(11)
   final double? windSpeed;
+  @HiveField(12)
   final int? windDeg;
+  @HiveField(13)
   final double? windGust;
+  @HiveField(14)
   final List<Weather>? weather;
 
   factory Current.fromJson(String str) => Current.fromMap(json.decode(str));

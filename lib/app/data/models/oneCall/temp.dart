@@ -1,5 +1,11 @@
 import 'dart:convert';
 
+import 'package:hive_flutter/hive_flutter.dart';
+
+
+part 'temp.g.dart';
+
+@HiveType(typeId: 3)
 class Temp {
   Temp({
     this.day,
@@ -10,11 +16,17 @@ class Temp {
     this.morn,
   });
 
+  @HiveField(0)
   final double? day;
+  @HiveField(1)
   final double? min;
+  @HiveField(2)
   final double? max;
+  @HiveField(3)
   final double? night;
+  @HiveField(4)
   final double? eve;
+  @HiveField(5)
   final double? morn;
 
   factory Temp.fromJson(String str) => Temp.fromMap(json.decode(str));
