@@ -15,6 +15,7 @@ class SearchCityBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller.editCtr,
+      style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.search,

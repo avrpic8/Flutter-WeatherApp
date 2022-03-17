@@ -15,8 +15,9 @@ class CurrentWeatherController extends GetxController {
       int oldIndex = homeCtr.weatherList.indexOf(weather);
       var updatedWeather = await homeCtr.getWeatherByCoordinate(
           lat: lat.toString(), lon: lon.toString());
-      homeCtr.weatherList[oldIndex] =
-          MainWeather(weatherData: updatedWeather, cityName: weather.cityName);
+      weather.weatherData = updatedWeather;
+      homeCtr.createOrUpdateWeather(weather);
+      homeCtr.weatherList[oldIndex] = weather;
     }
   }
 }

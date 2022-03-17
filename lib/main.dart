@@ -21,11 +21,10 @@ void main() async {
       statusBarColor: Colors.transparent));
 
   /// init database
-  initHive();
+  await initHive();
 
   // certificate for http protocol
   HttpOverrides.global = MyHttpOverrides();
-  print(Platform.isAndroid);
   runApp(const MyApp());
 }
 
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void initHive() async {
+Future<void> initHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(MainWeatherAdapter());
   Hive.registerAdapter(WeatherDataAdapter());

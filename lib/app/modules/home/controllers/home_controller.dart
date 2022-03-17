@@ -15,6 +15,16 @@ class HomeController extends GetxController {
 
   HomeController({required this.repository});
 
+  @override
+  void onInit() async {
+    super.onInit();
+
+    List<MainWeather> weatherList = await getAllWeather();
+    if (weatherList.isNotEmpty) {
+      _weatherDataList.assignAll(weatherList);
+    }
+  }
+
   RxBool dataIsReady() {
     if (_loading.value) {
       return false.obs;
@@ -56,7 +66,9 @@ class HomeController extends GetxController {
         cityName: cityName);
     WeatherData data = await getWeatherByCoordinate(
         lat: geocodingData.lat.toString(), lon: geocodingData.lon.toString());
-    _weatherDataList.add(MainWeather(cityName: cityName, weatherData: data));
+    MainWeather weather = MainWeather(cityName: cityName, weatherData: data);
+    repository.createOrUpdateWeather(weather);
+    _weatherDataList.add(weather);
   }
 
   Future<void> getWeatherByGpsData(
@@ -82,8 +94,10 @@ class HomeController extends GetxController {
       lon: lon,
     );
     WeatherData data = await getWeatherByCoordinate(lat: lat, lon: lon);
-    _weatherDataList.add(
-        MainWeather(cityName: geocodingData.localNames!.en, weatherData: data));
+    MainWeather weather =
+        MainWeather(cityName: geocodingData.localNames!.en, weatherData: data);
+    repository.createOrUpdateWeather(weather);
+    _weatherDataList.add(weather);
   }
 
   Future<WeatherData> getWeatherByCoordinate(
@@ -162,5 +176,14 @@ class HomeController extends GetxController {
     _disableLoading();
     Get.snackbar('Success', 'Data has been successfully updated');
     return weatherData;
+  }
+
+  void createOrUpdateWeather(MainWeather data) async {
+    await repository.createOrUpdateWeather(data);
+  }
+
+  Future<List<MainWeather>> getAllWeather() async {
+    List<MainWeather> result = await repository.getAllWeather();
+    return result;
   }
 }

@@ -11,13 +11,13 @@ class Weather {
     this.icon,
   });
 
-  @HiveType(typeId: 0)
+  @HiveField(0)
   final int? id;
-  @HiveType(typeId: 1)
+  @HiveField(1)
   final String? main;
-  @HiveType(typeId: 2)
+  @HiveField(2)
   final String? description;
-  @HiveType(typeId: 3)
+  @HiveField(3)
   final String? icon;
 
   factory Weather.fromJson(String str) => Weather.fromMap(json.decode(str));

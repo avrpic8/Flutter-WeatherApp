@@ -28,7 +28,7 @@ final connectionStatus = GoogleFonts.lato(
 );
 
 final hintTextSearchStyle = GoogleFonts.lato(
-  color: Colors.white,
+  color: Colors.white54,
   fontSize: 16,
   fontWeight: FontWeight.bold,
 );

@@ -92,20 +92,20 @@ class RepositoryImp implements Repository {
   }
 
   @override
-  Future<MainWeather> createOrUpdateWeather(MainWeather data) {
-    // TODO: implement createOrUpdateWeather
-    throw UnimplementedError();
+  Future<MainWeather> createOrUpdateWeather(MainWeather data) async {
+    MainWeather result = await localService.createOrUpdateWeather(data);
+    return result;
   }
 
   @override
-  Future<void> deleteAllWeather() {
-    // TODO: implement deleteAllWeather
-    throw UnimplementedError();
+  Future<void> deleteAllWeather() async {
+    await localService.deleteAllWeather();
   }
 
   @override
-  Future<List<MainWeather>> getAllWeather() {
-    // TODO: implement getAllWeather
-    throw UnimplementedError();
+  Future<List<MainWeather>> getAllWeather() async {
+    List<MainWeather> result = await localService.getAllWeather();
+    return result;
   }
+
 }

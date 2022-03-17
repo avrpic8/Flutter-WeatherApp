@@ -7,7 +7,7 @@ class LocalService extends GetxService {
 
   LocalService({required this.box});
 
-  Future<MainWeather> createOrUpdateWeather(MainWeather data) async{
+  Future<MainWeather> createOrUpdateWeather(MainWeather data) async {
     if (data.isInBox) {
       data.save();
     } else {
@@ -15,8 +15,8 @@ class LocalService extends GetxService {
     }
     return data;
   }
-
-  Future<List<MainWeather>> getAllWeather() async{
+  
+  Future<List<MainWeather>> getAllWeather() async {
     return box.values.toList();
   }
 
