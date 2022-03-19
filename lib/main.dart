@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/keys.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppPages.INITIAL,
       initialBinding: ConnectionBinding(),
       getPages: AppPages.routes,
+      scrollBehavior: AppScrollBehavior(),
     );
   }
 }
@@ -63,4 +65,13 @@ class MyHttpOverrides extends HttpOverrides {
       ..badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
   }
+}
+
+/// support scroll for web brousers
+class AppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

@@ -60,7 +60,7 @@ extension StringExtension on String? {
   }
 }
 
-String getWeatherConditions(int id) {
+String getWeatherBackgrounds(int id) {
   String assetsPath = '';
   if (id < 600) {
     assetsPath = 'assets/images/background/rainy.jpg';
@@ -74,5 +74,14 @@ String getWeatherConditions(int id) {
   } else {
     assetsPath = 'assets/images/background/rainy.jpg';
     return assetsPath;
+  }
+}
+
+String getWeatherIcons(int id) {
+  String iconPath = '';
+  if (id < 500) {
+  } else if (id < 600) {
+    iconPath = '';
+    return iconPath;
   }
 }
