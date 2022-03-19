@@ -1,3 +1,5 @@
+import 'package:flutter_weather/app/modules/citymanager/bindings/city_manager_binding.dart';
+import 'package:flutter_weather/app/modules/citymanager/view/city_manager_view.dart';
 import 'package:flutter_weather/app/modules/home/bindings/home_binding.dart';
 import 'package:flutter_weather/app/modules/home/views/home_view.dart';
 import 'package:flutter_weather/app/modules/search/bindings/search_binding.dart';
@@ -18,9 +20,16 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-        name: _Paths.SEARCH,
-        page: () => SearchView(),
-        binding: SearchBinding(),
-        transition: Transition.rightToLeft),
+      name: _Paths.SEARCH,
+      page: () => SearchView(),
+      binding: SearchBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.CITY_MANAGER,
+      page: () => CityManagerView(),
+      binding: CityManagerBinding(),
+      transition: Transition.downToUp,
+    ),
   ];
 }

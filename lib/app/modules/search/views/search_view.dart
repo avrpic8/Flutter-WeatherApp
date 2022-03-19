@@ -11,8 +11,9 @@ class SearchView extends GetView<SearchController> {
     final double deviceHeight = Get.height;
 
     return Scaffold(
+      backgroundColor: Colors.black87,
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           controller.getUserPostionAndExit(context);
         },
         child: Icon(Icons.gps_fixed),
@@ -21,9 +22,6 @@ class SearchView extends GetView<SearchController> {
       body: SafeArea(
         child: Stack(
           children: [
-            Container(
-              color: Colors.black87,
-            ),
             Container(
               width: double.infinity,
               height: deviceHeight,

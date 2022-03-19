@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
 import 'package:flutter_weather/app/modules/connection/connection_view.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_weather/app/modules/home/widgets/background.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_weather_page.dart';
 import 'package:flutter_weather/app/modules/home/widgets/dot_pager.dart';
 import 'package:flutter_weather/app/routes/app_pages.dart';
+import 'package:flutter_weather/app/widgets/drawer.dart';
 import 'package:flutter_weather/app/widgets/emptyState.dart';
 import 'package:flutter_weather/app/widgets/loading.dart';
 import 'package:get/get.dart';
@@ -22,7 +25,9 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(),
-      drawer: SafeArea(child: Drawer()),
+      drawer: SafeArea(
+        child: const MyDrawer(),
+      ),
       body: Container(
         width: deviceWidth,
         height: deviceHeight,
@@ -85,8 +90,15 @@ class HomeView extends GetView<HomeController> {
 
   AppBar appBar() {
     return AppBar(
-      title: Text('WeadCast'),
+      title: Text(
+        'WeadCast',
+        style: normalTextTheme.copyWith(
+            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+      ),
       centerTitle: true,
+      systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light),
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: Builder(
@@ -105,8 +117,7 @@ class HomeView extends GetView<HomeController> {
             size: 30,
           ),
           onPressed: () {
-            goToPage(
-                path: Routes.SEARCH, nextStatusScreenColor: Colors.black87);
+            Get.toNamed(Routes.SEARCH);
           },
         )
       ],

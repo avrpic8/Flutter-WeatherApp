@@ -14,7 +14,7 @@ void goToPage(
     Color nextStatusScreenColor = Colors.transparent,
     Color previousStatusScreenColor = Colors.transparent}) {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
       statusBarColor: nextStatusScreenColor));
   Get.toNamed(path)!.then(
     (_) => SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -62,26 +62,46 @@ extension StringExtension on String? {
 
 String getWeatherBackgrounds(int id) {
   String assetsPath = '';
-  if (id < 600) {
+  if (id >= 200 && id <= 232) {
+    assetsPath = '';
+    return assetsPath;
+  } else if (id >= 500 && id <= 531) {
     assetsPath = 'assets/images/background/rainy.jpg';
     return assetsPath;
-  } else if (id < 700) {
+  } else if (id >= 600 && id <= 622) {
     assetsPath = 'assets/images/background/snow.jpg';
+    return assetsPath;
+  } else if (id >= 701 && id <= 781) {
+    assetsPath = '';
     return assetsPath;
   } else if (id == 800) {
     assetsPath = 'assets/images/background/sunny.jpg';
     return assetsPath;
   } else {
-    assetsPath = 'assets/images/background/rainy.jpg';
+    assetsPath = '';
     return assetsPath;
   }
 }
 
 String getWeatherIcons(int id) {
-  String iconPath = '';
-  if (id < 500) {
-  } else if (id < 600) {
-    iconPath = '';
-    return iconPath;
+  String assetsPath = '';
+  if (id >= 200 && id <= 232) {
+    assetsPath = '';
+    return assetsPath;
+  } else if (id >= 500 && id <= 531) {
+    assetsPath = 'assets/images/background/rainy.jpg';
+    return assetsPath;
+  } else if (id >= 600 && id <= 622) {
+    assetsPath = 'assets/images/background/snow.jpg';
+    return assetsPath;
+  } else if (id >= 701 && id <= 781) {
+    assetsPath = '';
+    return assetsPath;
+  } else if (id == 800) {
+    assetsPath = 'assets/images/background/sunny.jpg';
+    return assetsPath;
+  } else {
+    assetsPath = '';
+    return assetsPath;
   }
 }

@@ -32,3 +32,9 @@ final hintTextSearchStyle = GoogleFonts.lato(
   fontSize: 16,
   fontWeight: FontWeight.bold,
 );
+
+final normalTextTheme = GoogleFonts.lato(
+  fontSize: 14,
+  fontWeight: FontWeight.normal,
+  color: Colors.black12,
+);
