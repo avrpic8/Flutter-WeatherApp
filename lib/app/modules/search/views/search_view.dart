@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/modules/search/controllers/search_controller.dart';
 import 'package:flutter_weather/app/modules/search/widgets/search_city_bar.dart';
 import 'package:flutter_weather/app/widgets/loading.dart';
+import 'package:flutter_weather/app/widgets/my_app_bar.dart';
+
 import 'package:get/get.dart';
 
 class SearchView extends GetView<SearchController> {
@@ -11,8 +14,9 @@ class SearchView extends GetView<SearchController> {
     final double deviceHeight = Get.height;
 
     return Scaffold(
-      backgroundColor: Colors.black87,
+      appBar: MyAppBar(title: 'Search City'),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: secondryColor,
         onPressed: () {
           controller.getUserPostionAndExit(context);
         },

@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 class EmptyState extends StatelessWidget {
   final Color iconColor;
   final Color textColor;
+  final String textEmpty;
   EmptyState({
     Key? key,
     this.iconColor = Colors.white,
     this.textColor = Colors.white,
+    required this.textEmpty,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class EmptyState extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/images/weatherSvg/empty.svg',
-              color: Colors.amber,
+              color: iconColor,
               width: 100,
               height: 100,
             ),
@@ -33,8 +35,8 @@ class EmptyState extends StatelessWidget {
               height: 8,
             ),
             Text(
-              'Please search your first city',
-              style: emptyTextTheme.copyWith(color: Colors.white),
+              textEmpty,
+              style: emptyTextTheme.copyWith(color: textColor),
             )
           ],
         ),

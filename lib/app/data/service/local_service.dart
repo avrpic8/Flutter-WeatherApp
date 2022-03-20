@@ -15,7 +15,7 @@ class LocalService extends GetxService {
     }
     return data;
   }
-  
+
   Future<List<MainWeather>> getAllWeather() async {
     return box.values.toList();
   }

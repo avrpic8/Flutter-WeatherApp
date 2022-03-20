@@ -10,78 +10,80 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      backgroundColor: Colors.black54,
-      child: ListView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            padding: EdgeInsets.zero,
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Container(
-              child: Image.asset(
-                'assets/images/background/header.jpg',
-                fit: BoxFit.cover,
-              ),
+    return Container(
+      width: Get.width * 0.7,
+      child: Drawer(
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              padding: EdgeInsets.zero,
+              decoration: BoxDecoration(color: primaryColor),
+              child: Container(
+                  // child: Image.asset(
+                  //   'assets/images/background/header.jpg',
+                  //   fit: BoxFit.cover,
+                  // ),
+                  ),
             ),
-          ),
-          Column(
-            children: [
-              ListTile(
-                leading: Icon(
-                  Icons.location_searching,
-                  color: Colors.white60,
+            Column(
+              children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.location_searching,
+                    color: Colors.black54,
+                  ),
+                  title: Text(
+                    'City manage',
+                    style: normalTextTheme.copyWith(
+                        color: Colors.black87, fontSize: 16),
+                  ),
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(Routes.CITY_MANAGER);
+                  },
                 ),
-                title: Text(
-                  'City manage',
-                  style: normalTextTheme.copyWith(
-                      color: Colors.white60, fontSize: 16),
+                ListTile(
+                  leading: Icon(
+                    Icons.settings_outlined,
+                    color: Colors.black54,
+                  ),
+                  title: Text(
+                    'Settings',
+                    style: normalTextTheme.copyWith(
+                        color: Colors.black87, fontSize: 16),
+                  ),
+                  onTap: () {},
                 ),
-                onTap: () {
-                  Get.back();
-                  Get.toNamed(Routes.CITY_MANAGER);
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.settings_outlined,
-                  color: Colors.white60,
+                ListTile(
+                  leading: Icon(
+                    Icons.recent_actors,
+                    color: Colors.black54,
+                  ),
+                  title: Text(
+                    'About',
+                    style: normalTextTheme.copyWith(
+                        color: Colors.black87, fontSize: 16),
+                  ),
+                  onTap: () {},
                 ),
-                title: Text(
-                  'Settings',
-                  style: normalTextTheme.copyWith(
-                      color: Colors.white60, fontSize: 16),
+                ListTile(
+                  leading: Icon(
+                    Icons.exit_to_app_rounded,
+                    color: Colors.black54,
+                  ),
+                  title: Text(
+                    'Exit',
+                    style: normalTextTheme.copyWith(
+                        color: Colors.black87, fontSize: 16),
+                  ),
+                  onTap: () {},
                 ),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.recent_actors,
-                  color: Colors.white60,
-                ),
-                title: Text(
-                  'About',
-                  style: normalTextTheme.copyWith(
-                      color: Colors.white60, fontSize: 16),
-                ),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.exit_to_app_rounded,
-                  color: Colors.white60,
-                ),
-                title: Text(
-                  'Exit',
-                  style: normalTextTheme.copyWith(
-                      color: Colors.white60, fontSize: 16),
-                ),
-                onTap: () {},
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

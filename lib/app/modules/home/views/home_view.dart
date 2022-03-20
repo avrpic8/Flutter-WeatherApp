@@ -60,6 +60,7 @@ class HomeView extends GetView<HomeController> {
                   );
                 } else {
                   return EmptyState(
+                    textEmpty: 'Please search your first city',
                     iconColor: Colors.amber,
                     textColor: Colors.white,
                   );

@@ -8,14 +8,14 @@ class SearchCityBar extends StatelessWidget {
 
   const SearchCityBar({
     Key? key,
-    required this.controller, required this.onTap,
+    required this.controller,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller.editCtr,
-      style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.search,
@@ -28,10 +28,10 @@ class SearchCityBar extends StatelessWidget {
           ),
           onPressed: () => onTap(),
         ),
-        hintText: 'Search',
+        hintText: 'Type youre city',
         hintStyle: hintTextSearchStyle,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
         ),
         contentPadding: EdgeInsets.all(0),
         focusedBorder: OutlineInputBorder(

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/app/core/util.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+/// Colors
+final statusBarColor = HexColor.fromHex('#689F38');
+final primaryColor = HexColor.fromHex('#8BC34A');
+final secondryColor = HexColor.fromHex('#8BC34A');
+final backgroundColor = HexColor.fromHex('#282828');
 
 ///  Text widget themes  ///
 final emptyTextTheme = GoogleFonts.lato(
@@ -28,8 +35,8 @@ final connectionStatus = GoogleFonts.lato(
 );
 
 final hintTextSearchStyle = GoogleFonts.lato(
-  color: Colors.white54,
-  fontSize: 16,
+  color: Colors.black45,
+  fontSize: 14,
   fontWeight: FontWeight.bold,
 );
 

@@ -3,14 +3,14 @@ import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/data/models/geocoding/direct_geocoding.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
-import 'package:flutter_weather/app/data/service/repository.dart';
+import 'package:flutter_weather/app/data/service/repository_imp.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  final Repository repository;
+  final RepositoryImp repository;
 
   final RxBool _loading = false.obs;
-  final RxList _weatherDataList = <MainWeather>[].obs;
+  final RxList<MainWeather> _weatherDataList = <MainWeather>[].obs;
   final RxInt _selectedWeatherPageIndex = 0.obs;
 
   HomeController({required this.repository});
@@ -41,7 +41,7 @@ class HomeController extends GetxController {
     _loading.value = false;
   }
 
-  RxList get weatherList => _weatherDataList;
+  RxList<MainWeather> get weatherList => _weatherDataList;
 
   RxInt get selectedPageIndex => _selectedWeatherPageIndex;
 
