@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,14 @@ class SearchController extends GetxController {
   final TextEditingController editCtr = TextEditingController();
 
   void getUserPostionAndExit(BuildContext context) async {
+    final snackBar = SnackBar(
+      content: Text(
+        'Your request is being processed',
+        style: normalTextTheme.copyWith(color: Colors.white),
+      ),
+    );
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     Position position = await _getPosition();
     await homeCtr.getWeatherByGpsData(
         lat: position.latitude.toString(), lon: position.longitude.toString());

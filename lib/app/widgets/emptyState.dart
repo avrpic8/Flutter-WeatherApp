@@ -28,15 +28,15 @@ class EmptyState extends StatelessWidget {
             SvgPicture.asset(
               'assets/images/weatherSvg/empty.svg',
               color: iconColor,
-              width: 100,
-              height: 100,
+              width: 80,
+              height: 80,
             ),
             SizedBox(
               height: 8,
             ),
             Text(
               textEmpty,
-              style: emptyTextTheme.copyWith(color: textColor),
+              style: emptyTextTheme.copyWith(color: textColor, fontSize: 14),
             )
           ],
         ),

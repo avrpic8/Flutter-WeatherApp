@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 
-class Refresh extends StatelessWidget {
+class ReusableIconButton extends StatelessWidget {
+  final double width;
+  final double height;
+  final IconData icon;
+  final double iconSize;
+  final BorderRadius radius;
   final Function() onTap;
 
-  const Refresh({
-    Key? key, required this.onTap,
+  const ReusableIconButton({
+    Key? key,
+    required this.onTap,
+    required this.width,
+    required this.height,
+    required this.icon,
+    this.iconSize = 15,
+    required this.radius,
   }) : super(key: key);
 
   @override
@@ -14,18 +25,18 @@ class Refresh extends StatelessWidget {
       shape: CircleBorder(),
       clipBehavior: Clip.hardEdge,
       child: Container(
-        width: 30,
-        height: 30,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.6),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: radius,
         ),
         child: IconButton(
           onPressed: () => onTap(),
           icon: Icon(
-            Icons.refresh,
+            icon,
             color: Colors.black.withOpacity(0.6),
-            size: 15,
+            size: iconSize,
           ),
         ),
       ),

@@ -5,7 +5,7 @@ import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/modules/home/controllers/current_weather_controller.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_temp.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_wph.dart';
-import 'package:flutter_weather/app/modules/home/widgets/refresh.dart';
+import 'package:flutter_weather/app/modules/home/widgets/reusable_icon_button.dart';
 import 'package:get/get.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
@@ -67,7 +67,23 @@ class CurrentWeatherPage extends StatelessWidget {
                                   style: cityNameCurrentWeather.copyWith(
                                       fontSize: 14)),
                             ),
-                            Refresh(
+                            ReusableIconButton(
+                              width: 30,
+                              height: 30,
+                              icon: Icons.info_outline,
+                              iconSize: 15,
+                              radius: BorderRadius.circular(20),
+                              onTap: () {},
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            ReusableIconButton(
+                              width: 30,
+                              height: 30,
+                              icon: Icons.refresh,
+                              iconSize: 15,
+                              radius: BorderRadius.circular(20),
                               onTap: () {
                                 controller.updateCurrentWeather(weather: data);
                               },

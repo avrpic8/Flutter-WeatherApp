@@ -19,6 +19,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    print(Get.statusBarHeight);
     final double deviceWidth = Get.width;
     final double deviceHeight = Get.height;
     print(MediaQuery.of(context).viewInsets.bottom);
@@ -35,7 +36,8 @@ class HomeView extends GetView<HomeController> {
           children: [
             BackGround(width: deviceWidth, height: deviceHeight),
             Positioned(
-              top: deviceHeight * 0.13,
+              top: getSumOfAppBarAndStatusBarHeight(),
+              //top: deviceHeight * 0.13,
               right: 0,
               left: 0,
               child: Obx(
@@ -68,7 +70,7 @@ class HomeView extends GetView<HomeController> {
               },
             ),
             Positioned(
-              top: deviceHeight * 0.13,
+              top: getSumOfAppBarAndStatusBarHeight(),
               right: 8,
               child: Row(
                 children: [

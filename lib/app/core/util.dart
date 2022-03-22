@@ -8,6 +8,10 @@ double getSystemNavigationHeight() {
   return Get.bottomBarHeight;
 }
 
+double getSumOfAppBarAndStatusBarHeight() {
+  return Get.statusBarHeight + AppBar().preferredSize.height - 10;
+}
+
 /// Change status bar color for every screen
 void goToPage(
     {required String path,
@@ -118,7 +122,7 @@ String getWeatherIcons(int id) {
     assetsPath = 'assets/images/weatherSvg/fewCloude.svg';
     return assetsPath;
   } else if (id == 802) {
-    assetsPath = 'assets/images/weatherSvg/scatteredCloud.svg';
+    assetsPath = 'assets/images/weatherSvg/scatteredCloude.svg';
     return assetsPath;
   } else if (id == 803) {
     assetsPath = 'assets/images/weatherSvg/brokenCloud.svg';

@@ -13,7 +13,9 @@ class CardCity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String path =
+    String imagePath = getWeatherBackgrounds(
+        citydata.weatherData.current!.weather![0].id ?? 800);
+    String iconPath =
         getWeatherIcons(citydata.weatherData.current!.weather![0].id ?? 800);
     return Container(
       margin: EdgeInsets.only(top: 5),
@@ -27,7 +29,7 @@ class CardCity extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: Image.asset(
-              path,
+              imagePath,
               fit: BoxFit.cover,
               width: double.infinity,
             ),
@@ -71,7 +73,7 @@ class CardCity extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            path,
+                            iconPath,
                             color: Colors.white,
                             width: 20,
                             height: 20,

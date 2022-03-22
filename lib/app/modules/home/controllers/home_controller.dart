@@ -18,7 +18,6 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-
     List<MainWeather> weatherList = await getAllWeather();
     if (weatherList.isNotEmpty) {
       _weatherDataList.assignAll(weatherList);
@@ -67,8 +66,9 @@ class HomeController extends GetxController {
     WeatherData data = await getWeatherByCoordinate(
         lat: geocodingData.lat.toString(), lon: geocodingData.lon.toString());
     MainWeather weather = MainWeather(cityName: cityName, weatherData: data);
-    repository.createOrUpdateWeather(weather);
-    _weatherDataList.add(weather);
+    //repository.createOrUpdateWeather(weather);
+    _weatherDataList.insert(0, weather);
+    refreshDataBase();
   }
 
   Future<void> getWeatherByGpsData(
@@ -96,8 +96,9 @@ class HomeController extends GetxController {
     WeatherData data = await getWeatherByCoordinate(lat: lat, lon: lon);
     MainWeather weather =
         MainWeather(cityName: geocodingData.localNames!.en, weatherData: data);
-    repository.createOrUpdateWeather(weather);
-    _weatherDataList.add(weather);
+    //repository.createOrUpdateWeather(weather);
+    _weatherDataList.insert(0, weather);
+    refreshDataBase();
   }
 
   Future<WeatherData> getWeatherByCoordinate(
@@ -185,5 +186,13 @@ class HomeController extends GetxController {
   Future<List<MainWeather>> getAllWeather() async {
     List<MainWeather> result = await repository.getAllWeather();
     return result;
+  }
+
+  void refreshDataBase() async {
+    final tempList = _weatherDataList.toList();
+    await repository.deleteAllWeather();
+    for (var item in tempList) {
+      createOrUpdateWeather(item);
+    }
   }
 }

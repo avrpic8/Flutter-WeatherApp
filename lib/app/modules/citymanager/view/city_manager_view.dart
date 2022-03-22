@@ -28,7 +28,7 @@ class CityManagerView extends GetView<CityManagerController> {
           centerTitle: true,
           actions: [
             IconButton(
-              onPressed: () => controller.removeAllCities(),
+              onPressed: () => controller.removeAllCities(context),
               icon: Icon(Icons.delete_forever),
             ),
           ],
@@ -78,7 +78,7 @@ class CityManagerView extends GetView<CityManagerController> {
                     );
                   } else {
                     return EmptyState(
-                      textEmpty: 'You dont have any cities!',
+                      textEmpty: 'You dont have any cities',
                       iconColor: Colors.grey,
                       textColor: Colors.grey,
                     );
