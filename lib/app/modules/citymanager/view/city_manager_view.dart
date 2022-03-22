@@ -17,7 +17,7 @@ class CityManagerView extends GetView<CityManagerController> {
         appBar: AppBar(
           backgroundColor: primaryColor,
           systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: statusBarColor,
+            statusBarColor: primaryContainerColor,
             statusBarIconBrightness: Brightness.light,
           ),
           title: Text(
@@ -48,10 +48,12 @@ class CityManagerView extends GetView<CityManagerController> {
                       children: [
                         ...controller.tempList.map(
                           (data) {
-                            var index = controller.tempList.indexOf(data);
                             return Dismissible(
-                              key: ValueKey(index),
+                              key: UniqueKey(),
                               direction: DismissDirection.endToStart,
+                              onDismissed: (_) async {
+                                await controller.removeCity(data, context);
+                              },
                               background: Container(
                                 margin: EdgeInsets.only(top: 5),
                                 decoration: BoxDecoration(
@@ -68,11 +70,7 @@ class CityManagerView extends GetView<CityManagerController> {
                                   ),
                                 ),
                               ),
-                              child: CardCity(
-                                  key: ValueKey(index), citydata: data),
-                              onDismissed: (_) {
-                                controller.removeCity(data);
-                              },
+                              child: CardCity(citydata: data),
                             );
                           },
                         ).toList()

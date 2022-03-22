@@ -97,22 +97,34 @@ String getWeatherBackgrounds(int id) {
 String getWeatherIcons(int id) {
   String assetsPath = '';
   if (id >= 200 && id <= 232) {
-    assetsPath = '';
+    assetsPath = 'assets/images/weatherSvg/thunder.svg';
+    return assetsPath;
+  } else if (id >= 300 && id <= 321) {
+    assetsPath = 'assets/images/weatherSvg/showerRain.svg';
     return assetsPath;
   } else if (id >= 500 && id <= 531) {
-    assetsPath = 'assets/images/background/rainy.jpg';
+    assetsPath = 'assets/images/weatherSvg/rain2.svg';
     return assetsPath;
   } else if (id >= 600 && id <= 622) {
-    assetsPath = 'assets/images/background/snow.jpg';
+    assetsPath = 'assets/images/weatherSvg/snow.svg';
     return assetsPath;
   } else if (id >= 701 && id <= 781) {
-    assetsPath = '';
+    assetsPath = 'assets/images/weatherSvg/mist.svg';
     return assetsPath;
   } else if (id == 800) {
-    assetsPath = 'assets/images/background/sunny.jpg';
+    assetsPath = 'assets/images/weatherSvg/clearSky.svg';
+    return assetsPath;
+  } else if (id == 801) {
+    assetsPath = 'assets/images/weatherSvg/fewCloude.svg';
+    return assetsPath;
+  } else if (id == 802) {
+    assetsPath = 'assets/images/weatherSvg/scatteredCloud.svg';
+    return assetsPath;
+  } else if (id == 803) {
+    assetsPath = 'assets/images/weatherSvg/brokenCloud.svg';
     return assetsPath;
   } else {
-    assetsPath = '';
+    assetsPath = 'assets/images/weatherSvg/brokenCloud.svg';
     return assetsPath;
   }
 }

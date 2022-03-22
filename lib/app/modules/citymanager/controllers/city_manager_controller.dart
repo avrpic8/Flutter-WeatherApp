@@ -49,8 +49,24 @@ class CityManagerController extends GetxController {
     await repository.deleteAllWeather();
   }
 
-  void removeCity(MainWeather data) {
+  Future<void> removeCity(MainWeather data, BuildContext context) async {
+    var indexOfRemovedData = tempList.indexOf(data);
+    var removedItem = tempList[indexOfRemovedData];
     tempList.remove(data);
+    final snackBar = SnackBar(
+      content: Text(
+        'You can revers this opration!',
+        style: normalTextTheme.copyWith(color: Colors.white),
+      ),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {
+          tempList.insert(indexOfRemovedData, removedItem);
+          update();
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (tempList.isEmpty) {
       update();
     }

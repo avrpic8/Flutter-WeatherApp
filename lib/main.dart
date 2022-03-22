@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/keys.dart';
+import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/models/oneCall/alert.dart';
 import 'package:flutter_weather/app/data/models/oneCall/current.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
       initialBinding: ConnectionBinding(),
       getPages: AppPages.routes,
       scrollBehavior: AppScrollBehavior(),
+      theme: getLightTheme(),
     );
   }
 }

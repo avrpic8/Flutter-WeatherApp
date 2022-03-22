@@ -7,10 +7,12 @@ class CurrentTemp extends StatelessWidget {
   const CurrentTemp({
     Key? key,
     required this.currentTemp,
+    required this.iconPath,
     required this.description,
   }) : super(key: key);
 
   final double? currentTemp;
+  final String iconPath;
   final String? description;
 
   @override
@@ -25,9 +27,9 @@ class CurrentTemp extends StatelessWidget {
         Row(
           children: [
             SvgPicture.asset(
-              'assets/images/weatherSvg/cloudy.svg',
-              width: 34,
-              height: 34,
+              iconPath,
+              width: 25,
+              height: 25,
               color: Colors.white,
             ),
             SizedBox(

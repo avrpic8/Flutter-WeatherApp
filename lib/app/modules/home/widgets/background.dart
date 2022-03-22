@@ -24,7 +24,6 @@ class BackGround extends StatelessWidget {
               homeCtr.weatherList.elementAt(homeCtr.selectedPageIndex.value);
           int weatherId = weather.weatherData.current!.weather![0].id ?? 500;
           path = getWeatherBackgrounds(weatherId);
-          print('id=$weatherId');
         }
 
         if (homeCtr.weatherList.isNotEmpty) {

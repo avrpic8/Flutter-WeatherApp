@@ -54,6 +54,7 @@ class SearchView extends GetView<SearchController> {
             Obx(
               () => Loading(
                 status: controller.homeCtr.dataIsReady().value,
+                color: Get.theme.colorScheme.secondary,
                 width: 30,
                 height: 30,
               ),

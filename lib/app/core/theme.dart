@@ -3,10 +3,11 @@ import 'package:flutter_weather/app/core/util.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// Colors
-final statusBarColor = HexColor.fromHex('#689F38');
-final primaryColor = HexColor.fromHex('#8BC34A');
-final secondryColor = HexColor.fromHex('#8BC34A');
-final backgroundColor = HexColor.fromHex('#282828');
+final primaryContainerColor = HexColor.fromHex('#303F9F');
+final primaryColor = HexColor.fromHex('#3F51B5');
+final secondryColor = HexColor.fromHex('#7C4DFF');
+final onSecondryColor = Colors.white;
+final backgroundColor = HexColor.fromHex('#C5CAE9');
 
 ///  Text widget themes  ///
 final emptyTextTheme = GoogleFonts.lato(
@@ -45,3 +46,15 @@ final normalTextTheme = GoogleFonts.lato(
   fontWeight: FontWeight.normal,
   color: Colors.black12,
 );
+
+ThemeData getLightTheme() {
+  return ThemeData(
+    colorScheme: ColorScheme.light(
+      primary: primaryColor,
+      primaryContainer: primaryContainerColor,
+      secondary: secondryColor,
+      onSecondary: onSecondryColor,
+      background: backgroundColor,
+    ),
+  );
+}

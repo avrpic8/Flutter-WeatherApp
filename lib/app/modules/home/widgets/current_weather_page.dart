@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
-import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
 import 'package:flutter_weather/app/modules/home/controllers/current_weather_controller.dart';
-import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_temp.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_wph.dart';
 import 'package:flutter_weather/app/modules/home/widgets/refresh.dart';
-
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
   final MainWeather data;
@@ -26,6 +20,9 @@ class CurrentWeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double deviceWidth = Get.width;
     final double deviceHeight = Get.height;
+
+    String path =
+        getWeatherIcons(data.weatherData.current!.weather![0].id ?? 800);
     return Container(
       width: deviceWidth,
       height: deviceHeight,
@@ -85,6 +82,7 @@ class CurrentWeatherPage extends StatelessWidget {
                     ),
                     CurrentTemp(
                       currentTemp: data.weatherData.current!.temp,
+                      iconPath: path,
                       description:
                           data.weatherData.current!.weather![0].description,
                     ),

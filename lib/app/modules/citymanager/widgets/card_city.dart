@@ -13,12 +13,12 @@ class CardCity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String path = getWeatherBackgrounds(
-        citydata.weatherData.current!.weather![0].id ?? 500);
+    String path =
+        getWeatherIcons(citydata.weatherData.current!.weather![0].id ?? 800);
     return Container(
       margin: EdgeInsets.only(top: 5),
       width: double.infinity,
-      height: 100,
+      height: 80,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
       ),
@@ -44,7 +44,7 @@ class CardCity extends StatelessWidget {
               children: [
                 Icon(
                   Icons.menu,
-                  size: 30,
+                  size: 25,
                   color: Colors.white,
                 ),
                 SizedBox(
@@ -71,10 +71,10 @@ class CardCity extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            'assets/images/weatherSvg/cloudy.svg',
+                            path,
                             color: Colors.white,
-                            width: 30,
-                            height: 30,
+                            width: 20,
+                            height: 20,
                           ),
                           Text(
                             citydata
