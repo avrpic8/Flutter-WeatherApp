@@ -6,6 +6,7 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const SEARCH = _Paths.SEARCH;
   static const CITY_MANAGER = _Paths.CITY_MANAGER;
+  static const SETTINGS = _Paths.SETTINGS;
 }
 
 abstract class _Paths {
@@ -13,4 +14,5 @@ abstract class _Paths {
   static const HOME = '/home';
   static const SEARCH = '/search';
   static const CITY_MANAGER = '/cityManager';
+  static const SETTINGS = '/settings';
 }

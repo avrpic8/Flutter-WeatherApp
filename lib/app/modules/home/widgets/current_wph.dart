@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/theme.dart';
+import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
+import 'package:flutter_weather/app/modules/settings/controllers/settings_controller.dart';
+import 'package:get/get.dart';
 
 class CurrentWhp extends StatelessWidget {
+  final settingCtr = Get.find<SettingsController>();
   final WeatherData data;
-  const CurrentWhp({Key? key, required this.data}) : super(key: key);
+  CurrentWhp({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +35,23 @@ class CurrentWhp extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(data.current!.windSpeed!.toStringAsFixed(1),
+                      Obx(
+                        () => Text(
+                          settingCtr.unitFlag.value
+                              ? data.current!.windSpeed!.toMilesPerHour()
+                              : data.current!.windSpeed!.toStringAsFixed(1),
                           style: wphCurrentWeather.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 18)),
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ),
                       SizedBox(
                         width: 8,
                       ),
-                      Text('m/sec', style: wphCurrentWeather),
+                      Obx(
+                        () => Text(
+                            settingCtr.unitFlag.value ? 'miles/hour' : 'm/sec',
+                            style: wphCurrentWeather),
+                      ),
                     ],
                   )
                 ],

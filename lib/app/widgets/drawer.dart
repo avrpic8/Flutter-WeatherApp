@@ -54,7 +54,10 @@ class MyDrawer extends StatelessWidget {
                     style: normalTextTheme.copyWith(
                         color: Colors.black87, fontSize: 16),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(Routes.SETTINGS);
+                  },
                 ),
                 ListTile(
                   leading: Icon(

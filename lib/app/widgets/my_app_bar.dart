@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/theme.dart';
+import 'package:get/get.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -13,9 +14,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: primaryColor,
+      backgroundColor: Get.theme.colorScheme.primary,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: primaryContainerColor,
+        statusBarColor: Get.theme.colorScheme.primaryContainer,
         statusBarIconBrightness: Brightness.light,
       ),
       title: Text(
