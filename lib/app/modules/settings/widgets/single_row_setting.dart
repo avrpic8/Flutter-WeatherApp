@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 
 class SingleRowSetting extends StatelessWidget {
-  final IconData icons;
+  final Color backgroundIconColor;
+  final IconData icon;
+  final Color iconColor;
   final String titleSetting;
   final Widget subtitle;
   final Widget switchWidget;
@@ -10,7 +12,9 @@ class SingleRowSetting extends StatelessWidget {
 
   SingleRowSetting({
     Key? key,
-    required this.icons,
+    this.backgroundIconColor = Colors.black12,
+    required this.icon,
+    this.iconColor = Colors.grey,
     required this.titleSetting,
     required this.subtitle,
     required this.switchWidget,
@@ -28,10 +32,18 @@ class SingleRowSetting extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  icons,
-                  size: 22,
-                  color: Colors.grey,
+                Container(
+                  width: 45,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    color: backgroundIconColor.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    icon,
+                    size: 22,
+                    color: iconColor,
+                  ),
                 ),
                 SizedBox(
                   width: 32,

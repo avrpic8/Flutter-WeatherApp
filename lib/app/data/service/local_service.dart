@@ -1,26 +1,42 @@
+import 'package:flutter_weather/app/core/keys.dart';
+import 'package:flutter_weather/app/data/models/app_settings.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:get/state_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class LocalService extends GetxService {
-  final Box<MainWeather> box;
+  final Box<MainWeather> weatherBox;
+  final Box<AppSettings> settingsBox;
 
-  LocalService({required this.box});
+  LocalService({required this.weatherBox, required this.settingsBox});
 
   Future<MainWeather> createOrUpdateWeather(MainWeather data) async {
     if (data.isInBox) {
       data.save();
     } else {
-      await box.add(data);
+      await weatherBox.add(data);
     }
     return data;
   }
 
   Future<List<MainWeather>> getAllWeather() async {
-    return box.values.toList();
+    return weatherBox.values.toList();
   }
 
   Future<void> deleteAllWeather() {
-    return box.clear();
+    return weatherBox.clear();
+  }
+
+  Future<void> writeSetting(AppSettings data) async {
+    settingsBox.put(dbSettingsKey, data);
+  }
+
+  Future<AppSettings?> readSetting() async {
+    return settingsBox.get(dbSettingsKey,
+        defaultValue: AppSettings(unit: false));
+  }
+
+  Future<void> clear() {
+    return settingsBox.clear();
   }
 }

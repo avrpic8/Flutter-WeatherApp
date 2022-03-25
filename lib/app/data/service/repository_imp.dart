@@ -1,4 +1,5 @@
 import 'package:flutter_weather/app/core/keys.dart';
+import 'package:flutter_weather/app/data/models/app_settings.dart';
 import 'package:flutter_weather/app/data/models/geocoding/direct_geocoding.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
@@ -108,4 +109,18 @@ class RepositoryImp implements Repository {
     return result;
   }
 
+  @override
+  Future<void> writeSetting(AppSettings data) async {
+    localService.writeSetting(data);
+  }
+
+  @override
+  Future<AppSettings?> readSetting() {
+    return localService.readSetting();
+  }
+
+  @override
+  Future<void> clear() async {
+    localService.clear();
+  }
 }

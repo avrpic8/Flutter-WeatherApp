@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/keys.dart';
 import 'package:flutter_weather/app/core/theme.dart';
+import 'package:flutter_weather/app/data/models/app_settings.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/models/oneCall/alert.dart';
 import 'package:flutter_weather/app/data/models/oneCall/current.dart';
@@ -56,8 +57,10 @@ Future<void> initHive() async {
   Hive.registerAdapter(WeatherAdapter());
   Hive.registerAdapter(DailyAdapter());
   Hive.registerAdapter(AlertAdapter());
+  Hive.registerAdapter(AppSettingsAdapter());
 
-  await Hive.openBox<MainWeather>(dbKey);
+  await Hive.openBox<MainWeather>(dbWeatherKey);
+  await Hive.openBox<AppSettings>(dbSettingsKey);
 }
 
 class MyHttpOverrides extends HttpOverrides {

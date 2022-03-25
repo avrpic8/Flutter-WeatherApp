@@ -1,3 +1,4 @@
+import 'package:flutter_weather/app/data/models/app_settings.dart';
 import 'package:flutter_weather/app/data/models/geocoding/direct_geocoding.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
@@ -35,4 +36,10 @@ abstract class Repository {
   Future<List<MainWeather>> getAllWeather();
 
   Future<void> deleteAllWeather();
+
+  Future<void> writeSetting(AppSettings data);
+
+  Future<AppSettings?> readSetting();
+
+  Future<void> clear();
 }

@@ -37,7 +37,7 @@ class CurrentWhp extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          settingCtr.unitFlag.value
+                          settingCtr.unitFlag
                               ? data.current!.windSpeed!.toMilesPerHour()
                               : data.current!.windSpeed!.toStringAsFixed(1),
                           style: wphCurrentWeather.copyWith(
@@ -48,8 +48,7 @@ class CurrentWhp extends StatelessWidget {
                         width: 8,
                       ),
                       Obx(
-                        () => Text(
-                            settingCtr.unitFlag.value ? 'miles/hour' : 'm/sec',
+                        () => Text(settingCtr.unitFlag ? 'miles/hour' : 'm/sec',
                             style: wphCurrentWeather),
                       ),
                     ],

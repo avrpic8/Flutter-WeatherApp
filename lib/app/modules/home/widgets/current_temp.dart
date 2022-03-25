@@ -25,7 +25,7 @@ class CurrentTemp extends StatelessWidget {
       children: [
         Obx(
           () => Text(
-            settingCtr.unitFlag.value
+            settingCtr.unitFlag
                 ? '${currentTemp!.kelvinToFahrenheit()}\u2109'
                 : '${currentTemp!.kelvinToCelsius()}\u2103',
             style: tempCurrentWeather,
