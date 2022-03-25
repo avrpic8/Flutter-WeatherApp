@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/theme.dart';
-import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/modules/settings/controllers/settings_controller.dart';
 import 'package:flutter_weather/app/modules/settings/widgets/single_row_setting.dart';
 import 'package:get/get.dart';
@@ -21,9 +20,9 @@ class ListOfSettings extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(8, 16, 8, 0),
       children: [
         SingleRowSetting(
-          backgroundIconColor: HexColor.fromHex('#70a1ff'),
+          backgroundIconColor: backgroundIconColor1,
           icon: Icons.update,
-          iconColor: HexColor.fromHex('#1e90ff'),
+          iconColor: backgroundIconColor1,
           titleSetting: 'Auto update',
           subtitle: Text(
             'Allow to weather update automatically',
@@ -60,9 +59,9 @@ class ListOfSettings extends StatelessWidget {
           height: 15,
         ),
         SingleRowSetting(
-          backgroundIconColor: HexColor.fromHex('#26de81'),
+          backgroundIconColor: backgroundIconColor2,
           icon: Icons.currency_bitcoin_outlined,
-          iconColor: HexColor.fromHex('#20bf6b'),
+          iconColor: backgroundIconColor2,
           titleSetting: 'Unit values',
           subtitle: Obx(
             () => Text(
@@ -82,7 +81,84 @@ class ListOfSettings extends StatelessWidget {
             ),
           ),
           showDivider: false,
-        )
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        SingleRowSetting(
+          backgroundIconColor: backgroundIconColor3,
+          icon: Icons.notifications,
+          iconColor: backgroundIconColor3,
+          titleSetting: 'Notification',
+          subtitle: Text(
+            controller.unitFlag ? 'Disable' : 'Enable',
+            style: normalTextTheme.copyWith(
+              fontSize: 13,
+              color: Colors.black26,
+            ),
+          ),
+          switchWidget: Obx(
+            () => Switch(
+              value: controller.unitFlag,
+              onChanged: (newValue) {
+                controller.setUnitFlag(newValue);
+              },
+            ),
+          ),
+          showDivider: false,
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        SingleRowSetting(
+          backgroundIconColor: backgroundIconColor4,
+          icon: Icons.palette,
+          iconColor: backgroundIconColor4,
+          titleSetting: 'Notification',
+          subtitle: Text(
+            controller.unitFlag ? 'Disable' : 'Enable',
+            style: normalTextTheme.copyWith(
+              fontSize: 13,
+              color: Colors.black26,
+            ),
+          ),
+          switchWidget: Obx(
+            () => Switch(
+              value: controller.unitFlag,
+              onChanged: (newValue) {
+                controller.setUnitFlag(newValue);
+              },
+            ),
+          ),
+          showDivider: false,
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        SingleRowSetting(
+          backgroundIconColor: backgroundIconColor5,
+          icon: Icons.exit_to_app,
+          iconColor: backgroundIconColor5,
+          titleSetting: 'Ask when exiting from application',
+          subtitle: Obx(
+            () => Text(
+              controller.unitFlag ? 'Enable' : 'Disable',
+              style: normalTextTheme.copyWith(
+                fontSize: 13,
+                color: Colors.black26,
+              ),
+            ),
+          ),
+          switchWidget: Obx(
+            () => Switch(
+              value: controller.unitFlag,
+              onChanged: (newValue) {
+                controller.setUnitFlag(newValue);
+              },
+            ),
+          ),
+          showDivider: false,
+        ),
       ],
     );
   }

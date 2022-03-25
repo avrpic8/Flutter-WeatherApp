@@ -36,7 +36,7 @@ class SingleRowSetting extends StatelessWidget {
                   width: 45,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: backgroundIconColor.withOpacity(0.2),
+                    color: backgroundIconColor.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
@@ -56,7 +56,6 @@ class SingleRowSetting extends StatelessWidget {
                         titleSetting,
                         style: normalTextTheme.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                           color: Colors.black.withOpacity(0.7),
                         ),
                       ),

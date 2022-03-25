@@ -9,6 +9,12 @@ final secondryColor = HexColor.fromHex('#7C4DFF');
 final onSecondryColor = Colors.white;
 final backgroundColor = HexColor.fromHex('#C5CAE9');
 
+final backgroundIconColor1 = HexColor.fromHex('#1e90ff');
+final backgroundIconColor2 = HexColor.fromHex('#20bf6b');
+final backgroundIconColor3 = HexColor.fromHex('#fed330');
+final backgroundIconColor4 = HexColor.fromHex('#0a3d62');
+final backgroundIconColor5 = HexColor.fromHex('#eb3b5a');
+
 ///  Text widget themes  ///
 final emptyTextTheme = GoogleFonts.lato(
   fontSize: 18,
