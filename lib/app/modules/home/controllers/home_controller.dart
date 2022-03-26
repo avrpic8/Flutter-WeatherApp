@@ -4,14 +4,16 @@ import 'package:flutter_weather/app/data/models/geocoding/direct_geocoding.dart'
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
 import 'package:flutter_weather/app/data/service/repository_imp.dart';
+import 'package:flutter_weather/app/core/util.dart';
+import 'package:flutter_weather/app/modules/settings/controllers/settings_controller.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final RepositoryImp repository;
-
   final RxBool _loading = false.obs;
   final RxList<MainWeather> _weatherDataList = <MainWeather>[].obs;
   final RxInt _selectedWeatherPageIndex = 0.obs;
+  final settingCtr = Get.find<SettingsController>();
 
   HomeController({required this.repository});
 
@@ -21,7 +23,11 @@ class HomeController extends GetxController {
     List<MainWeather> weatherList = await getAllWeather();
     if (weatherList.isNotEmpty) {
       _weatherDataList.assignAll(weatherList);
+      checkUpdateTime(weatherList);
+      
+      
     }
+    refreshDataBase();
   }
 
   RxBool dataIsReady() {
@@ -194,5 +200,15 @@ class HomeController extends GetxController {
     for (var item in tempList) {
       createOrUpdateWeather(item);
     }
+  }
+
+  void checkUpdateTime(List<MainWeather> weatherList) {
+    for (var item in weatherList) {
+      var deltaTime = (item.weatherData.current?.dt)!.getDeltaTimeEpoch();
+      if (deltaTime > settingCtr.autoUpdateTime) {
+        getWeatherByCityName(cityName: item.cityName!);
+      }
+    }
+    //_weatherDataList.assignAll(weatherList);
   }
 }

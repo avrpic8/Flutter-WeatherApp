@@ -1,5 +1,4 @@
 import 'package:flutter_weather/app/core/keys.dart';
-import 'package:flutter_weather/app/data/models/app_settings.dart';
 import 'package:flutter_weather/app/data/service/http_service.dart';
 import 'package:flutter_weather/app/data/service/local_service.dart';
 import 'package:flutter_weather/app/data/service/repository_imp.dart';

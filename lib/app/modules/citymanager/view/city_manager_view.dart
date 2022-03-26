@@ -4,8 +4,6 @@ import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/modules/citymanager/controllers/city_manager_controller.dart';
 import 'package:flutter_weather/app/modules/citymanager/widgets/card_city.dart';
 import 'package:flutter_weather/app/widgets/emptyState.dart';
-import 'package:flutter_weather/app/widgets/my_app_bar.dart';
-import 'package:flutter_weather/main.dart';
 import 'package:get/get.dart';
 
 class CityManagerView extends GetView<CityManagerController> {

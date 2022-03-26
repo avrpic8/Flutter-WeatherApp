@@ -48,6 +48,16 @@ extension DateParsing on int {
     final DateFormat formatter = DateFormat('hh:mm  a--  E,  d MMMM yyyy');
     return formatter.format(date);
   }
+
+  int getDeltaTimeEpoch() {
+    var updatedTime = this * 1000; // to milli sec
+    var updatedDate = DateTime.fromMillisecondsSinceEpoch(updatedTime.toInt());
+    var deltaTime = DateTime.parse(updatedDate.toString())
+        .difference(DateTime.now())
+        .inSeconds
+        .abs();
+    return deltaTime;
+  }
 }
 
 /// Conver m/s to miles/h
