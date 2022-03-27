@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/theme.dart';
+import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/modules/search/controllers/search_controller.dart';
 import 'package:flutter_weather/app/modules/search/widgets/search_city_bar.dart';
 import 'package:flutter_weather/app/widgets/loading.dart';
@@ -38,11 +39,13 @@ class SearchView extends GetView<SearchController> {
                       key: controller.formKey,
                       child: SearchCityBar(
                         controller: controller,
-                        onTap: () {
+                        onTap: () async {
                           if (controller.formKey.currentState!.validate()) {
-                            controller.homeCtr.getWeatherByCityName(
-                                cityName: controller.editCtr.text);
-                            Get.back();
+                            MainWeather weather = await controller.mainCtr
+                                .getWeatherByCityName(
+                                    cityName: controller.editCtr.text);
+                            controller.mainCtr.storeData(context, weather);
+                            Navigator.of(context).pop();
                           }
                         },
                       ),
@@ -53,7 +56,7 @@ class SearchView extends GetView<SearchController> {
             ),
             Obx(
               () => Loading(
-                status: controller.homeCtr.dataIsReady().value,
+                status: controller.mainCtr.dataIsReady().value,
                 color: Get.theme.colorScheme.secondary,
                 width: 30,
                 height: 30,

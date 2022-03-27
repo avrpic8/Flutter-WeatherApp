@@ -42,22 +42,22 @@ class HomeView extends GetView<HomeController> {
               left: 0,
               child: Obx(
                 () => DotPager(
-                  dotCount: controller.weatherList.length,
+                  dotCount: controller.mainCtr.weatherList.length,
                   currentIndex: controller.selectedPageIndex.value,
                 ),
               ),
             ),
             Obx(
               () {
-                if (controller.weatherList.isNotEmpty) {
+                if (controller.mainCtr.weatherList.isNotEmpty) {
                   return PageView.builder(
                     physics: const BouncingScrollPhysics(),
                     onPageChanged: (index) =>
                         controller.selectedPageIndex.value = index,
-                    itemCount: controller.weatherList.length,
+                    itemCount: controller.mainCtr.weatherList.length,
                     itemBuilder: (context, index) {
                       return CurrentWeatherPage(
-                          data: controller.weatherList[index]);
+                          data: controller.mainCtr.weatherList[index]);
                     },
                   );
                 } else {
@@ -77,7 +77,7 @@ class HomeView extends GetView<HomeController> {
                   ConnectionView(),
                   Obx(
                     () => Loading(
-                      status: controller.dataIsReady().value,
+                      status: controller.mainCtr.dataIsReady().value,
                       mRight: 2,
                       mLeft: 8,
                     ),

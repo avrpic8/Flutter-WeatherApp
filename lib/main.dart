@@ -13,7 +13,7 @@ import 'package:flutter_weather/app/data/models/oneCall/feels_like.dart';
 import 'package:flutter_weather/app/data/models/oneCall/temp.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather.dart';
 import 'package:flutter_weather/app/data/models/oneCall/weather_data.dart';
-import 'package:flutter_weather/app/modules/connection/connection_binding.dart';
+import 'package:flutter_weather/app/modules/main/main_binding.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'app/routes/app_pages.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,
-      initialBinding: ConnectionBinding(),
+      initialBinding: MainBinding(),
       getPages: AppPages.routes,
       scrollBehavior: AppScrollBehavior(),
       theme: getLightTheme(),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/theme.dart';
-import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_weather/app/data/models/main_weather.dart';
+import 'package:flutter_weather/app/modules/main/main_controller.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class SearchController extends GetxController {
-  final homeCtr = Get.find<HomeController>();
+  final mainCtr = Get.find<MainController>();
+
   final formKey = GlobalKey<FormState>();
   final TextEditingController editCtr = TextEditingController();
 
@@ -19,8 +21,9 @@ class SearchController extends GetxController {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     Position position = await _getPosition();
-    await homeCtr.getWeatherByGpsData(
+    MainWeather weather = await mainCtr.getWeatherByGpsData(
         lat: position.latitude.toString(), lon: position.longitude.toString());
+    mainCtr.storeData(context, weather);
     Navigator.of(context).pop();
   }
 

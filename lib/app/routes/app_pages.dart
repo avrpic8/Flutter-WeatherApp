@@ -4,7 +4,6 @@ import 'package:flutter_weather/app/modules/home/bindings/home_binding.dart';
 import 'package:flutter_weather/app/modules/home/views/home_view.dart';
 import 'package:flutter_weather/app/modules/search/bindings/search_binding.dart';
 import 'package:flutter_weather/app/modules/search/views/search_view.dart';
-import 'package:flutter_weather/app/modules/settings/bindings/settings_binding.dart';
 import 'package:flutter_weather/app/modules/settings/views/settings_view.dart';
 import 'package:get/get.dart';
 
@@ -36,7 +35,6 @@ class AppPages {
     GetPage(
       name: _Paths.SETTINGS,
       page: () => SettingsView(),
-      binding: SettingsBinding(),
       transition: Transition.downToUp,
     ),
   ];

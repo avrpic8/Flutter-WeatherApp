@@ -4,10 +4,12 @@ import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/service/repository_imp.dart';
 import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_weather/app/modules/main/main_controller.dart';
+import 'package:flutter_weather/app/modules/search/controllers/search_controller.dart';
 import 'package:get/get.dart';
 
 class CityManagerController extends GetxController {
-  final homeCtr = Get.find<HomeController>();
+  final mainCtr = Get.find<MainController>();
   final RepositoryImp repository;
   List<MainWeather> tempList = [];
 
@@ -15,7 +17,7 @@ class CityManagerController extends GetxController {
 
   @override
   void onInit() {
-    tempList = homeCtr.weatherList.toList();
+    tempList = mainCtr.weatherList.toList();
     super.onInit();
   }
 
@@ -29,9 +31,9 @@ class CityManagerController extends GetxController {
   }
 
   Future<bool> saveAndExit(List<MainWeather> tempList) async {
-    if (!listEquals(homeCtr.weatherList, tempList)) {
-      homeCtr.weatherList.clear();
-      homeCtr.weatherList.value = tempList;
+    if (!listEquals(mainCtr.weatherList, tempList)) {
+      mainCtr.weatherList.clear();
+      mainCtr.weatherList.value = tempList;
       await deleteAllWeather();
       for (var item in tempList) {
         createOrUpdateWeather(item);
