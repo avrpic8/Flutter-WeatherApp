@@ -4,7 +4,6 @@ import 'package:flutter_weather/app/data/service/local_service.dart';
 import 'package:flutter_weather/app/data/service/repository_imp.dart';
 import 'package:flutter_weather/app/modules/connection/connection_controller.dart';
 import 'package:flutter_weather/app/modules/main/main_controller.dart';
-import 'package:flutter_weather/app/modules/search/controllers/search_controller.dart';
 import 'package:flutter_weather/app/modules/settings/controllers/settings_controller.dart';
 import 'package:get/instance_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -23,7 +22,7 @@ class MainBinding implements Bindings {
       RepositoryImp(localService: localService, remoteService: remoteService),
     );
     Get.put(SettingsController(repository: repository));
-    Get.put(MainController());
+    Get.put(MainController(repository: repository));
     Get.lazyPut<ConnectionController>(() => ConnectionController());
   }
 }

@@ -8,10 +8,11 @@ import 'package:flutter_weather/app/data/service/repository_imp.dart';
 import 'package:get/get.dart';
 
 class MainController extends GetxController {
+  final RepositoryImp repository;
   final RxBool _loading = false.obs;
   final RxList<MainWeather> _weatherDataList = <MainWeather>[].obs;
-
-  final repository = Get.find<RepositoryImp>();
+  
+  MainController({required this.repository});
 
   RxList<MainWeather> get weatherList => _weatherDataList;
 
@@ -39,13 +40,16 @@ class MainController extends GetxController {
           if (error is DioError) {
             if (error.type == DioErrorType.response) {
               if (error.response!.statusCode == notFoundError) {
+                Get.closeCurrentSnackbar();
                 Get.snackbar('Error', 'Server error');
               }
             } else if (error.type == timeOutError) {
               print('hi');
+              Get.closeCurrentSnackbar();
               Get.snackbar('Error', 'Time out, please try later');
             }
           } else {
+            Get.closeCurrentSnackbar();
             Get.snackbar('Sorry', 'Not found city');
           }
         },
@@ -68,13 +72,15 @@ class MainController extends GetxController {
         if (error is DioError) {
           if (error.type == DioErrorType.response) {
             if (error.response!.statusCode == notFoundError) {
+              Get.closeCurrentSnackbar();
               Get.snackbar('Error', 'Server error');
             }
           } else if (error.type == timeOutError) {
-            print('hi');
+            Get.closeCurrentSnackbar();
             Get.snackbar('Error', 'Time out, please try later');
           }
         } else {
+          Get.closeCurrentSnackbar();
           Get.snackbar('Sorry', 'Not found city');
         }
       },
@@ -112,51 +118,56 @@ class MainController extends GetxController {
         lon: lon);
 
     disableLoading();
+    Get.closeCurrentSnackbar();
     Get.snackbar('Success', 'Data has been successfully updated');
     return weatherData;
   }
 
-  // Future<WeatherData> getCurrentWeatherByCoordinate(
-  //     {required String lat, required String lon}) async {
-  //   enableLoading();
-  //   WeatherData weatherData = await repository.getCurrentWeatherByCoordinate(
-  //       onError: (error) {
-  //         print(error);
-  //         disableLoading();
-  //         if (error is DioError) {
-  //           if (error.type == DioErrorType.response) {
-  //             if (error.response!.statusCode == notFoundError) {
-  //               Get.snackbar('Error', 'Server error');
-  //             }
-  //           } else if (error.type == timeOutError) {
-  //             print('hi');
-  //             Get.snackbar('Error', 'Time out, please try later');
-  //           }
-  //         }
-  //       },
-  //       lat: lat,
-  //       lon: lon);
+  Future<WeatherData> getCurrentWeatherByCoordinate(
+      {required String lat, required String lon}) async {
+    enableLoading();
+    WeatherData weatherData = await repository.getCurrentWeatherByCoordinate(
+        onError: (error) {
+          print(error);
+          disableLoading();
+          if (error is DioError) {
+            if (error.type == DioErrorType.response) {
+              if (error.response!.statusCode == notFoundError) {
+                Get.snackbar('Error', 'Server error');
+              }
+            } else if (error.type == timeOutError) {
+              print('hi');
+              Get.snackbar('Error', 'Time out, please try later');
+            }
+          }
+        },
+        lat: lat,
+        lon: lon);
+    return weatherData;
+  }
 
-  // Future<WeatherData> getDailyWeatherByCoordinate(
-  //     {required String lat, required String lon}) async {
-  //   enableLoading();
-  //   WeatherData weatherData = await repository.getDailyWeatherByCoordinate(
-  //       onError: (error) {
-  //         print(error);
-  //         disableLoading();
-  //         if (error is DioError) {
-  //           if (error.type == DioErrorType.response) {
-  //             if (error.response!.statusCode == notFoundError) {
-  //               Get.snackbar('Error', 'Server error');
-  //             }
-  //           } else if (error.type == timeOutError) {
-  //             print('hi');
-  //             Get.snackbar('Error', 'Time out, please try later');
-  //           }
-  //         }
-  //       },
-  //       lat: lat,
-  //       lon: lon);
+  Future<WeatherData> getDailyWeatherByCoordinate(
+      {required String lat, required String lon}) async {
+    enableLoading();
+    WeatherData weatherData = await repository.getDailyWeatherByCoordinate(
+        onError: (error) {
+          print(error);
+          disableLoading();
+          if (error is DioError) {
+            if (error.type == DioErrorType.response) {
+              if (error.response!.statusCode == notFoundError) {
+                Get.snackbar('Error', 'Server error');
+              }
+            } else if (error.type == timeOutError) {
+              print('hi');
+              Get.snackbar('Error', 'Time out, please try later');
+            }
+          }
+        },
+        lat: lat,
+        lon: lon);
+    return weatherData;
+  }
 
   void createOrUpdateWeather(MainWeather data) async {
     await repository.createOrUpdateWeather(data);
