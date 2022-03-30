@@ -5,17 +5,20 @@ import 'package:flutter_weather/app/modules/search/controllers/search_controller
 class SearchCityBar extends StatelessWidget {
   final SearchController controller;
   final Function() onTap;
+  final Function(String text) onTextChange;
 
   const SearchCityBar({
     Key? key,
     required this.controller,
     required this.onTap,
+    required this.onTextChange,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller.editCtr,
+      onChanged: (text) => onTextChange(text),
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.search,

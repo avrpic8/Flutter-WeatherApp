@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/data/service/repository_imp.dart';
-import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_weather/app/modules/main/main_controller.dart';
-import 'package:flutter_weather/app/modules/search/controllers/search_controller.dart';
 import 'package:get/get.dart';
 
 class CityManagerController extends GetxController {

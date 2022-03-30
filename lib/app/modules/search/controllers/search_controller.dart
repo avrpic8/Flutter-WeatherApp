@@ -1,15 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/app/core/keys.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/modules/main/main_controller.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:mapbox_search/mapbox_search.dart';
 
 class SearchController extends GetxController {
   final mainCtr = Get.find<MainController>();
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController editCtr = TextEditingController();
+  RxList<MapBoxPlace> places = <MapBoxPlace>[].obs;
+  late final PlacesSearch placeSearch;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    placeSearch = PlacesSearch(
+      apiKey: mapBoxApiKey,
+      limit: 5,
+    );
+  }
+
+  void searchPlaces(String query) async {
+    mainCtr.enableLoading();
+    List<MapBoxPlace>? listPlace = await placeSearch.getPlaces(query);
+    mainCtr.disableLoading();
+    places.assignAll(listPlace!);
+    print(places);
+  }
+
+  void getUserCityAndExit(BuildContext context, String city) async {
+    MainWeather weather = await mainCtr.getWeatherByCityName(cityName: city);
+    mainCtr.storeData(context, weather);
+    Navigator.of(context).pop();
+  }
 
   void getUserPostionAndExit(BuildContext context) async {
     final snackBar = SnackBar(

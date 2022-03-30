@@ -22,7 +22,7 @@ class RepositoryImp implements Repository {
       'lat': lat,
       'lon': lon,
       'exclude': '',
-      'appid': apiKey
+      'appid': weatherApiKey
     };
     WeatherData weatherData = await remoteService.getWeatherByCoordinate(
         onError: (e) => onError(e), query: query);
@@ -39,7 +39,7 @@ class RepositoryImp implements Repository {
       'lat': lat,
       'lon': lon,
       'exclude': 'minutely,hourly,daily',
-      'appid': apiKey
+      'appid': weatherApiKey
     };
     WeatherData weatherData = await remoteService.getWeatherByCoordinate(
         onError: (e) => onError(e), query: query);
@@ -56,7 +56,7 @@ class RepositoryImp implements Repository {
       'lat': lat,
       'lon': lon,
       'exclude': 'minutely,hourly,current',
-      'appid': apiKey
+      'appid': weatherApiKey
     };
     WeatherData weatherData = await remoteService.getWeatherByCoordinate(
         onError: (e) => onError(e), query: query);
@@ -69,7 +69,7 @@ class RepositoryImp implements Repository {
       required String cityName}) async {
     Map<String, dynamic> query = {
       'q': cityName,
-      'appid': apiKey,
+      'appid': weatherApiKey,
     };
     DirectGeocoding geocodingData = await remoteService.getCoordinateByCityName(
         onError: (error) => onError(error), query: query);
@@ -85,7 +85,7 @@ class RepositoryImp implements Repository {
     Map<String, dynamic> query = {
       'lat': lat,
       'lon': lon,
-      'appid': apiKey,
+      'appid': weatherApiKey,
     };
     DirectGeocoding geocodingData = await remoteService.getCityNameByCoordinate(
         query: query, onError: (error) => onError(error));

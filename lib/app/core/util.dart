@@ -54,7 +54,7 @@ extension DateParsing on int {
     var updatedDate = DateTime.fromMillisecondsSinceEpoch(updatedTime.toInt());
     var deltaTime = DateTime.parse(updatedDate.toString())
         .difference(DateTime.now())
-        .inSeconds
+        .inHours
         .abs();
     print(deltaTime);
     return deltaTime;

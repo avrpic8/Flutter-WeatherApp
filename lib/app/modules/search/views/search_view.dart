@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
+import 'package:flutter_weather/app/modules/citymanager/widgets/place_search_card.dart';
 import 'package:flutter_weather/app/modules/search/controllers/search_controller.dart';
 import 'package:flutter_weather/app/modules/search/widgets/search_city_bar.dart';
 import 'package:flutter_weather/app/widgets/loading.dart';
 import 'package:flutter_weather/app/widgets/my_app_bar.dart';
 
 import 'package:get/get.dart';
+import 'package:mapbox_search/mapbox_search.dart';
 
 class SearchView extends GetView<SearchController> {
   const SearchView({Key? key}) : super(key: key);
@@ -41,16 +43,33 @@ class SearchView extends GetView<SearchController> {
                         controller: controller,
                         onTap: () async {
                           if (controller.formKey.currentState!.validate()) {
-                            MainWeather weather = await controller.mainCtr
-                                .getWeatherByCityName(
-                                    cityName: controller.editCtr.text);
-                            controller.mainCtr.storeData(context, weather);
-                            Navigator.of(context).pop();
+                            controller.getUserCityAndExit(
+                                context, controller.editCtr.text);
                           }
                         },
+                        onTextChange: (text) => controller.searchPlaces(text),
                       ),
                     ),
                   ),
+                  Obx(
+                    () => Expanded(
+                      child: ListView(
+                        padding: EdgeInsets.only(top: 16),
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          ...controller.places
+                              .map(
+                                (element) => PlaceSearchCard(
+                                  controller: controller,
+                                  place: element,
+                                ),
+                              )
+                              .toList()
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
