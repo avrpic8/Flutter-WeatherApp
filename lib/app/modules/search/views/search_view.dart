@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
-import 'package:flutter_weather/app/modules/citymanager/widgets/place_search_card.dart';
+import 'package:flutter_weather/app/modules/search/views/place_search_card.dart';
 import 'package:flutter_weather/app/modules/search/controllers/search_controller.dart';
 import 'package:flutter_weather/app/modules/search/widgets/search_city_bar.dart';
 import 'package:flutter_weather/app/widgets/loading.dart';
