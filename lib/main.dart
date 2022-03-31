@@ -39,16 +39,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AwesomeNotifications()
-    //     .actionStream
-    //     .listen((ReceivedNotification receivedNotification) {
-    //   Navigator.of(context).pushNamed('/NotificationPage', arguments: {
-    //     // your page params. I recommend you to pass the
-    //     // entire *receivedNotification* object
-    //     id: receivedNotification.id
-    //   });
-    // });
-
     return GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,
@@ -78,24 +68,16 @@ Future<void> initHive() async {
 
 void initNotification() {
   AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      'resource://drawable/res_app_icon',
-      [
-        NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: 'basic_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
-            defaultColor: Color(0xFF9D50DD),
-            ledColor: Colors.white)
-      ],
-      // Channel groups are only visual and are not required
-      channelGroups: [
-        NotificationChannelGroup(
-            channelGroupkey: 'basic_channel_group',
-            channelGroupName: 'Basic group')
-      ],
-      debug: true);
+      'resource://drawable/res_notification_app_icon', [
+    NotificationChannel(
+      channelKey: 'basic channel',
+      channelName: 'basic notification',
+      defaultColor: Colors.teal,
+      importance: NotificationImportance.High,
+      channelShowBadge: true,
+      channelDescription: 'descriptions',
+    )
+  ]);    
 }
 
 class MyHttpOverrides extends HttpOverrides {

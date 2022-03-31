@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/theme.dart';
@@ -12,15 +13,19 @@ class HomeController extends GetxController {
   final pageController = PageController();
   final settingCtr = Get.find<SettingsController>();
   final mainCtr = Get.find<MainController>();
+  List<MainWeather> weatherList = [];
 
   @override
   void onInit() async {
     super.onInit();
-    List<MainWeather> weatherList = await mainCtr.getAllWeather();
+    weatherList = await mainCtr.getAllWeather();
     if (weatherList.isNotEmpty) {
       mainCtr.weatherList.assignAll(weatherList);
       autoUpdate(Get.context, weatherList);
     }
+
+    permissionNotifications();
+    createWeatherNotificaion(weatherList[0].cityName!);
   }
 
   RxInt get selectedPageIndex => _selectedWeatherPageIndex;
@@ -53,8 +58,63 @@ class HomeController extends GetxController {
     }
   }
 
+  void permissionNotifications() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        showDialog(
+          context: Get.context!,
+          builder: (context) => AlertDialog(
+            title: Text('Allow notifications'),
+            content: Text('Our app would like to send you notifications'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text(
+                  'Dont\'t Allow',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  AwesomeNotifications()
+                      .requestPermissionToSendNotifications()
+                      .then(
+                        (_) => Get.back(),
+                      );
+                },
+                child: Text(
+                  'Allow',
+                  style: TextStyle(
+                      color: Get.theme.colorScheme.primary,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
+          ),
+        );
+      }
+    });
+  }
+
   void goToFirstPage() {
     pageController.jumpToPage(0);
+  }
+
+  Future<void> createWeatherNotificaion(String firstCity) async {
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+          id: 4,
+          channelKey: 'basic channel',
+          body: firstCity,
+          bigPicture: 'asset://${getWeatherBackgrounds(500)}',
+          notificationLayout: NotificationLayout.BigPicture),
+    );
   }
 
   @override

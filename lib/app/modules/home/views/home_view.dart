@@ -121,7 +121,7 @@ class HomeView extends GetView<HomeController> {
             Icons.search,
             size: 30,
           ),
-          onPressed: () {
+          onPressed: (){
             Get.toNamed(Routes.SEARCH)?.then((_) => controller.goToFirstPage());
           },
         )
