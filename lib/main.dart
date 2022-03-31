@@ -24,7 +24,7 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent));
 
-  initNotification();
+  //initNotification();
 
   /// init database
   await initHive();

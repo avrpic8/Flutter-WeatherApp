@@ -25,7 +25,7 @@ class HomeController extends GetxController {
     }
 
     permissionNotifications();
-    createWeatherNotificaion(weatherList[0].cityName!);
+    //createWeatherNotificaion(weatherList[0].cityName!);
   }
 
   RxInt get selectedPageIndex => _selectedWeatherPageIndex;
