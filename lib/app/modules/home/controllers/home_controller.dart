@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/theme.dart';
@@ -10,6 +9,7 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final RxInt _selectedWeatherPageIndex = 0.obs;
+  final pageController = PageController();
   final settingCtr = Get.find<SettingsController>();
   final mainCtr = Get.find<MainController>();
 
@@ -21,23 +21,6 @@ class HomeController extends GetxController {
       mainCtr.weatherList.assignAll(weatherList);
       autoUpdate(Get.context, weatherList);
     }
-
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        // This is just a basic example. For real apps, you must show some
-        // friendly dialog box before call the request method.
-        // This is very important to not harm the user experience
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
-
-    AwesomeNotifications().createNotification(
-      content: NotificationContent(
-          id: 10,
-          channelKey: 'basic_channel',
-          title: 'Simple Notification',
-          body: 'Simple body'),
-    );
   }
 
   RxInt get selectedPageIndex => _selectedWeatherPageIndex;
@@ -68,5 +51,15 @@ class HomeController extends GetxController {
       mainCtr.weatherList.assignAll(weatherList);
       mainCtr.refreshDataBase();
     }
+  }
+
+  void goToFirstPage() {
+    pageController.jumpToPage(0);
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    pageController.dispose();
   }
 }

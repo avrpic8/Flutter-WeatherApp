@@ -8,6 +8,7 @@ import 'package:flutter_weather/app/modules/home/controllers/home_controller.dar
 import 'package:flutter_weather/app/modules/home/widgets/background.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_weather_page.dart';
 import 'package:flutter_weather/app/modules/home/widgets/dot_pager.dart';
+import 'package:flutter_weather/app/modules/search/views/search_view.dart';
 import 'package:flutter_weather/app/routes/app_pages.dart';
 import 'package:flutter_weather/app/widgets/drawer.dart';
 import 'package:flutter_weather/app/widgets/emptyState.dart';
@@ -54,6 +55,7 @@ class HomeView extends GetView<HomeController> {
                     physics: const BouncingScrollPhysics(),
                     onPageChanged: (index) =>
                         controller.selectedPageIndex.value = index,
+                    controller: controller.pageController,
                     itemCount: controller.mainCtr.weatherList.length,
                     itemBuilder: (context, index) {
                       return CurrentWeatherPage(
@@ -120,7 +122,7 @@ class HomeView extends GetView<HomeController> {
             size: 30,
           ),
           onPressed: () {
-            Get.toNamed(Routes.SEARCH);
+            Get.toNamed(Routes.SEARCH)?.then((_) => controller.goToFirstPage());
           },
         )
       ],
