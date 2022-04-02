@@ -90,18 +90,20 @@ class ListOfSettings extends StatelessWidget {
           icon: Icons.notifications,
           iconColor: backgroundIconColor3,
           titleSetting: 'Notification',
-          subtitle: Text(
-            controller.unitFlag ? 'Disable' : 'Enable',
-            style: normalTextTheme.copyWith(
-              fontSize: 13,
-              color: Colors.black26,
+          subtitle: Obx(
+            () => Text(
+              controller.notificationFlag ? 'Enable' : 'Disable',
+              style: normalTextTheme.copyWith(
+                fontSize: 13,
+                color: Colors.black26,
+              ),
             ),
           ),
           switchWidget: Obx(
             () => Switch(
-              value: controller.unitFlag,
+              value: controller.notificationFlag,
               onChanged: (newValue) {
-                controller.setUnitFlag(newValue);
+                controller.setNotificationFlag(newValue);
               },
             ),
           ),
@@ -137,25 +139,19 @@ class ListOfSettings extends StatelessWidget {
         ),
         SingleRowSetting(
           backgroundIconColor: backgroundIconColor5,
-          icon: Icons.exit_to_app,
+          icon: Icons.storage,
           iconColor: backgroundIconColor5,
-          titleSetting: 'Ask when exiting from application',
-          subtitle: Obx(
-            () => Text(
-              controller.unitFlag ? 'Enable' : 'Disable',
-              style: normalTextTheme.copyWith(
-                fontSize: 13,
-                color: Colors.black26,
-              ),
+          titleSetting: 'DataBase',
+          subtitle: Text(
+            'Remove all stored data',
+            style: normalTextTheme.copyWith(
+              fontSize: 13,
+              color: Colors.black26,
             ),
           ),
-          switchWidget: Obx(
-            () => Switch(
-              value: controller.unitFlag,
-              onChanged: (newValue) {
-                controller.setUnitFlag(newValue);
-              },
-            ),
+          switchWidget: TextButton(
+            child: Text('Clear all'),
+            onPressed: () => controller.removeAllCities(context),
           ),
           showDivider: false,
         ),

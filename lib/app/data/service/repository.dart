@@ -37,6 +37,8 @@ abstract class Repository {
 
   Future<void> deleteAllWeather();
 
+  bool isWeatherListEmpty();
+
   Future<void> writeSetting(AppSettings data);
 
   Future<AppSettings?> readSetting();

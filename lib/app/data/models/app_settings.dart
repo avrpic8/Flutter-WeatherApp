@@ -10,5 +10,12 @@ class AppSettings extends HiveObject {
   @HiveField(1)
   int autoUpdateTime;
 
-  AppSettings({this.unit = false, this.autoUpdateTime = disable});
+  @HiveField(2)
+  bool notification;
+
+  AppSettings({
+    this.unit = false,
+    this.autoUpdateTime = disable,
+    this.notification = true,
+  });
 }

@@ -110,6 +110,11 @@ class RepositoryImp implements Repository {
   }
 
   @override
+  bool isWeatherListEmpty() {
+    return localService.isWeatherListEmpty();
+  }
+
+  @override
   Future<void> writeSetting(AppSettings data) async {
     localService.writeSetting(data);
   }

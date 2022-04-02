@@ -8,7 +8,6 @@ import 'package:flutter_weather/app/modules/home/controllers/home_controller.dar
 import 'package:flutter_weather/app/modules/home/widgets/background.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_weather_page.dart';
 import 'package:flutter_weather/app/modules/home/widgets/dot_pager.dart';
-import 'package:flutter_weather/app/modules/search/views/search_view.dart';
 import 'package:flutter_weather/app/routes/app_pages.dart';
 import 'package:flutter_weather/app/widgets/drawer.dart';
 import 'package:flutter_weather/app/widgets/emptyState.dart';
@@ -121,7 +120,7 @@ class HomeView extends GetView<HomeController> {
             Icons.search,
             size: 30,
           ),
-          onPressed: (){
+          onPressed: () {
             Get.toNamed(Routes.SEARCH)?.then((_) => controller.goToFirstPage());
           },
         )

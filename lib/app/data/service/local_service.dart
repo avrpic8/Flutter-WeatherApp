@@ -27,13 +27,16 @@ class LocalService extends GetxService {
     return weatherBox.clear();
   }
 
+  bool isWeatherListEmpty() {
+    return weatherBox.isEmpty;
+  }
+
   Future<void> writeSetting(AppSettings data) async {
     settingsBox.put(dbSettingsKey, data);
   }
 
   Future<AppSettings?> readSetting() async {
-    return settingsBox.get(dbSettingsKey,
-        defaultValue: AppSettings(unit: false));
+    return settingsBox.get(dbSettingsKey, defaultValue: AppSettings());
   }
 
   Future<void> clear() {

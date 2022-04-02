@@ -24,12 +24,6 @@ class CityManagerView extends GetView<CityManagerController> {
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () => controller.removeAllCities(context),
-              icon: Icon(Icons.delete_forever),
-            ),
-          ],
         ),
         body: Column(
           children: [

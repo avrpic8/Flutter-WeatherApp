@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 
 const int defaultConnectTimeout = 60 * 1000;
 const int defaultReceiveTimeout = 60 * 1000;
@@ -24,6 +25,10 @@ const Map<String, int> autoUpdate = {
   'Three Hour': threeHour,
   'Five Hour': fiveHour
 };
+
+/// Communication with native
+const String channel = "com.smartElectronic.flutter_weather";
+const platform = MethodChannel(channel);
 
 /// Base url for api call
 const String baseUrlOneCall = 'https://api.openweathermap.org/data/2.5';

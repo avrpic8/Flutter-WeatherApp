@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -81,7 +84,10 @@ class MyDrawer extends StatelessWidget {
                     style: normalTextTheme.copyWith(
                         color: Colors.black87, fontSize: 16),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                    SystemNavigator.pop(animated: true);
+                  },
                 ),
               ],
             )

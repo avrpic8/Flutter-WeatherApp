@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
@@ -13,19 +14,21 @@ class HomeController extends GetxController {
   final pageController = PageController();
   final settingCtr = Get.find<SettingsController>();
   final mainCtr = Get.find<MainController>();
-  List<MainWeather> weatherList = [];
 
   @override
   void onInit() async {
     super.onInit();
-    weatherList = await mainCtr.getAllWeather();
+    var weatherList = await mainCtr.getAllWeather();
     if (weatherList.isNotEmpty) {
       mainCtr.weatherList.assignAll(weatherList);
       autoUpdate(Get.context, weatherList);
     }
 
     permissionNotifications();
-    //createWeatherNotificaion(weatherList[0].cityName!);
+    shouldShowNotification(
+      settingController: settingCtr,
+      mainController: mainCtr,
+    );
   }
 
   RxInt get selectedPageIndex => _selectedWeatherPageIndex;
@@ -104,17 +107,6 @@ class HomeController extends GetxController {
 
   void goToFirstPage() {
     pageController.jumpToPage(0);
-  }
-
-  Future<void> createWeatherNotificaion(String firstCity) async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-          id: 4,
-          channelKey: 'basic channel',
-          body: firstCity,
-          bigPicture: 'asset://${getWeatherBackgrounds(500)}',
-          notificationLayout: NotificationLayout.BigPicture),
-    );
   }
 
   @override

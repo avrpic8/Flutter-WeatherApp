@@ -24,7 +24,7 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent));
 
-  //initNotification();
+  initNotification();
 
   /// init database
   await initHive();
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: "Application",
+      title: "WeadCast",
       initialRoute: AppPages.INITIAL,
       initialBinding: MainBinding(),
       getPages: AppPages.routes,
@@ -67,17 +67,18 @@ Future<void> initHive() async {
 }
 
 void initNotification() {
-  AwesomeNotifications().initialize(
-      'resource://drawable/res_notification_app_icon', [
+  AwesomeNotifications()
+      .initialize('resource://drawable/res_notification_app_icon', [
     NotificationChannel(
       channelKey: 'basic channel',
       channelName: 'basic notification',
       defaultColor: Colors.teal,
       importance: NotificationImportance.High,
-      channelShowBadge: true,
+      channelShowBadge: false,
+      playSound: false,
       channelDescription: 'descriptions',
     )
-  ]);    
+  ]);
 }
 
 class MyHttpOverrides extends HttpOverrides {

@@ -2,29 +2,40 @@ package com.smartElectronic.flutter_weather
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.ContentResolver
 import android.content.Context
-import android.media.AudioAttributes
-import android.net.Uri
 import android.os.Build
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.view.WindowCompat
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
 
-    override fun onPostResume() {
-        super.onPostResume()
-
-        createNotificationChannel()
-
-
-
-
+    companion object{
+        const val CHANNEL = "com.smartElectronic.flutter_weather"
+        const val NATIVE_KEY = "showNotification"
+        const val NATIVE_TOAST_KEY = "showToast"
     }
 
-    private fun createNotificationChannel() {
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler{call, result->
+            
+            if(call.method == NATIVE_KEY){
+                createNotificationChannel(call.argument("title"))
+                result.success("working")
+            }else if(call.method == NATIVE_TOAST_KEY){
+                Toast.makeText(context, call.argument("message"), Toast.LENGTH_SHORT).show()
+            }
+            else{
+                result.notImplemented()
+            }
+        }
+    }
+
+    private fun createNotificationChannel(title: String?) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -42,7 +53,7 @@ class MainActivity: FlutterActivity() {
 
         var builder = NotificationCompat.Builder(this, "3")
                 .setSmallIcon(R.drawable.res_notification_app_icon)
-                .setContentTitle("My notification")
+                .setContentTitle(title)
                 .setContentText("Much longer text that cannot fit one line...")
                 .setStyle(NotificationCompat.BigTextStyle()
                         .bigText("Much longer text that cannot fit one line..."))
@@ -55,9 +66,4 @@ class MainActivity: FlutterActivity() {
         }
 
     }
-
-
-
-
-
 }

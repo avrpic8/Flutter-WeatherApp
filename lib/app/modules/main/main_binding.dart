@@ -21,8 +21,8 @@ class MainBinding implements Bindings {
     final repository = Get.put(
       RepositoryImp(localService: localService, remoteService: remoteService),
     );
-    Get.put(SettingsController(repository: repository));
     Get.put(MainController(repository: repository));
+    Get.put(SettingsController(repository: repository));
     Get.lazyPut<ConnectionController>(() => ConnectionController());
   }
 }

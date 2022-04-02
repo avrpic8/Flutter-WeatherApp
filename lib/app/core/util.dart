@@ -1,5 +1,11 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_weather/app/core/constants.dart';
+import 'package:flutter_weather/app/core/keys.dart';
+import 'package:flutter_weather/app/data/models/main_weather.dart';
+import 'package:flutter_weather/app/modules/main/main_controller.dart';
+import 'package:flutter_weather/app/modules/settings/controllers/settings_controller.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -9,7 +15,7 @@ double getSystemNavigationHeight() {
 }
 
 double getSumOfAppBarAndStatusBarHeight() {
-  return Get.statusBarHeight + AppBar().preferredSize.height - 10;
+  return Get.statusBarHeight + AppBar().preferredSize.height - 20;
 }
 
 /// Change status bar color for every screen
@@ -141,5 +147,40 @@ String getWeatherIcons(int id) {
   } else {
     assetsPath = 'assets/images/weatherSvg/brokenCloud.svg';
     return assetsPath;
+  }
+}
+
+/// Create a notification
+Future<void> createWeatherNotificaion(MainWeather weather) async {
+  var weatherId = weather.weatherData.current!.weather![0].id;
+  await AwesomeNotifications().createNotification(
+    content: NotificationContent(
+        id: 4,
+        channelKey: 'basic channel',
+        title:
+            '${weather.cityName} ${weather.weatherData.current!.temp!.kelvinToCelsius()}\u2103',
+        body: weather.weatherData.current!.weather![0].description,
+        bigPicture: 'asset://${getWeatherBackgrounds(weatherId!)}',
+        notificationLayout: NotificationLayout.Default),
+  );
+}
+
+void shouldShowNotification(
+    {required SettingsController settingController,
+    required MainController mainController}) {
+  if (settingController.notificationFlag) {
+    var list = mainController.weatherList;
+    createWeatherNotificaion(list[0]);
+  }
+}
+
+/// Show a native toast on android
+Future<void> showToast(String message) async {
+  try {
+    final String result =
+        await platform.invokeMethod(nativeToastKey, {'message': message});
+    print(result);
+  } on PlatformException catch (e) {
+    print(e.toString());
   }
 }

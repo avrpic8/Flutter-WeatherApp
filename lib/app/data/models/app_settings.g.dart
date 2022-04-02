@@ -19,17 +19,20 @@ class AppSettingsAdapter extends TypeAdapter<AppSettings> {
     return AppSettings(
       unit: fields[0] as bool,
       autoUpdateTime: fields[1] as int,
+      notification: fields[2] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppSettings obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.unit)
       ..writeByte(1)
-      ..write(obj.autoUpdateTime);
+      ..write(obj.autoUpdateTime)
+      ..writeByte(2)
+      ..write(obj.notification);
   }
 
   @override

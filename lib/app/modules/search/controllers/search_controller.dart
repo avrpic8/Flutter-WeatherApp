@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/app/core/keys.dart';
 import 'package:flutter_weather/app/core/theme.dart';
+import 'package:flutter_weather/app/core/util.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
 import 'package:flutter_weather/app/modules/main/main_controller.dart';
+import 'package:flutter_weather/app/modules/settings/controllers/settings_controller.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:mapbox_search/mapbox_search.dart';
 
 class SearchController extends GetxController {
   final mainCtr = Get.find<MainController>();
+  final settingCtr = Get.find<SettingsController>();
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController editCtr = TextEditingController();
@@ -35,6 +38,10 @@ class SearchController extends GetxController {
   void getUserCityAndExit(BuildContext context, String city) async {
     MainWeather weather = await mainCtr.getWeatherByCityName(cityName: city);
     mainCtr.storeData(context, weather);
+    shouldShowNotification(
+      settingController: settingCtr,
+      mainController: mainCtr,
+    );
     Navigator.of(context).pop();
   }
 
@@ -51,6 +58,10 @@ class SearchController extends GetxController {
     MainWeather weather = await mainCtr.getWeatherByGpsData(
         lat: position.latitude.toString(), lon: position.longitude.toString());
     mainCtr.storeData(context, weather);
+    shouldShowNotification(
+      settingController: settingCtr,
+      mainController: mainCtr,
+    );
     Navigator.of(context).pop();
   }
 
