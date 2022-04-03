@@ -178,12 +178,12 @@ class MainController extends GetxController {
     return result;
   }
 
-  void storeData(BuildContext context, MainWeather weather) {
+  Future<void> storeData(BuildContext context, MainWeather weather) async{
     _weatherDataList.insert(0, weather);
-    refreshDataBase();
+    await refreshDataBase();
   }
 
-  void refreshDataBase() async {
+  Future<void> refreshDataBase() async {
     final tempList = _weatherDataList.toList();
     await repository.deleteAllWeather();
     for (var item in tempList) {

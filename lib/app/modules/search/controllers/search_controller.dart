@@ -32,12 +32,11 @@ class SearchController extends GetxController {
     List<MapBoxPlace>? listPlace = await placeSearch.getPlaces(query);
     mainCtr.disableLoading();
     places.assignAll(listPlace!);
-    print(places);
   }
 
   void getUserCityAndExit(BuildContext context, String city) async {
     MainWeather weather = await mainCtr.getWeatherByCityName(cityName: city);
-    mainCtr.storeData(context, weather);
+    await mainCtr.storeData(context, weather);
     shouldShowNotification(
       settingController: settingCtr,
       mainController: mainCtr,
@@ -57,7 +56,7 @@ class SearchController extends GetxController {
     Position position = await _getPosition();
     MainWeather weather = await mainCtr.getWeatherByGpsData(
         lat: position.latitude.toString(), lon: position.longitude.toString());
-    mainCtr.storeData(context, weather);
+    await mainCtr.storeData(context, weather);
     shouldShowNotification(
       settingController: settingCtr,
       mainController: mainCtr,

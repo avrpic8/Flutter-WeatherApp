@@ -6,6 +6,7 @@ import 'package:flutter_weather/app/modules/home/controllers/current_weather_con
 import 'package:flutter_weather/app/modules/home/widgets/current_temp.dart';
 import 'package:flutter_weather/app/modules/home/widgets/current_wph.dart';
 import 'package:flutter_weather/app/modules/home/widgets/reusable_icon_button.dart';
+import 'package:flutter_weather/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
@@ -73,7 +74,7 @@ class CurrentWeatherPage extends StatelessWidget {
                               icon: Icons.info_outline,
                               iconSize: 15,
                               radius: BorderRadius.circular(20),
-                              onTap: () {},
+                              onTap: () => Get.toNamed(Routes.FORECAST),
                             ),
                             SizedBox(
                               width: 10,

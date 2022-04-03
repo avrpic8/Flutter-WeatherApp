@@ -120,8 +120,10 @@ class HomeView extends GetView<HomeController> {
             Icons.search,
             size: 30,
           ),
-          onPressed: () {
-            Get.toNamed(Routes.SEARCH)?.then((_) => controller.goToFirstPage());
+          onPressed: () async {
+            var oldList = await controller.mainCtr.getAllWeather();
+            Get.toNamed(Routes.SEARCH)
+                ?.then((_) => controller.goToFirstPage(oldList));
           },
         )
       ],

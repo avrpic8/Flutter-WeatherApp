@@ -1,6 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/constants.dart';
 import 'package:flutter_weather/app/core/theme.dart';
 import 'package:flutter_weather/app/data/models/main_weather.dart';
@@ -105,8 +105,11 @@ class HomeController extends GetxController {
     });
   }
 
-  void goToFirstPage() {
-    pageController.jumpToPage(0);
+  void goToFirstPage(List<MainWeather> oldList) async {
+    var newList = await mainCtr.getAllWeather();
+    if (!listEquals(oldList, newList)) {
+      pageController.jumpToPage(0);
+    }
   }
 
   @override

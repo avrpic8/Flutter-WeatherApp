@@ -20,14 +20,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-      statusBarColor: Colors.transparent));
-
+  await Future.wait([initSystem(), initHive()]);
   initNotification();
-
-  /// init database
-  await initHive();
 
   // certificate for http protocol
   HttpOverrides.global = MyHttpOverrides();
@@ -48,6 +42,17 @@ class MyApp extends StatelessWidget {
       theme: getLightTheme(),
     );
   }
+}
+
+Future<void> initSystem() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.transparent));
+
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
 }
 
 Future<void> initHive() async {
