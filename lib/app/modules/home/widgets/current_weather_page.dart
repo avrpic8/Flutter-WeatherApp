@@ -74,7 +74,7 @@ class CurrentWeatherPage extends StatelessWidget {
                               icon: Icons.info_outline,
                               iconSize: 15,
                               radius: BorderRadius.circular(20),
-                              onTap: () => Get.toNamed(Routes.FORECAST),
+                              onTap: () => Get.toNamed(Routes.FORECAST, arguments: data),
                             ),
                             SizedBox(
                               width: 10,
