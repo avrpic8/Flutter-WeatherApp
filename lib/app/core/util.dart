@@ -55,6 +55,13 @@ extension DateParsing on int {
     return formatter.format(date);
   }
 
+  String unixToDay() {
+    var timestampMilliSec = this * 1000; // to milli sec
+    var date = DateTime.fromMillisecondsSinceEpoch(timestampMilliSec.toInt());
+    final DateFormat formatter = DateFormat('EEEE');
+    return formatter.format(date);
+  }
+
   int getDeltaTimeEpoch() {
     var updatedTime = this * 1000; // to milli sec
     var updatedDate = DateTime.fromMillisecondsSinceEpoch(updatedTime.toInt());
