@@ -16,13 +16,14 @@ class CustomToolbar extends StatelessWidget {
       width: double.infinity,
       height: 56,
       margin: const EdgeInsets.only(top: 20),
-      padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
+      padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Material(
             color: Colors.transparent,
+            shape: CircleBorder(),
             clipBehavior: Clip.hardEdge,
             child: IconButton(
               padding: EdgeInsets.zero,
