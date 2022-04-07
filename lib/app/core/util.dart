@@ -15,7 +15,7 @@ double getSystemNavigationHeight() {
 }
 
 double getSumOfAppBarAndStatusBarHeight() {
-  return Get.statusBarHeight + AppBar().preferredSize.height - 20;
+  return kToolbarHeight + 30;
 }
 
 /// Change status bar color for every screen

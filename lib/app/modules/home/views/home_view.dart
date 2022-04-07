@@ -19,15 +19,13 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    print(Get.statusBarHeight);
     final double deviceWidth = Get.width;
     final double deviceHeight = Get.height;
-    print(MediaQuery.of(context).viewInsets.bottom);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(),
       drawer: SafeArea(
-        child: const MyDrawer(),
+        child: MyDrawer(),
       ),
       body: Container(
         width: deviceWidth,
@@ -45,6 +43,22 @@ class HomeView extends GetView<HomeController> {
                   dotCount: controller.mainCtr.weatherList.length,
                   currentIndex: controller.selectedPageIndex.value,
                 ),
+              ),
+            ),
+            Positioned(
+              top: getSumOfAppBarAndStatusBarHeight(),
+              right: 8,
+              child: Row(
+                children: [
+                  ConnectionView(),
+                  Obx(
+                    () => Loading(
+                      status: controller.mainCtr.dataIsReady().value,
+                      mRight: 2,
+                      mLeft: 8,
+                    ),
+                  ),
+                ],
               ),
             ),
             Obx(
@@ -70,22 +84,6 @@ class HomeView extends GetView<HomeController> {
                 }
               },
             ),
-            Positioned(
-              top: getSumOfAppBarAndStatusBarHeight(),
-              right: 8,
-              child: Row(
-                children: [
-                  ConnectionView(),
-                  Obx(
-                    () => Loading(
-                      status: controller.mainCtr.dataIsReady().value,
-                      mRight: 2,
-                      mLeft: 8,
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),

@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/app/core/theme.dart';
+import 'package:flutter_weather/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_weather/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({
+  final homeCtr = Get.find<HomeController>();
+
+  MyDrawer({
     Key? key,
   }) : super(key: key);
 
@@ -44,7 +47,8 @@ class MyDrawer extends StatelessWidget {
                   ),
                   onTap: () {
                     Get.back();
-                    Get.toNamed(Routes.CITY_MANAGER);
+                    Get.toNamed(Routes.CITY_MANAGER)?.then(
+                        (index) => homeCtr.pageController.jumpToPage(index));
                   },
                 ),
                 ListTile(

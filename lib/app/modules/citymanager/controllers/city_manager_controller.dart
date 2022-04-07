@@ -25,6 +25,7 @@ class CityManagerController extends GetxController {
     }
     final MainWeather item = tempList.removeAt(oldIndex);
     tempList.insert(newIndex, item);
+    save(tempList);
     update();
   }
 
@@ -41,6 +42,19 @@ class CityManagerController extends GetxController {
     return true;
   }
 
+  Future<void> save(List<MainWeather> tempList) async {
+    mainCtr.weatherList.assignAll(tempList);
+    await deleteAllWeather();
+    for (var item in tempList) {
+      createOrUpdateWeather(item);
+    }
+  }
+
+  void backToCurrentWeatherPage(MainWeather currentWeather) {
+    var index = tempList.indexOf(currentWeather);
+    Get.back(result: index);
+  }
+
   void createOrUpdateWeather(MainWeather data) async {
     await repository.createOrUpdateWeather(data);
   }
@@ -53,6 +67,7 @@ class CityManagerController extends GetxController {
     var indexOfRemovedData = tempList.indexOf(data);
     var removedItem = tempList[indexOfRemovedData];
     tempList.remove(data);
+    save(tempList);
     final snackBar = SnackBar(
       content: Text(
         'You can revers this opration!',
@@ -62,6 +77,7 @@ class CityManagerController extends GetxController {
         label: 'Undo',
         onPressed: () {
           tempList.insert(indexOfRemovedData, removedItem);
+          save(tempList);
           update();
         },
       ),

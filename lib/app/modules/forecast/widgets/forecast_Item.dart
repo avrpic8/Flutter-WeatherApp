@@ -36,21 +36,22 @@ class ForecastItem extends StatelessWidget {
         child: Container(
           width: Get.width * 0.36,
           decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.3),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Stack(
             children: [
-              ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade200.withOpacity(0.5)),
-                  ),
-                ),
-              ),
+              // ClipRect(
+              //   child: BackdropFilter(
+              //     filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+              //     child: Container(
+              //       width: double.infinity,
+              //       height: double.infinity,
+              //       decoration: BoxDecoration(
+              //           color: Colors.grey.shade200.withOpacity(0.5)),
+              //     ),
+              //   ),
+              // ),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

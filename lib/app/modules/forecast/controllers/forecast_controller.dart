@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 class ForecastController extends GetxController
     with GetSingleTickerProviderStateMixin {
+
   late MainWeather dataForecast;
   late AnimationController animationController;
   late Animation<double> animation;
@@ -58,12 +59,8 @@ class ForecastController extends GetxController
     List<Daily>? listDay = dataForecast.weatherData.daily;
     for (var item in listDay!) {
       var tempMax = int.parse(item.temp!.max!.kelvinToCelsius());
-      tempMaxList.add(tempMax);
-    }
-
-    for (var item in listDay) {
       var tempMin = int.parse(item.temp!.min!.kelvinToCelsius());
-      print(tempMin);
+      tempMaxList.add(tempMax);
       tempMinList.add(tempMin);
     }
   }
