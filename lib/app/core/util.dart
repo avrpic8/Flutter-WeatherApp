@@ -102,7 +102,10 @@ extension HexColor on Color {
 String getWeatherBackgrounds(int id) {
   String assetsPath = '';
   if (id >= 200 && id <= 232) {
-    assetsPath = '';
+    assetsPath = 'assets/images/background/sunny2.jpg';
+    return assetsPath;
+  } else if (id >= 300 && id <= 321) {
+    assetsPath = 'assets/images/background/sunny2.jpg';
     return assetsPath;
   } else if (id >= 500 && id <= 531) {
     assetsPath = 'assets/images/background/rainy.jpg';
@@ -111,13 +114,22 @@ String getWeatherBackgrounds(int id) {
     assetsPath = 'assets/images/background/snow.jpg';
     return assetsPath;
   } else if (id >= 701 && id <= 781) {
-    assetsPath = '';
+    assetsPath = 'assets/images/background/sunny2.jpg';
     return assetsPath;
   } else if (id == 800) {
-    assetsPath = 'assets/images/background/sunny.jpg';
+    assetsPath = 'assets/images/background/sunny2.png';
+    return assetsPath;
+  } else if (id == 801) {
+    assetsPath = 'assets/images/background/sunny2.jpg';
+    return assetsPath;
+  } else if (id == 802) {
+    assetsPath = 'assets/images/background/sunny2.jpg';
+    return assetsPath;
+  } else if (id == 803) {
+    assetsPath = 'assets/images/background/sunny2.jpg';
     return assetsPath;
   } else {
-    assetsPath = '';
+    assetsPath = 'assets/images/background/sunny2.jpg';
     return assetsPath;
   }
 }
